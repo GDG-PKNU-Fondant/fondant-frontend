@@ -24,7 +24,7 @@
 
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "types": ["node"],
+    "types": ["node", "vite-plugin-svgr/client"],
     "baseUrl": ".",
     "paths": {
       "@assets/*": ["src/assets/*"],
