@@ -32,11 +32,12 @@
     ],
     "baseUrl": ".",
     "paths": {
+      "@mocks/*": ["src/mocks/*"],
       "@assets/*": ["src/assets/*"],
       "@components/*": ["src/components/*"],
       "@pages/*": ["src/pages/*"],
       "@styles/*": ["src/styles/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src", "vitest.setup.ts"]
 }

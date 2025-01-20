@@ -8,6 +8,7 @@ export default defineConfig({
   plugins: [react(), svgrPlugin()],
   resolve: {
     alias: [
+      { find: '@mocks', replacement: path.resolve(__dirname, 'src/mocks') },
       { find: '@assets', replacement: path.resolve(__dirname, 'src/assets') },
       {
         find: '@components',

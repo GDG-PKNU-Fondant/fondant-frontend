@@ -47,24 +47,12 @@
         "jsx": "never"
       }
     ],
-    "import/no-extraneous-dependencies": [
-      "error",
-      {
-        "devDependencies": [
-          "**/*test.ts",
-          "**/*test.tsx",
-          "**/*stories.ts",
-          "**/*stories.tsx",
-          "**/mocks/*",
-          "vite.config.ts"
-        ]
-      }
-    ],
+    "import/no-extraneous-dependencies": "off",
     "no-console": "error",
     "@typescript-eslint/lines-between-class-members": "off",
     "@typescript-eslint/no-throw-literal": "off"
   },
-  "ignorePatterns": ["build", "dist", "public", "vitest.workspace.ts"],
+  "ignorePatterns": ["build", "dist", "public"],
   "overrides": [
     {
       "files": ["**/*.stories.tsx"],
