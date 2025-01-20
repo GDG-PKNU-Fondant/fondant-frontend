@@ -24,7 +24,12 @@
 
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "types": ["node", "vite-plugin-svgr/client"],
+    "types": [
+      "node",
+      "vite-plugin-svgr/client",
+      "vitest/globals",
+      "@testing-library/jest-dom"
+    ],
     "baseUrl": ".",
     "paths": {
       "@assets/*": ["src/assets/*"],
