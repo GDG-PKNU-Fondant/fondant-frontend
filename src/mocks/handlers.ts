@@ -1,10 +1,10 @@
 import { http, HttpResponse } from 'msw';
 
 export const handlers = [
-  http.get('http://localhost:3000', () => {
+  http.get('http://localhost:5173', () => {
     return HttpResponse.json({
-      firstName: 'Sechan',
-      lastName: 'Park',
+      firstName: 'Fon',
+      lastName: 'dant',
     });
   }),
 ];
