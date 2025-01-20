@@ -5,12 +5,7 @@
     "node": true,
     "es6": true
   },
-  "plugins": [
-    "import",
-    "@typescript-eslint",
-    "react",
-    "prettier"
-  ],
+  "plugins": ["import", "@typescript-eslint", "react", "prettier"],
   "extends": [
     "airbnb",
     "airbnb-typescript",
@@ -38,10 +33,7 @@
     "react/jsx-filename-extension": [
       "warn",
       {
-        "extensions": [
-          ".ts",
-          ".tsx"
-        ]
+        "extensions": [".ts", ".tsx"]
       }
     ],
     "@typescript-eslint/camelcase": "off",
@@ -58,18 +50,21 @@
     "import/no-extraneous-dependencies": [
       "error",
       {
-        "devDependencies": ["**/*test.ts", "**/*test.tsx", "**/*stories.ts", "**/*stories.tsx", "**/mocks/*"]
+        "devDependencies": [
+          "**/*test.ts",
+          "**/*test.tsx",
+          "**/*stories.ts",
+          "**/*stories.tsx",
+          "**/mocks/*",
+          "vite.config.ts"
+        ]
       }
     ],
     "no-console": "error",
     "@typescript-eslint/lines-between-class-members": "off",
     "@typescript-eslint/no-throw-literal": "off"
   },
-  "ignorePatterns": [
-    "build",
-    "dist",
-    "public"
-  ],
+  "ignorePatterns": ["build", "dist", "public", "vitest.workspace.ts"],
   "overrides": [
     {
       "files": ["**/*.stories.tsx"],
