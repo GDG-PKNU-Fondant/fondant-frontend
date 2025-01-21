@@ -29,6 +29,7 @@
     "@storybook/test": "^8.5.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
+    "@testing-library/user-event": "^14.6.0",
     "@types/node": "^22.10.0",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
@@ -47,6 +48,7 @@
     "eslint-plugin-storybook": "latest",
     "globals": "^15.11.0",
     "jsdom": "^26.0.0",
+    "msw": "^2.7.0",
     "postcss": "^8.4.49",
     "prettier": "^3.4.1",
     "storybook": "^8.5.0",
@@ -56,5 +58,10 @@
     "vite-plugin-svgr": "^4.3.0",
     "vitest": "^2.1.8"
   },
-  "packageManager": "yarn@3.6.4"
+  "packageManager": "yarn@3.6.4",
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
+  }
 }

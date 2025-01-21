@@ -8,6 +8,7 @@ export default defineConfig({
   plugins: [react(), svgrPlugin()],
   resolve: {
     alias: [
+      { find: '@mocks', replacement: path.resolve(__dirname, 'src/mocks') },
       { find: '@assets', replacement: path.resolve(__dirname, 'src/assets') },
       {
         find: '@components',
@@ -18,8 +19,9 @@ export default defineConfig({
     ],
   },
   test: {
-    include: ['src/**/*.test.{ts, tsx}'],
+    include: ['src/**/*.test.{ts,tsx}'],
     globals: true,
     environment: 'jsdom',
+    setupFiles: ['./vitest.setup.ts'],
   },
 });
