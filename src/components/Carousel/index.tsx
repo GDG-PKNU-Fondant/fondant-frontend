@@ -119,7 +119,11 @@ const Carousel = ({ slides }: { slides: CarouselSlide[] }) => {
 
   if (slides.length === 1) {
     return (
-      <div className="relative overflow-hidden w-[358px] h-[292px] bg-[#EBD8CB] rounded-xl">
+      <div
+        className="relative overflow-hidden w-[358px] h-[292px] bg-[#EBD8CB] rounded-xl"
+        role="button"
+        tabIndex={0}
+      >
         <div className="flex h-full">
           <div className="flex-shrink-0 w-full h-full">
             <img
