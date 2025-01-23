@@ -13,7 +13,7 @@ const Carousel = ({ slides }: { slides: CarouselSlide[] }) => {
 
   const goToNext = useCallback(() => {
     if (slideIndex === slides.length) {
-      setSlideIndex((prev) => prev + 1);
+      setSlideIndex(slides.length + 1);
       setTimeout(() => {
         setSlideAnimated(false);
         setSlideIndex(1);
