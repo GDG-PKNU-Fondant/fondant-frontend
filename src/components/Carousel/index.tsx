@@ -11,13 +11,16 @@ const Carousel = ({ slides }: { slides: CarouselSlide[] }) => {
 
   const autoSlideTimer = useRef<NodeJS.Timeout | null>(null);
 
+  const ANIMATION_DELAY_MS = 500;
+  const SLIDE_DELAY_MS = 5000;
+
   const goToNext = useCallback(() => {
     if (slideIndex === slides.length) {
       setSlideIndex(slides.length + 1);
       setTimeout(() => {
         setSlideAnimated(false);
         setSlideIndex(1);
-      }, 500);
+      }, ANIMATION_DELAY_MS);
       setSlideAnimated(true);
     } else {
       setSlideAnimated(true);
@@ -31,7 +34,7 @@ const Carousel = ({ slides }: { slides: CarouselSlide[] }) => {
       setTimeout(() => {
         setSlideAnimated(false);
         setSlideIndex(slides.length);
-      }, 500);
+      }, ANIMATION_DELAY_MS);
       setSlideAnimated(true);
     } else {
       setSlideAnimated(true);
@@ -43,7 +46,7 @@ const Carousel = ({ slides }: { slides: CarouselSlide[] }) => {
     if (autoSlideTimer.current) {
       clearInterval(autoSlideTimer.current);
     }
-    autoSlideTimer.current = setInterval(goToNext, 5000);
+    autoSlideTimer.current = setInterval(goToNext, SLIDE_DELAY_MS);
   }, [goToNext]);
 
   const handleSwipeStart = (e: React.TouchEvent | React.MouseEvent) => {
@@ -120,7 +123,7 @@ const Carousel = ({ slides }: { slides: CarouselSlide[] }) => {
   if (slides.length === 1) {
     return (
       <div
-        className="relative overflow-hidden w-[358px] h-[292px] bg-[#EBD8CB] rounded-xl"
+        className="relative overflow-hidden w-[358px] h-[292px] bg-beige-primary rounded-[8px]"
         role="button"
         tabIndex={0}
       >
@@ -134,14 +137,14 @@ const Carousel = ({ slides }: { slides: CarouselSlide[] }) => {
             />
           </div>
         </div>
-        <div className="absolute inset-0 w-full h-full border-[#F1E3D9] border-4 rounded-xl" />
+        <div className="absolute inset-0 w-full h-full border-beige-secondary border-4 rounded-[8px]" />
       </div>
     );
   }
 
   return (
     <div
-      className="relative overflow-hidden w-[358px] h-[292px] bg-[#EBD8CB] rounded-xl"
+      className="relative overflow-hidden w-[358px] h-[292px] bg-beige-primary rounded-[8px]"
       onMouseDown={handleSwipeStart}
       onTouchStart={handleSwipeStart}
       onMouseMove={handleSwipeMove}
@@ -153,7 +156,7 @@ const Carousel = ({ slides }: { slides: CarouselSlide[] }) => {
       tabIndex={0}
     >
       <div
-        className="flex h-full transition-transform duration-500 ease-out"
+        className={`flex h-full transition-transform duration-${ANIMATION_DELAY_MS} ease-out`}
         style={{
           transform: `translateX(${translateX}%)`,
           transitionProperty:
@@ -173,10 +176,10 @@ const Carousel = ({ slides }: { slides: CarouselSlide[] }) => {
           );
         })}
       </div>
-      <div className="absolute inset-0 w-full h-full border-[#F1E3D9] border-4 rounded-xl" />
-      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-[90%] h-1 bg-[#F1E3D9]">
+      <div className="absolute inset-0 w-full h-full border-beige-secondary border-[4px] rounded-[8px]" />
+      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-[90%] h-[4px] bg-beige-secondary">
         <div
-          className="absolute h-1 bg-[#FF80A6] transition-all duration-500 ease-out"
+          className={`absolute h-[4px] bg-pink transition-all duration-${ANIMATION_DELAY_MS} ease-out`}
           style={progressBarStyle}
         />
       </div>

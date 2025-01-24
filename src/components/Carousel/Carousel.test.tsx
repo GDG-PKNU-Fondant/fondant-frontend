@@ -77,9 +77,7 @@ describe('Carousel', () => {
   it('프로그레스 바가 올바르게 업데이트된다.', () => {
     render(<Carousel slides={mockSlides} />);
 
-    const progressBar = screen
-      .getByRole('button')
-      .querySelector('.bg-\\[\\#FF80A6\\]');
+    const progressBar = screen.getByRole('button').querySelector('.bg-pink');
 
     expect(progressBar).toHaveStyle({
       width: `${100 / mockSlides.length}%`,
