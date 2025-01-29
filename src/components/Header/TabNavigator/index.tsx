@@ -33,6 +33,7 @@ const TabNavigator = ({
             {tab.label}
             {isSelected && (
               <motion.div
+                data-testid="tab-indicator"
                 layoutId="tab-indicator"
                 className={`absolute bottom-[-2px] h-[3px]  w-[80%] left-[10%] ${textColor} bg-current`}
               />
