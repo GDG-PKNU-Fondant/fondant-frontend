@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
-import Badge from '@components/Header/Badge';
+import Badge from '@components/Badge';
 
 describe('Badge Component', () => {
   it('Badge 렌더링 하고 자식 컴포넌트인 button이 있는지 확인', () => {

@@ -1,6 +1,6 @@
 import { Meta, StoryFn } from '@storybook/react';
-import TabNavigator from '@components/Header/TabNavigator';
-import { CategoryTabs, HeaderTabs } from '@components/Header/TabNavigator/tabs';
+import TabNavigator from '@components/TabNavigator';
+import { CategoryTabs, HeaderTabs } from '@components/TabNavigator/tabs';
 
 export default {
   title: 'Components/TabNavigator',

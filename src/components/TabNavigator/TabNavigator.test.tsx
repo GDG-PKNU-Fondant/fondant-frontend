@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
-import TabNavigator from './index';
-import { HeaderTabs } from './tabs';
+import TabNavigator from '@components/TabNavigator';
+import { HeaderTabs } from '@components/TabNavigator/tabs';
 
 describe('TabNavigator Component', () => {
   it('탭이 정상적으로 렌더링되는지 확인', () => {
