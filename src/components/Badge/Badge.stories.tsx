@@ -14,7 +14,6 @@ export default {
     count: {
       control: { type: 'number' },
       description: 'count 타입일 때 표시할 숫자',
-      if: { arg: 'type', eq: 'count' },
     },
     position: {
       control: 'object',
@@ -25,13 +24,14 @@ export default {
 
 const Template: StoryFn<BadgeProps> = (args) => (
   <Badge {...args}>
-    <button className="p-4 bg-gray-200 rounded">Cart</button>
+    <button className="p-4 bg-gray rounded">Cart</button>
   </Badge>
 );
 
 export const AlertBadge = Template.bind({});
 AlertBadge.args = {
   type: 'alert',
+  count: 3,
   position: { top: '0px', right: '0px' },
 };
 

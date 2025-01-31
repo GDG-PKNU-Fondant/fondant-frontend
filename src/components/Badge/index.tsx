@@ -1,10 +1,15 @@
 import React from 'react';
 import BadgeProps from '@type/Badge';
 
-const Badge: React.FC<BadgeProps> = ({ type, count, children, position }) => {
+const Badge: React.FC<BadgeProps> = ({
+  type,
+  count = 0,
+  children,
+  position,
+}) => {
   let badgeSize = 'w-[17px] h-[17px]';
   let textSize = 'text-[12px]';
-  let displayCount: string | number = count ?? '';
+  let displayCount: string | number = count;
 
   if (type === 'alert') {
     badgeSize = 'w-[10px] h-[10px]';
@@ -24,14 +29,16 @@ const Badge: React.FC<BadgeProps> = ({ type, count, children, position }) => {
   return (
     <div className="relative inline-block">
       {children}
-      <div
-        className={`absolute flex items-center justify-center rounded-full text-white font-bold ${badgeSize} ${
-          type === 'count' ? 'bg-brown-primary' : 'bg-pink'
-        } ${textSize}`}
-        style={positionStyle}
-      >
-        {type === 'count' && displayCount !== '' ? displayCount : ''}
-      </div>
+      {count > 0 && (
+        <div
+          className={`absolute flex items-center justify-center rounded-full text-white font-bold ${badgeSize} ${
+            type === 'count' ? 'bg-brown-primary' : 'bg-pink'
+          } ${textSize}`}
+          style={positionStyle}
+        >
+          {type === 'count' ? displayCount : ''}
+        </div>
+      )}
     </div>
   );
 };
