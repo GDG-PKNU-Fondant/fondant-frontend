@@ -1,16 +1,27 @@
 import Badge from '@components/Badge';
 import TabNavigator from '@components/TabNavigator';
-
-import NotificationIcon from '@assets/icons/Notification.svg';
-import CartIcon from '@assets/icons/cart.svg';
+import NotificationIcon from '@assets/icons/Notification.svg?react';
+import CartIcon from '@assets/icons/cart.svg?react';
 import { HeaderTabs } from '@components/TabNavigator/tabs';
 import { HeaderProps } from '@type/Header';
+import { useAtom, useAtomValue } from 'jotai';
+import { cartCountAtom, notificationCountAtom } from '@store/badgeState';
 
 const Header = ({
   onSearchClick,
   onNotificationClick,
   onCartClick,
 }: HeaderProps) => {
+  const [notificationCount, setNotificationCount] = useAtom(
+    notificationCountAtom,
+  );
+  const cartCount = useAtomValue(cartCountAtom);
+
+  const handleNotificationClick = () => {
+    setNotificationCount(0);
+    onNotificationClick();
+  };
+
   return (
     <div className="w-[390px] bg-background z-50">
       <div className="flex items-center justify-between p-4">
@@ -19,14 +30,18 @@ const Header = ({
         </h1>
 
         <div className="flex space-x-4">
-          <Badge type="alert" position={{ top: '-2px', right: '-1px' }}>
-            <button onClick={onNotificationClick}>
+          <Badge
+            type="alert"
+            position={{ top: '-2px', right: '-1px' }}
+            count={notificationCount}
+          >
+            <button onClick={handleNotificationClick}>
               <NotificationIcon />
             </button>
           </Badge>
           <Badge
             type="count"
-            count={3}
+            count={cartCount}
             position={{ bottom: '0px', right: '-5px' }}
           >
             <button onClick={onCartClick}>
