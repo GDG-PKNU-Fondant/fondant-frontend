@@ -38,7 +38,8 @@
       "@mocks/*": ["src/mocks/*"],
       "@pages/*": ["src/pages/*"],
       "@styles/*": ["src/styles/*"],
-      "@type/*": ["src/types/*"]
+      "@type/*": ["src/types/*"],
+      "@store/*": ["src/store/*"]
     }
   },
   "include": ["src", "vitest.setup.ts"]
