@@ -1,6 +1,6 @@
 import { Meta, StoryFn } from '@storybook/react';
-import { mockDynamicCategories } from '@mocks/handlers.ts';
-import CategoryMenu from './CategoryMenu.tsx';
+import { mockDynamicCategories } from '@mocks/handlers';
+import CategoryMenu from '@components/CategoryMenu';
 import '@styles/tailwind.css';
 
 export default {

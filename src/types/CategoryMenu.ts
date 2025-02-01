@@ -1,5 +1,6 @@
-export default interface Category {
+export default interface CategoryMenuProps {
   id: number;
-  name: string;
-  image: string;
+  categoryName: string;
+  iconUrl: string;
+  primary?: boolean;
 }
