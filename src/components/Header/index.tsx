@@ -1,9 +1,8 @@
-import Badge from '../Badge';
-import TabNavigator from '../TabNavigator';
+import Badge from '@components/Badge';
+import TabNavigator from '@components/TabNavigator';
 
-// ✅ SVG 아이콘을 컴포넌트로 가져오기
-import NotificationIcon from '../../assets/icons/Notification.svg?react';
-import CartIcon from '../../assets/icons/Cart.svg?react';
+import NotificationIcon from '@assets/icons/Notification.svg';
+import CartIcon from '@assets/icons/cart.svg';
 import { HeaderTabs } from '@components/TabNavigator/tabs';
 import { HeaderProps } from '@type/Header';
 
