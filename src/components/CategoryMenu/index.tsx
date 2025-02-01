@@ -34,26 +34,36 @@ const fixedCategories: CategoryMenuProps[] = [
   },
 ];
 
-const CategoryMenu = ({ categories }: { categories: CategoryMenuProps[] }) => {
-  const allCategories = [...categories, ...fixedCategories];
+const CategoryMenu = ({ details }: { details: { categories: CategoryMenuProps[], primary: boolean } }) => {
+  const allCategories = [...details.categories, ...fixedCategories];
 
   return (
-    <div className="grid grid-cols-5 gap-4 p-4">
-      {allCategories.map((category) => (
-        <div key={category.id} className="flex flex-col items-center">
-          <div className="w-16 h-16 bg-beige-primary rounded-full flex items-center justify-center">
-            <img
-              src={category.iconUrl}
-              alt={category.categoryName}
-              className="w-full h-full object-contain rounded-full"
-            />
+    <>
+      {allCategories.map((category) => {
+        const isPrimary = category.categoryName === '퐁당 PICK';
+
+        return (
+          <div key={category.id} className="flex flex-col items-center">
+            <div
+              className={`w-16 h-16 bg-beige-primary rounded-full flex items-center justify-center
+                ${isPrimary ? 'text-pink font-semibold' : 'text-brown-primary'}`}
+            >
+              <img
+                src={category.iconUrl}
+                alt={category.categoryName}
+                className="w-full h-full object-contain rounded-full"
+              />
+            </div>
+            <div
+              className={`mt-2 text-center text-[13px] font-medium tracking-[-0.5px]
+                ${isPrimary ? 'text-pink font-semibold' : ''}`}
+            >
+              {category.categoryName}
+            </div>
           </div>
-          <div className="mt-2 text-center text-[13px] font-medium leading-[20px] text-brown-primary">
-            {category.categoryName}
-          </div>
-        </div>
-      ))}
-    </div>
+        );
+      })}
+    </>
   );
 };
 
