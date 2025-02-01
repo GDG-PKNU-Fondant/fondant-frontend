@@ -3949,13 +3949,13 @@ __metadata:
     eslint-plugin-storybook: latest
     framer-motion: ^12.4.2
     globals: ^15.11.0
+    jotai: ^2.12.0
     jsdom: ^26.0.0
     msw: ^2.7.0
     postcss: ^8.4.49
     prettier: ^3.4.1
     react: ^18.3.1
     react-dom: ^18.3.1
-    recoil: ^0.7.7
     storybook: ^8.5.0
     tailwindcss: ^3.4.15
     typescript: ~5.6.2
@@ -4247,13 +4247,6 @@ __metadata:
   version: 16.10.0
   resolution: "graphql@npm:16.10.0"
   checksum: 969c2d1061d69ad6fe08a7fe642428212b0b8485a2f9b5d8650203eb6c3221479e81ec6a757708f849d84b85afcb3ebc5a8ff2f71778bb66c5e4850f051c170e
-  languageName: node
-  linkType: hard
-
-"hamt_plus@npm:1.0.2":
-  version: 1.0.2
-  resolution: "hamt_plus@npm:1.0.2"
-  checksum: af26ea32db03009019cc83dfa9411521a2fa16079443de1a502c9be46d8b3c975acda8ed93fc5750ef08d3186d35901e2d8cfe717dd54bea67b358601fa74e4c
   languageName: node
   linkType: hard
 
@@ -4785,6 +4778,21 @@ __metadata:
   bin:
     jiti: bin/jiti.js
   checksum: 9cd20dabf82e3a4cceecb746a69381da7acda93d34eed0cdb9c9bdff3bce07e4f2f4a016ca89924392c935297d9aedc58ff9f7d3281bc5293319ad244926e0b7
+  languageName: node
+  linkType: hard
+
+"jotai@npm:^2.12.0":
+  version: 2.12.0
+  resolution: "jotai@npm:2.12.0"
+  peerDependencies:
+    "@types/react": ">=17.0.0"
+    react: ">=17.0.0"
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+    react:
+      optional: true
+  checksum: 59751e43d497ef53dfdd86d961d4727df304f1b26e936dc9d9a4b9240cfaacb445af1f9c63342e910c7a0886a8df9bdbefbd21969ff6dcfb2cfd6d2ffdc4f53a
   languageName: node
   linkType: hard
 
@@ -6046,22 +6054,6 @@ __metadata:
     tiny-invariant: ^1.3.3
     tslib: ^2.0.1
   checksum: be8e896a46b24e30fbeafcd111ff3beaf2b5532d241c199f833fe1c18e89f695b2704cf83f3006fa96a785851019031de0de50bd3e0fd7bb114be18bf2cad900
-  languageName: node
-  linkType: hard
-
-"recoil@npm:^0.7.7":
-  version: 0.7.7
-  resolution: "recoil@npm:0.7.7"
-  dependencies:
-    hamt_plus: 1.0.2
-  peerDependencies:
-    react: ">=16.13.1"
-  peerDependenciesMeta:
-    react-dom:
-      optional: true
-    react-native:
-      optional: true
-  checksum: 65edecbcb8d2cde89bfd61ec679c200483472a6cd343c33e4e9142b6ce524fb17d1fecc2bfd8c392926aaa8178c81457f165b32abce2a9662f51f98822c0a9cc
   languageName: node
   linkType: hard
 
