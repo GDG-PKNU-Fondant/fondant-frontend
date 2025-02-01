@@ -18,6 +18,7 @@ export default {
         },
         pink: '#FF80A6',
         gray: '#A5A5A5',
+        placeholder: '#E8DCCB',
       },
     },
   },
