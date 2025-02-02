@@ -5,7 +5,7 @@ import { mockDynamicCategories } from '@mocks/handlers';
 
 describe('CategoryMenu', () => {
   it('동적 데이터가 올바르게 받아와진다.', async () => {
-    render(<CategoryMenu details={{ category: mockDynamicCategories[1] }} />);
+    render(<CategoryMenu category={mockDynamicCategories[1]} />);
 
     const element = await screen.findByAltText(
       mockDynamicCategories[1].categoryName,
@@ -14,17 +14,11 @@ describe('CategoryMenu', () => {
   });
 
   it('조건부 스타일링이 알맞게 적용된다.', async () => {
-    render(
-      <CategoryMenu
-        details={{
-          category: mockDynamicCategories.find(
-            (c) => c.categoryName === '퐁당 PICK',
-          )!,
-        }}
-      />,
-    );
+    const primaryCategory = mockDynamicCategories.find((c) => c.primary)!;
 
-    const primaryElement = screen.getByText('퐁당 PICK');
-    expect(primaryElement).toHaveClass('text-pink font-semibold');
+    render(<CategoryMenu category={primaryCategory} />);
+
+    const primaryElement = screen.getByText(primaryCategory.categoryName);
+    expect(primaryElement).toHaveClass('text-pink', 'font-semibold');
   });
 });
