@@ -12,20 +12,22 @@ export default {
     },
     primary: {
       control: 'boolean',
-    }
-  }
+    },
+  },
 } as Meta;
 
-const Template: StoryFn = (args) => (
-  <div className="grid grid-cols-5 gap-4 p-4">
-    <CategoryMenu {...args} />
-  </div>
-);
+const Template: StoryFn = (args) => <CategoryMenu {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
   details: {
-    categories: mockDynamicCategories,
-    primary: false,
+    category: mockDynamicCategories[1],
+  },
+};
+
+export const PrimaryCategory = Template.bind({});
+PrimaryCategory.args = {
+  details: {
+    category: mockDynamicCategories.find((c) => c.categoryName === '퐁당 PICK'),
   },
 };
