@@ -1,16 +1,59 @@
-import { Meta, StoryFn } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import Header from './index';
+import { HeaderProps } from '@type/Header';
+import { useAtom, Provider } from 'jotai';
+import { notificationCountAtom, cartCountAtom } from '@store/badgeState';
+import { useEffect } from 'react';
 
-export default {
+const JotaiWrapper = ({ children, nCount, cCount }: any) => {
+  const [notificationCount, setNotificationCount] = useAtom(
+    notificationCountAtom,
+  );
+  const [cartCount, setCartCount] = useAtom(cartCountAtom);
+
+  useEffect(() => {
+    if (notificationCount !== nCount) setNotificationCount(nCount);
+    if (cartCount !== cCount) setCartCount(cCount);
+  }, [
+    nCount,
+    cCount,
+    notificationCount,
+    cartCount,
+    setNotificationCount,
+    setCartCount,
+  ]);
+
+  return children;
+};
+
+const meta: Meta<
+  { notificationCount: number; cartCount: number } & HeaderProps
+> = {
   title: 'Components/Header',
   component: Header,
-} as Meta<typeof Header>;
+  decorators: [
+    (Story, { args }) => (
+      <Provider>
+        <JotaiWrapper nCount={args.notificationCount} cCount={args.cartCount}>
+          <Story />
+        </JotaiWrapper>
+      </Provider>
+    ),
+  ],
+};
 
-const Template: StoryFn<typeof Header> = (args) => <Header {...args} />;
+export default meta;
+type Story = StoryObj<
+  { notificationCount: number; cartCount: number } & HeaderProps
+>;
 
-export const Default = Template.bind({});
-Default.args = {
-  onSearchClick: () => alert('검색 페이지 이동'),
-  onNotificationClick: () => alert('알림 페이지 이동'),
-  onCartClick: () => alert('장바구니 이동'),
+export const Default: Story = {
+  args: {
+    notificationCount: 2,
+    cartCount: 3,
+    onSearchClick: () => alert('🔍 검색 버튼 클릭'),
+    onNotificationClick: () => alert('🔔 알림 버튼 클릭'),
+    onCartClick: () => alert('🛒 장바구니 버튼 클릭'),
+  },
+  render: ({ notificationCount, cartCount, ...rest }) => <Header {...rest} />,
 };
