@@ -12,7 +12,6 @@ const mockMarket = {
 describe('MarketCard', () => {
   it('기본 마켓 정보가 올바르게 렌더링된다.', () => {
     render(<MarketCard {...mockMarket} />);
-
     expect(screen.getByAltText('테스트 마켓')).toBeInTheDocument();
     expect(screen.getByText('테스트 마켓')).toBeInTheDocument();
     expect(screen.getByText('4.5 (100)')).toBeInTheDocument();
@@ -44,5 +43,22 @@ describe('MarketCard', () => {
       'w-[144px]',
       'h-[168px]',
     );
+  });
+
+  it('리뷰어 수에 따라 올바르게 포매팅된다.', () => {
+    const reviewerCounts = [
+      { count: 1000, expected: /1,000/ },
+      { count: 25000, expected: /2\.5만/ },
+      { count: 100000, expected: /10만/ },
+    ];
+
+    const { rerender } = render(
+      <MarketCard {...mockMarket} reviewer={reviewerCounts[0].count} />,
+    );
+
+    reviewerCounts.forEach(({ count, expected }) => {
+      rerender(<MarketCard {...mockMarket} reviewer={count} />);
+      expect(screen.getByText(expected)).toBeInTheDocument();
+    });
   });
 });

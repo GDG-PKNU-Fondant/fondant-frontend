@@ -15,7 +15,6 @@ const mockProduct = {
 describe('ProductCard', () => {
   it('기본 상품 정보가 올바르게 렌더링된다.', () => {
     render(<ProductCard {...mockProduct} />);
-
     expect(screen.getByAltText('테스트 상품')).toBeInTheDocument();
     expect(screen.getByText('테스트 마켓')).toBeInTheDocument();
     expect(screen.getByText('테스트 상품')).toBeInTheDocument();
@@ -25,7 +24,6 @@ describe('ProductCard', () => {
 
   it('할인율이 올바르게 계산되어 표시된다.', () => {
     render(<ProductCard {...mockProduct} />);
-
     expect(screen.getByText('20%')).toBeInTheDocument();
   });
 
@@ -36,7 +34,6 @@ describe('ProductCard', () => {
     };
 
     render(<ProductCard {...productWithoutDiscount} />);
-
     expect(screen.getByText('10,000')).toBeInTheDocument();
     expect(screen.queryByText('%')).not.toBeInTheDocument();
   });
@@ -63,14 +60,13 @@ describe('ProductCard', () => {
 
   it('size prop이 주어지지 않으면 medium 크기가 기본값으로 적용된다.', () => {
     render(<ProductCard {...mockProduct} />);
-
     expect(screen.getByRole('img').parentElement).toHaveClass(
       'w-[144px]',
       'h-[168px]',
     );
   });
 
-  it('가격이 천 단위 구분자와 함께 올바르게 포맷팅된다.', () => {
+  it('가격이 천 단위 구분자와 함께 올바르게 포매팅된다.', () => {
     const expensiveProduct = {
       ...mockProduct,
       price: 1000000,
@@ -78,7 +74,23 @@ describe('ProductCard', () => {
     };
 
     render(<ProductCard {...expensiveProduct} />);
-
     expect(screen.getByText('1,000,000')).toBeInTheDocument();
+  });
+
+  it('리뷰어 수에 따라 올바르게 포매팅된다.', () => {
+    const reviewerCounts = [
+      { count: 1000, expected: /1,000/ },
+      { count: 25000, expected: /2\.5만/ },
+      { count: 100000, expected: /10만/ },
+    ];
+
+    const { rerender } = render(
+      <ProductCard {...mockProduct} reviewer={reviewerCounts[0].count} />,
+    );
+
+    reviewerCounts.forEach(({ count, expected }) => {
+      rerender(<ProductCard {...mockProduct} reviewer={count} />);
+      expect(screen.getByText(expected)).toBeInTheDocument();
+    });
   });
 });
