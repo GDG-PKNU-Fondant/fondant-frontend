@@ -50,7 +50,8 @@
     "import/no-extraneous-dependencies": "off",
     "no-console": "error",
     "@typescript-eslint/lines-between-class-members": "off",
-    "@typescript-eslint/no-throw-literal": "off"
+    "@typescript-eslint/no-throw-literal": "off",
+    "react/prop-types": "off"
   },
   "ignorePatterns": ["build", "dist", "public"],
   "overrides": [
