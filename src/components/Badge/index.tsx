@@ -31,6 +31,7 @@ const Badge: React.FC<BadgeProps> = ({
       {children}
       {count > 0 && (
         <div
+          data-testid="badge"
           className={`absolute flex items-center justify-center rounded-full text-white font-bold ${badgeSize} ${
             type === 'count' ? 'bg-brown-primary' : 'bg-pink'
           } ${textSize}`}

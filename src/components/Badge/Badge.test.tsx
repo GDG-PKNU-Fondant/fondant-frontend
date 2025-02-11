@@ -14,12 +14,13 @@ describe('Badge Component', () => {
 
   it('alert Badge의 올바른 렌더링 확인', () => {
     render(
-      <Badge type="alert">
+      <Badge type="alert" count={1}>
         <button>Cart</button>
       </Badge>,
     );
-    const badge = document.querySelector('.bg-pink.rounded-full');
-    expect(badge).not.toBeNull();
+    const alertBadge = screen.getByTestId('badge');
+    expect(alertBadge).toBeInTheDocument();
+    expect(alertBadge).toHaveClass('bg-pink');
   });
 
   it('count Badge의 올바른 렌더링 확인,', () => {
@@ -54,5 +55,15 @@ describe('Badge Component', () => {
     const badge = screen.getByText('10');
     expect(badge).toHaveStyle('bottom: 10px');
     expect(badge).toHaveStyle('right: 10px');
+  });
+
+  it('count 값이 0일 때 Badge가 렌더링되지 않음을 확인', () => {
+    render(
+      <Badge type="count" count={0}>
+        <button>Cart</button>
+      </Badge>,
+    );
+    expect(screen.getByRole('button', { name: 'Cart' })).toBeInTheDocument();
+    expect(screen.queryByTestId('badge')).not.toBeInTheDocument();
   });
 });
