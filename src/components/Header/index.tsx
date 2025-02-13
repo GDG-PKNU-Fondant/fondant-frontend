@@ -35,7 +35,10 @@ const Header = ({
             position={{ top: '-2px', right: '-1px' }}
             count={notificationCount}
           >
-            <button onClick={handleNotificationClick}>
+            <button
+              onClick={handleNotificationClick}
+              data-testid="notificationButton"
+            >
               <NotificationIcon />
             </button>
           </Badge>
@@ -44,7 +47,7 @@ const Header = ({
             count={cartCount}
             position={{ bottom: '0px', right: '-5px' }}
           >
-            <button onClick={onCartClick}>
+            <button onClick={onCartClick} data-testid="cartButton">
               <CartIcon />
             </button>
           </Badge>
