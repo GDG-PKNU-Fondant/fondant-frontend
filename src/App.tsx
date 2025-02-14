@@ -5,6 +5,7 @@ import Category from '@pages/Category';
 import Search from '@pages/Search';
 import Wish from '@pages/Wish';
 import My from '@pages/My';
+import BottomTab from '@components/BottomTab';
 
 const App: React.FC = () => {
   return (
@@ -16,6 +17,7 @@ const App: React.FC = () => {
         <Route path="/wish" element={<Wish />} />
         <Route path="/my" element={<My />} />
       </Routes>
+      <BottomTab />
     </Router>
   );
 };
