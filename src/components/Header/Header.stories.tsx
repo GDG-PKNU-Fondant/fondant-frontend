@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Header from './index';
+import Header from '@components/Header';
 import { HeaderProps } from '@type/Header';
 import { useAtom, Provider } from 'jotai';
-import { notificationCountAtom, cartCountAtom } from '@store/badgeState';
+import { notificationCountAtom, cartCountAtom } from '@stores/badgeState';
 import { useEffect } from 'react';
 
 const JotaiWrapper = ({ children, nCount, cCount }: any) => {

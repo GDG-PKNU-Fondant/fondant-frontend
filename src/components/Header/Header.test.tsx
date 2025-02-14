@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { Provider } from 'jotai';
-import Header from './index';
-import { cartCountAtom, notificationCountAtom } from '@store/badgeState';
+import Header from '@components/Header';
+import { cartCountAtom, notificationCountAtom } from '@stores/badgeState';
 import { useAtom } from 'jotai';
 
 describe('Header Component', () => {

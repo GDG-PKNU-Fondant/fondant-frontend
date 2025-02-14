@@ -16,9 +16,9 @@ export default defineConfig({
       },
       { find: '@mocks', replacement: path.resolve(__dirname, 'src/mocks') },
       { find: '@pages', replacement: path.resolve(__dirname, 'src/pages') },
+      { find: '@stores', replacement: path.resolve(__dirname, 'src/stores') },
       { find: '@styles', replacement: path.resolve(__dirname, 'src/styles') },
       { find: '@type', replacement: path.resolve(__dirname, 'src/types') },
-      { find: '@store', replacement: path.resolve(__dirname, 'src/store') },
     ],
   },
   test: {

@@ -7,7 +7,6 @@ describe('TabNavigator Component', () => {
   it('탭이 정상적으로 렌더링되는지 확인', () => {
     render(<TabNavigator tabs={HeaderTabs} />);
 
-    // 탭 라벨이 정상적으로 렌더링되었는지 확인
     HeaderTabs.forEach((tab) => {
       expect(screen.getByText(tab.label)).toBeInTheDocument();
     });
@@ -26,7 +25,7 @@ describe('TabNavigator Component', () => {
   });
 
   it('onTabChange 콜백이 정상적으로 호출되는지 확인', () => {
-    const mockOnTabChange = vi.fn(); // 가짜 함수 생성 (Mock Function)
+    const mockOnTabChange = vi.fn();
 
     render(<TabNavigator tabs={HeaderTabs} onTabChange={mockOnTabChange} />);
 

@@ -5,7 +5,7 @@ import CartIcon from '@assets/icons/cart.svg?react';
 import { HeaderTabs } from '@components/TabNavigator/tabs';
 import { HeaderProps } from '@type/Header';
 import { useAtom, useAtomValue } from 'jotai';
-import { cartCountAtom, notificationCountAtom } from '@store/badgeState';
+import { cartCountAtom, notificationCountAtom } from '@stores/badgeState';
 
 const Header = ({
   onSearchClick,
