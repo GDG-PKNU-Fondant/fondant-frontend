@@ -24,7 +24,9 @@ const BottomTabItem: React.FC<BottomTabItemProps> = ({
     tabIndex={0}
     className="flex flex-col items-center gap-[4px] cursor-pointer"
   >
-    <Icon fill={isActive ? '#BC8462' : 'none'} />
+    <div className="flex h-[25px] items-center">
+      <Icon fill={isActive ? '#BC8462' : 'none'} />
+    </div>
     <div className="font-semibold text-[12px] text-brown-primary tracking-[-0.5px]">
       {label}
     </div>
