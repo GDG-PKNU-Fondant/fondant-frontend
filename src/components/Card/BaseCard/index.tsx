@@ -71,9 +71,11 @@ const BaseCard: React.FC<BaseCardProps> = ({
         />
       </div>
       <div className="flex flex-col mt-[8px] mx-[9px] tracking-[-0.5px] leading-none gap-[4px]">
-        <div className="text-[12px] text-brown-primary font-semibold truncate">
-          {marketName}
-        </div>
+        {marketName && (
+          <div className="text-[12px] text-brown-primary font-semibold truncate">
+            {marketName}
+          </div>
+        )}
         {type === 'product' && productName && (
           <div className="text-[12px] text-brown-secondary truncate">
             {productName}

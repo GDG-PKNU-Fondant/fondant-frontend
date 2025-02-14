@@ -16,7 +16,7 @@ export interface BaseCardProps {
 
 export interface ProductCardProps {
   thumbnailUrl: string;
-  marketName: string;
+  marketName?: string;
   productName: string;
   price: number;
   discountPrice?: number;
