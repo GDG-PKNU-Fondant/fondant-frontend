@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import CarouselSlide from '@type/CarouselSlide';
+import CarouselSlide from '@type/Carousel';
 
 const Carousel = ({ slides }: { slides: CarouselSlide[] }) => {
   const [slideIndex, setSlideIndex] = useState(1);
@@ -131,7 +131,7 @@ const Carousel = ({ slides }: { slides: CarouselSlide[] }) => {
           <div className="flex-shrink-0 w-full h-full">
             <img
               src={slides[0].thumbnailUrl}
-              alt="CarouselSlide 1"
+              alt="Carousel 1"
               className="w-full h-full object-cover"
               draggable="false"
             />
@@ -168,7 +168,7 @@ const Carousel = ({ slides }: { slides: CarouselSlide[] }) => {
             <div key={slide.id} className="flex-shrink-0 w-full h-full">
               <img
                 src={slide.thumbnailUrl}
-                alt={`CarouselSlide ${index + 1}`}
+                alt={`Carousel ${index + 1}`}
                 className="w-full h-full object-cover"
                 draggable="false"
               />

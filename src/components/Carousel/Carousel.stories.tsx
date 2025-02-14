@@ -1,6 +1,6 @@
 import { Meta, StoryFn } from '@storybook/react';
 import Carousel from '@components/Carousel';
-import CarouselSlide from '@type/CarouselSlide';
+import CarouselSlide from '@type/Carousel';
 import { mockSlides } from '@mocks/handlers';
 import '@styles/tailwind.css';
 
