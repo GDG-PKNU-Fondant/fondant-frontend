@@ -1,10 +1,7 @@
 import { Meta, StoryFn } from '@storybook/react';
 import TabNavigator from '@components/TabNavigator';
-import {
-  CATEGORY_TABS,
-  filterTabs,
-  HEADER_TABS,
-} from '@components/TabNavigator/tabs';
+import { CATEGORY_TABS, HEADER_TABS } from '@components/TabNavigator/tabs';
+import MOCK_TABS from '@mocks/constants/mockTabs';
 
 export default {
   title: 'Components/TabNavigator',
@@ -28,7 +25,7 @@ CategoryTab.args = {
 
 export const FilterTab = Template.bind({});
 FilterTab.args = {
-  tabs: filterTabs,
+  tabs: MOCK_TABS,
   defaultColor: 'text-gray-400',
   selectedColor: 'text-brown-primary',
   fixedTextSize: 13,
