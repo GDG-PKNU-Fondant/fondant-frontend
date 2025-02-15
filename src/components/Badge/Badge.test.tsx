@@ -23,7 +23,7 @@ describe('Badge Component', () => {
     expect(alertBadge).toHaveClass('bg-pink');
   });
 
-  it('count Badge의 올바른 렌더링 확인,', () => {
+  it('count Badge의 올바른 렌더링 확인', () => {
     render(
       <Badge type="count" count={5}>
         <button type="button">Cart</button>

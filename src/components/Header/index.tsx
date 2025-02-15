@@ -37,18 +37,14 @@ const Header = ({
           >
             <Badge
               type="alert"
-              position={{ top: '-2px', right: '-1px' }}
+              inset="-2px -1px auto auto"
               count={notificationCount}
             >
               <NotificationIcon />
             </Badge>
           </button>
           <button type="button" onClick={onCartClick} data-testid="cartButton">
-            <Badge
-              type="count"
-              count={cartCount}
-              position={{ bottom: '0px', right: '-5px' }}
-            >
+            <Badge type="count" count={cartCount} inset="auto -5px -5px auto">
               <CartIcon />
             </Badge>
           </button>
