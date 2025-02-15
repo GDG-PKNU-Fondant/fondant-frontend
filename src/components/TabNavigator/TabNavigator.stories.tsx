@@ -1,6 +1,6 @@
 import { Meta, StoryFn } from '@storybook/react';
 import TabNavigator from '@components/TabNavigator';
-import { CategoryTabs, HeaderTabs } from '@components/TabNavigator/tabs';
+import { CATEGORY_TABS, HEADER_TABS } from '@components/TabNavigator/tabs';
 
 export default {
   title: 'Components/TabNavigator',
@@ -13,11 +13,11 @@ const Template: StoryFn<typeof TabNavigator> = (args) => (
 
 export const HeaderTab = Template.bind({});
 HeaderTab.args = {
-  tabs: HeaderTabs,
+  tabs: HEADER_TABS,
 };
 
 export const CategoryTab = Template.bind({});
 CategoryTab.args = {
-  tabs: CategoryTabs,
+  tabs: CATEGORY_TABS,
   defaultColor: 'text-brown-quaternary',
 };

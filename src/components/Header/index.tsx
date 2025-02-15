@@ -2,7 +2,7 @@ import Badge from '@components/Badge';
 import TabNavigator from '@components/TabNavigator';
 import NotificationIcon from '@assets/icons/Notification.svg?react';
 import CartIcon from '@assets/icons/cart.svg?react';
-import { HeaderTabs } from '@components/TabNavigator/tabs';
+import { HEADER_TABS } from '@components/TabNavigator/tabs';
 import { HeaderProps } from '@type/Header';
 import { useAtom, useAtomValue } from 'jotai';
 import { cartCountAtom, notificationCountAtom } from '@stores/badgeState';
@@ -63,7 +63,7 @@ const Header = ({
           검색
         </button>
       </div>
-      <TabNavigator tabs={HeaderTabs} />
+      <TabNavigator tabs={HEADER_TABS} />
     </div>
   );
 };
