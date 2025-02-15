@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import TabNavigator from '@components/TabNavigator';
-import { HEADER_TABS } from '@components/TabNavigator/tabs';
+import { filterTabs, HEADER_TABS } from '@components/TabNavigator/tabs';
 
 describe('TabNavigator Component', () => {
   it('탭이 정상적으로 렌더링되는지 확인', () => {
@@ -57,5 +57,38 @@ describe('TabNavigator Component', () => {
 
     const indicator = screen.getByTestId('tab-indicator');
     expect(indicator).toBeInTheDocument();
+  });
+
+  it('기본 텍스트 설정 시, 선택된 탭만 +2px 되는지 확인', () => {
+    render(<TabNavigator tabs={HEADER_TABS} textSize={20} />);
+
+    const firstTab = screen.getByText('추천');
+    const secondTab = screen.getByText('베스트');
+
+    expect(firstTab).toHaveStyle({ fontSize: '22px' });
+    expect(secondTab).toHaveStyle({ fontSize: '20px' });
+
+    fireEvent.click(secondTab);
+
+    expect(firstTab).toHaveStyle({ fontSize: '20px' });
+    expect(secondTab).toHaveStyle({ fontSize: '22px' });
+  });
+
+  it('탭의 타입이 "inner"이면 글씨 굵기가 고정되는지 확인', () => {
+    render(<TabNavigator tabs={filterTabs} type="inner" />);
+
+    filterTabs.forEach((tab) => {
+      const tabElement = screen.getByText(tab.label);
+      expect(tabElement).toHaveClass('font-normal');
+    });
+  });
+
+  it('고정된 텍스트 크기 설정 시, 크기가 변하지 않는지 확인', () => {
+    render(<TabNavigator tabs={filterTabs} fixedTextSize={13} />);
+
+    filterTabs.forEach((tab) => {
+      const tabElement = screen.getByText(tab.label);
+      expect(tabElement).toHaveStyle({ fontSize: '13px' });
+    });
   });
 });
