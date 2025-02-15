@@ -23,39 +23,35 @@ const Header = ({
   };
 
   return (
-    <div className="w-[390px] bg-background z-50">
+    <div className="w-full bg-background z-50">
       <div className="flex items-center justify-between p-4">
         <h1 className="font-black text-[40px] leading-[20px] tracking-[-5px] text-center text-brown-primary">
           LOGO
         </h1>
 
         <div className="flex space-x-4">
-          <Badge
-            type="alert"
-            position={{ top: '-2px', right: '-1px' }}
-            count={notificationCount}
+          <button
+            type="button"
+            onClick={handleNotificationClick}
+            data-testid="notificationButton"
           >
-            <button
-              type="button"
-              onClick={handleNotificationClick}
-              data-testid="notificationButton"
+            <Badge
+              type="alert"
+              position={{ top: '-2px', right: '-1px' }}
+              count={notificationCount}
             >
               <NotificationIcon />
-            </button>
-          </Badge>
-          <Badge
-            type="count"
-            count={cartCount}
-            position={{ bottom: '0px', right: '-5px' }}
-          >
-            <button
-              type="button"
-              onClick={onCartClick}
-              data-testid="cartButton"
+            </Badge>
+          </button>
+          <button type="button" onClick={onCartClick} data-testid="cartButton">
+            <Badge
+              type="count"
+              count={cartCount}
+              position={{ bottom: '0px', right: '-5px' }}
             >
               <CartIcon />
-            </button>
-          </Badge>
+            </Badge>
+          </button>
         </div>
       </div>
       <div className="px-4 pb-2">
