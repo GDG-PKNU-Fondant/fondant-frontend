@@ -1,6 +1,7 @@
 import { Meta, StoryFn } from '@storybook/react';
 import { mockDynamicCategories } from '@mocks/handlers';
 import CategoryMenu from '@components/CategoryMenu';
+import CategoryMenuProps from '@type/CategoryMenu';
 import '@styles/tailwind.css';
 
 export default {
@@ -8,7 +9,9 @@ export default {
   component: CategoryMenu,
 } as Meta;
 
-const Template: StoryFn = (args) => <CategoryMenu {...args} />;
+const Template: StoryFn<{ category: CategoryMenuProps }> = (args) => (
+  <CategoryMenu {...args} />
+);
 
 export const Default = Template.bind({});
 Default.args = {
