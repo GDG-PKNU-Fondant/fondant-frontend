@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useAtom } from 'jotai';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import TABS from '@components/BottomTab/tabs';
-import activeBottomTabAtom from '@stores/bottomTabState';
+import activeBottomTabAtom, { getInitialTab } from '@stores/bottomTabState';
 
 interface BottomTabItemProps {
   Icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
@@ -36,6 +36,11 @@ const BottomTabItem: React.FC<BottomTabItemProps> = ({
 const BottomTab = () => {
   const [activeTab, setActiveTab] = useAtom(activeBottomTabAtom);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    setActiveTab(getInitialTab(location.pathname));
+  }, [location.pathname, setActiveTab]);
 
   const handleTabClick = (tabName: string, path: string) => {
     setActiveTab(tabName);
