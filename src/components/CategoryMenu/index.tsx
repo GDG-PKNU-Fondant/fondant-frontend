@@ -1,4 +1,3 @@
-import React from 'react';
 import CategoryMenuProps from '@type/CategoryMenu';
 
 const CategoryMenu = ({ category }: { category: CategoryMenuProps }) => {
