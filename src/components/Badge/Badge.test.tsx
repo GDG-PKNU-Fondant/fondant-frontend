@@ -41,20 +41,17 @@ describe('Badge Component', () => {
     expect(screen.getByText('99+')).toBeInTheDocument();
   });
 
-  it('Badge가 올바른 Position으로 렌더링 됨을 확인', () => {
+  it('Badge가 올바른 위치으로 렌더링 됨을 확인', () => {
     render(
-      <Badge
-        type="count"
-        count={10}
-        position={{ bottom: '10px', right: '10px' }}
-      >
+      <Badge type="count" count={10} inset="auto 10px 10px auto">
         <button type="button">Cart</button>
       </Badge>,
     );
 
     const badge = screen.getByText('10');
-    expect(badge).toHaveStyle('bottom: 10px');
-    expect(badge).toHaveStyle('right: 10px');
+    expect(badge).toBeInTheDocument();
+
+    expect(badge).toHaveStyle({ inset: 'auto 10px 10px auto' });
   });
 
   it('count 값이 0일 때 Badge가 렌더링되지 않음을 확인', () => {
