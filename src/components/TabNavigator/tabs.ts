@@ -4,7 +4,7 @@ export const HEADER_TABS = [
   { label: '선물하기', key: 'gift' },
   { label: '할인', key: 'discount' },
   { label: '신제품', key: 'new' },
-  { label: '퐁당 PICK', key: 'fondant', customStyles: 'text-pink' },
+  { label: '퐁당 PICK', key: 'fondant', fixedColor: 'text-pink' },
 ];
 
 export const CATEGORY_TABS = [

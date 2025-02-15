@@ -1,7 +1,7 @@
 export interface Tab {
   label: string;
   key: string;
-  customStyles?: string;
+  fixedColor?: string;
 }
 
 export interface TabNavigatorProps {
@@ -9,4 +9,6 @@ export interface TabNavigatorProps {
   onTabChange?: (key: string) => void;
   defaultColor?: string;
   selectedColor?: string;
+  textSize?: number;
+  fixedTextSize?: number;
 }
