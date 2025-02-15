@@ -1,23 +1,23 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import TabNavigator from '@components/TabNavigator';
-import { HeaderTabs } from '@components/TabNavigator/tabs';
+import { HEADER_TABS } from '@components/TabNavigator/tabs';
 
 describe('TabNavigator Component', () => {
   it('탭이 정상적으로 렌더링되는지 확인', () => {
-    render(<TabNavigator tabs={HeaderTabs} />);
+    render(<TabNavigator tabs={HEADER_TABS} />);
 
-    HeaderTabs.forEach((tab) => {
+    HEADER_TABS.forEach((tab) => {
       expect(screen.getByText(tab.label)).toBeInTheDocument();
     });
   });
 
   it('탭을 클릭하면 선택 상태가 변경되는지 확인', () => {
-    render(<TabNavigator tabs={HeaderTabs} />);
+    render(<TabNavigator tabs={HEADER_TABS} />);
 
     const bestTab = screen.getByText('베스트');
 
-    expect(bestTab).toHaveClass('font-semibold text-gray');
+    expect(bestTab).toHaveClass('font-semibold text-brown-secondary');
 
     fireEvent.click(bestTab);
 
@@ -27,7 +27,7 @@ describe('TabNavigator Component', () => {
   it('onTabChange 콜백이 정상적으로 호출되는지 확인', () => {
     const mockOnTabChange = vi.fn();
 
-    render(<TabNavigator tabs={HeaderTabs} onTabChange={mockOnTabChange} />);
+    render(<TabNavigator tabs={HEADER_TABS} onTabChange={mockOnTabChange} />);
 
     const giftTab = screen.getByText('선물하기');
 
@@ -39,18 +39,18 @@ describe('TabNavigator Component', () => {
   });
 
   it('퐁당 PICK 탭의 스타일이 항상 유지되는지 확인', () => {
-    render(<TabNavigator tabs={HeaderTabs} />);
+    render(<TabNavigator tabs={HEADER_TABS} />);
 
-    const pongdangTab = screen.getByText('퐁당 PICK');
+    const fondantTab = screen.getByText('퐁당 PICK');
 
-    expect(pongdangTab).toHaveClass('text-pink');
+    expect(fondantTab).toHaveClass('text-pink');
 
-    fireEvent.click(pongdangTab);
-    expect(pongdangTab).toHaveClass('text-pink');
+    fireEvent.click(fondantTab);
+    expect(fondantTab).toHaveClass('text-pink');
   });
 
   it('하단 인디케이터(Framer Motion)가 선택된 탭으로 이동하는지 확인', () => {
-    render(<TabNavigator tabs={HeaderTabs} />);
+    render(<TabNavigator tabs={HEADER_TABS} />);
 
     const discountTab = screen.getByText('할인');
     fireEvent.click(discountTab);

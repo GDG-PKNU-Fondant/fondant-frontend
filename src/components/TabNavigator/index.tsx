@@ -5,7 +5,7 @@ import { TabNavigatorProps } from '@type/TabNavigator';
 const TabNavigator = ({
   tabs,
   onTabChange,
-  defaultColor = 'text-gray',
+  defaultColor = 'text-brown-secondary',
   selectedColor = 'text-brown-primary',
 }: TabNavigatorProps) => {
   const [selectedTab, setSelectedTab] = useState(tabs[0].key);

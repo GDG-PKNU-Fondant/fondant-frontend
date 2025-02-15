@@ -19,5 +19,5 @@ HeaderTab.args = {
 export const CategoryTab = Template.bind({});
 CategoryTab.args = {
   tabs: CATEGORY_TABS,
-  defaultColor: 'text-brown-quaternary',
+  defaultColor: 'text-brown-secondary',
 };
