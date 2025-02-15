@@ -9,6 +9,7 @@ const TabNavigator = ({
   selectedColor = 'text-brown-primary',
   textSize = 16,
   fixedTextSize,
+  type = 'outer',
 }: TabNavigatorProps) => {
   const [selectedTab, setSelectedTab] = useState(tabs[0].key);
 
@@ -27,13 +28,16 @@ const TabNavigator = ({
         const fontSize =
           fixedTextSize || (isSelected ? textSize + 2 : textSize);
 
+        const fontWeight =
+          type === 'inner'
+            ? 'font-normal'
+            : (isSelected && 'font-bold') || 'font-semibold';
+
         return (
           <button
             type="button"
             key={tab.key}
-            className={`relative py-2 leading-[20px] tracking-[-0.5px] ${
-              isSelected ? 'font-bold' : 'font-semibold'
-            } ${textColor}`}
+            className={`relative py-2 leading-[20px] tracking-[-0.5px] ${fontWeight} ${textColor}`}
             style={{ fontSize: `${fontSize}px` }}
             onClick={() => handleTabClick(tab.key)}
           >
