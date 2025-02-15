@@ -6,7 +6,7 @@ describe('Badge Component', () => {
   it('Badge 렌더링 하고 자식 컴포넌트인 button이 있는지 확인', () => {
     render(
       <Badge type="alert">
-        <button>Cart</button>
+        <button type="button">Cart</button>
       </Badge>,
     );
     expect(screen.getByRole('button')).toBeInTheDocument();
@@ -15,7 +15,7 @@ describe('Badge Component', () => {
   it('alert Badge의 올바른 렌더링 확인', () => {
     render(
       <Badge type="alert" count={1}>
-        <button>Cart</button>
+        <button type="button">Cart</button>
       </Badge>,
     );
     const alertBadge = screen.getByTestId('badge');
@@ -26,7 +26,7 @@ describe('Badge Component', () => {
   it('count Badge의 올바른 렌더링 확인,', () => {
     render(
       <Badge type="count" count={5}>
-        <button>Cart</button>
+        <button type="button">Cart</button>
       </Badge>,
     );
     expect(screen.getByText('5')).toBeInTheDocument();
@@ -35,7 +35,7 @@ describe('Badge Component', () => {
   it('Count Badge의 숫자가 99를 넘으면 99+로 적용', () => {
     render(
       <Badge type="count" count={120}>
-        <button>Cart</button>
+        <button type="button">Cart</button>
       </Badge>,
     );
     expect(screen.getByText('99+')).toBeInTheDocument();
@@ -48,7 +48,7 @@ describe('Badge Component', () => {
         count={10}
         position={{ bottom: '10px', right: '10px' }}
       >
-        <button>Cart</button>
+        <button type="button">Cart</button>
       </Badge>,
     );
 
@@ -60,7 +60,7 @@ describe('Badge Component', () => {
   it('count 값이 0일 때 Badge가 렌더링되지 않음을 확인', () => {
     render(
       <Badge type="count" count={0}>
-        <button>Cart</button>
+        <button type="button">Cart</button>
       </Badge>,
     );
     expect(screen.getByRole('button', { name: 'Cart' })).toBeInTheDocument();

@@ -3,9 +3,15 @@ import Header from '@components/Header';
 import { HeaderProps } from '@type/Header';
 import { useAtom, Provider } from 'jotai';
 import { notificationCountAtom, cartCountAtom } from '@stores/badgeState';
-import { useEffect } from 'react';
+import { ReactNode, useEffect } from 'react';
 
-const JotaiWrapper = ({ children, nCount, cCount }: any) => {
+interface JotaiWrapperProps {
+  children: ReactNode;
+  nCount: number;
+  cCount: number;
+}
+
+const JotaiWrapper = ({ children, nCount, cCount }: JotaiWrapperProps) => {
   const [notificationCount, setNotificationCount] = useAtom(
     notificationCountAtom,
   );

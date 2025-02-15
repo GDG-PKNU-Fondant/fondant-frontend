@@ -24,6 +24,7 @@ const TabNavigator = ({
 
         return (
           <button
+            type="button"
             key={tab.key}
             className={`relative py-2 text-[16px] leading-[20px] tracking-[-0.5px] ${
               isSelected ? 'font-bold' : 'font-semibold'

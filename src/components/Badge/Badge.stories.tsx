@@ -24,7 +24,9 @@ export default {
 
 const Template: StoryFn<BadgeProps> = (args) => (
   <Badge {...args}>
-    <button className="p-4 bg-gray rounded">Cart</button>
+    <button type="button" className="p-4 bg-gray rounded">
+      Cart
+    </button>
   </Badge>
 );
 

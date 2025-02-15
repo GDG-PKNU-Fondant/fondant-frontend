@@ -1,3 +1,5 @@
 import { atom } from 'jotai';
 
-export const scrollYAtom = atom(0);
+const scrollYAtom = atom(0);
+
+export default scrollYAtom;

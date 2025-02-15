@@ -36,6 +36,7 @@ const Header = ({
             count={notificationCount}
           >
             <button
+              type="button"
               onClick={handleNotificationClick}
               data-testid="notificationButton"
             >
@@ -47,7 +48,11 @@ const Header = ({
             count={cartCount}
             position={{ bottom: '0px', right: '-5px' }}
           >
-            <button onClick={onCartClick} data-testid="cartButton">
+            <button
+              type="button"
+              onClick={onCartClick}
+              data-testid="cartButton"
+            >
               <CartIcon />
             </button>
           </Badge>
@@ -55,6 +60,7 @@ const Header = ({
       </div>
       <div className="px-4 pb-2">
         <button
+          type="button"
           className="w-full h-9 border bg-white border-brown-primary rounded-[5px] font-medium text-placeholder text-4 leading-[20px] tracking-[-0.5px] text-left ps-2"
           onClick={onSearchClick}
         >
