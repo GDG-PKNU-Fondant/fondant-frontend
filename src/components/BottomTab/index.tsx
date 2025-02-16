@@ -48,7 +48,7 @@ const BottomTab = () => {
   };
 
   return (
-    <div className="absolute w-[100%] h-[90px] bottom-0 bg-background rounded-tl-[10px] rounded-tr-[10px] shadow-[0px_-4px_10px_0px_rgba(156,108,79,0.10)]">
+    <div className="fixed w-[100%] h-[90px] bottom-0 bg-background rounded-tl-[10px] rounded-tr-[10px] shadow-[0px_-4px_10px_0px_rgba(156,108,79,0.10)]">
       <div className="flex justify-around items-center h-full">
         {TABS.map(({ Icon, label, path }) => (
           <BottomTabItem
