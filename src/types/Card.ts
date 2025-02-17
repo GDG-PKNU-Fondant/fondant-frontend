@@ -4,7 +4,7 @@ export type CardType = 'market' | 'product';
 
 export interface BaseCardProps {
   thumbnailUrl: string;
-  marketName: string;
+  marketName?: string;
   rate: number;
   reviewer: number;
   productName?: string;
