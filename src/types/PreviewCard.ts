@@ -2,7 +2,7 @@ export type CardType = 'market' | 'product';
 
 export type CardSize = 'small' | 'medium' | 'large';
 
-export interface PreviewCardProps {
+export default interface PreviewCardProps {
   id: number;
   marketName?: string;
   rate: number;

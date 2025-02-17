@@ -1,5 +1,5 @@
 import React from 'react';
-import { PreviewCardProps } from '@type/PreviewCard';
+import PreviewCardProps from '@type/PreviewCard';
 import RateIcon from '@assets/icons/rate.svg?react';
 
 const sizeClasses = {

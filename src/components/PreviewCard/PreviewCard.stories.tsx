@@ -1,6 +1,6 @@
 import { Meta, StoryFn } from '@storybook/react';
 import PreviewCard from '@components/PreviewCard';
-import { PreviewCardProps, CardType, CardSize } from '@type/PreviewCard';
+import PreviewCardProps, { CardType, CardSize } from '@type/PreviewCard';
 import MOCK_PRODUCTS from '@mocks/constants/mockProducts';
 import '@styles/tailwind.css';
 
