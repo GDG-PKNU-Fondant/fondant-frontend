@@ -40,7 +40,7 @@ const BottomTab = () => {
 
   useEffect(() => {
     setActiveTab(getInitialTab(location.pathname));
-  }, [location.pathname, setActiveTab]);
+  }, [location.pathname]);
 
   const handleTabClick = (tabName: string, path: string) => {
     setActiveTab(tabName);
