@@ -17,10 +17,8 @@ const BottomSheet = ({ isOpen, onClose, children }: BottomSheetProps) => {
     }
   }, [isOpen]);
 
-  if (!isOpen) return null;
-
   return createPortal(
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {isOpen && (
         <motion.div
           className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-end"
@@ -28,14 +26,15 @@ const BottomSheet = ({ isOpen, onClose, children }: BottomSheetProps) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
+          transition={{ duration: 0.2, ease: 'easeOut' }}
         >
           <motion.div
-            className="bg-white w-full max-w-md rounded-t-2xl p-4"
+            className="bg-white w-full max-w-md rounded-t-2xl p-4 origin-bottom"
             onClick={(e) => e.stopPropagation()}
             initial={{ y: '100%' }}
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
-            transition={{ type: 'spring', stiffness: 100, damping: 15 }}
+            transition={{ duration: 0.2, ease: 'easeOut' }}
           >
             <button
               className="w-full text-right text-gray-500"
