@@ -16,6 +16,7 @@ export default {
           tertiary: '#DEBBA3',
         },
         pink: '#FF80A6',
+        placeholder: '#E8DCCB',
       },
     },
   },
