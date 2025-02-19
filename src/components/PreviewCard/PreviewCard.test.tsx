@@ -1,20 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
-import ProductCard from '@components/Card/ProductCard';
+import PreviewCard from '@components/PreviewCard';
+import MOCK_PRODUCTS from '@mocks/constants/mockProducts';
 
-const mockProduct = {
-  thumbnailUrl: '',
-  marketName: '테스트 마켓',
-  productName: '테스트 상품',
-  price: 10000,
-  discountPrice: 8000,
-  rate: 4.5,
-  reviewer: 100,
-};
-
-describe('ProductCard', () => {
-  it('기본 상품 정보가 올바르게 렌더링된다.', () => {
-    render(<ProductCard {...mockProduct} />);
+describe('PreviewCard', () => {
+  it('기본 정보가 올바르게 렌더링된다.', () => {
+    render(<PreviewCard {...MOCK_PRODUCTS[4]} type="product" />);
     expect(screen.getByAltText('테스트 상품')).toBeInTheDocument();
     expect(screen.getByText('테스트 마켓')).toBeInTheDocument();
     expect(screen.getByText('테스트 상품')).toBeInTheDocument();
@@ -23,35 +14,39 @@ describe('ProductCard', () => {
   });
 
   it('할인율이 올바르게 계산되어 표시된다.', () => {
-    render(<ProductCard {...mockProduct} />);
+    render(<PreviewCard {...MOCK_PRODUCTS[4]} type="product" />);
     expect(screen.getByText('20%')).toBeInTheDocument();
   });
 
   it('할인가가 없을 경우 원래 가격만 표시된다.', () => {
     const productWithoutDiscount = {
-      ...mockProduct,
+      ...MOCK_PRODUCTS[4],
       discountPrice: undefined,
     };
 
-    render(<ProductCard {...productWithoutDiscount} />);
+    render(<PreviewCard {...productWithoutDiscount} type="product" />);
     expect(screen.getByText('10,000')).toBeInTheDocument();
     expect(screen.queryByText('%')).not.toBeInTheDocument();
   });
 
   it('size prop에 따라 적절한 크기 클래스가 적용된다.', () => {
-    const { rerender } = render(<ProductCard {...mockProduct} size="small" />);
+    const { rerender } = render(
+      <PreviewCard {...MOCK_PRODUCTS[4]} size="small" type="product" />,
+    );
     expect(screen.getByRole('img').parentElement).toHaveClass(
       'w-[116px]',
       'h-[156px]',
     );
 
-    rerender(<ProductCard {...mockProduct} size="medium" />);
+    rerender(
+      <PreviewCard {...MOCK_PRODUCTS[4]} size="medium" type="product" />,
+    );
     expect(screen.getByRole('img').parentElement).toHaveClass(
       'w-[144px]',
       'h-[168px]',
     );
 
-    rerender(<ProductCard {...mockProduct} size="large" />);
+    rerender(<PreviewCard {...MOCK_PRODUCTS[4]} size="large" type="product" />);
     expect(screen.getByRole('img').parentElement).toHaveClass(
       'w-[179px]',
       'h-[234px]',
@@ -59,7 +54,7 @@ describe('ProductCard', () => {
   });
 
   it('size prop이 주어지지 않으면 medium 크기가 기본값으로 적용된다.', () => {
-    render(<ProductCard {...mockProduct} />);
+    render(<PreviewCard {...MOCK_PRODUCTS[4]} type="product" />);
     expect(screen.getByRole('img').parentElement).toHaveClass(
       'w-[144px]',
       'h-[168px]',
@@ -68,12 +63,12 @@ describe('ProductCard', () => {
 
   it('가격이 천 단위 구분자와 함께 올바르게 포매팅된다.', () => {
     const expensiveProduct = {
-      ...mockProduct,
+      ...MOCK_PRODUCTS[4],
       price: 1000000,
       discountPrice: undefined,
     };
 
-    render(<ProductCard {...expensiveProduct} />);
+    render(<PreviewCard {...expensiveProduct} type="product" />);
     expect(screen.getByText('1,000,000')).toBeInTheDocument();
   });
 
@@ -85,11 +80,17 @@ describe('ProductCard', () => {
     ];
 
     const { rerender } = render(
-      <ProductCard {...mockProduct} reviewer={reviewerCounts[0].count} />,
+      <PreviewCard
+        {...MOCK_PRODUCTS[4]}
+        reviewer={reviewerCounts[0].count}
+        type="product"
+      />,
     );
 
     reviewerCounts.forEach(({ count, expected }) => {
-      rerender(<ProductCard {...mockProduct} reviewer={count} />);
+      rerender(
+        <PreviewCard {...MOCK_PRODUCTS[4]} reviewer={count} type="product" />,
+      );
       expect(screen.getByText(expected)).toBeInTheDocument();
     });
   });

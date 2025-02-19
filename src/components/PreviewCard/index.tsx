@@ -1,5 +1,5 @@
 import React from 'react';
-import { BaseCardProps } from '@type/Card';
+import PreviewCardProps from '@type/PreviewCard';
 import RateIcon from '@assets/icons/rate.svg?react';
 
 const sizeClasses = {
@@ -48,14 +48,14 @@ const formatReviewer = (reviewer: number) => {
   return new Intl.NumberFormat().format(reviewer);
 };
 
-const BaseCard: React.FC<BaseCardProps> = ({
-  thumbnailUrl,
+const PreviewCard: React.FC<PreviewCardProps> = ({
   marketName,
   productName,
   price,
   discountPrice,
   rate,
   reviewer,
+  thumbnailUrl,
   size = 'medium',
   type,
 }) => {
@@ -70,7 +70,7 @@ const BaseCard: React.FC<BaseCardProps> = ({
           className="w-full h-full object-cover rounded-[10px]"
         />
       </div>
-      <div className="flex flex-col mt-[8px] mx-[9px] tracking-[-0.5px] leading-none gap-[4px]">
+      <div className="flex flex-col mt-[8px] mx-[9px] tracking-[-0.5px] gap-[4px]">
         {marketName && (
           <div className="text-[12px] text-brown-primary font-semibold truncate">
             {marketName}
@@ -95,4 +95,4 @@ const BaseCard: React.FC<BaseCardProps> = ({
   );
 };
 
-export default BaseCard;
+export default PreviewCard;
