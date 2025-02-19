@@ -35,13 +35,19 @@ const BottomSheet = ({ isOpen, onClose, children }: BottomSheetProps) => {
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
+            drag="y"
+            dragConstraints={{ top: 0, bottom: 100 }}
+            dragElastic={0}
+            onDragEnd={(_, info) => {
+              if (info.offset.y > 50) onClose();
+            }}
           >
-            <button
-              className="w-full text-right text-gray-500"
-              onClick={onClose}
-            >
-              ✕
-            </button>
+            <div className="flex justify-center items-center mb-3">
+              <div
+                className="w-10 h-1.5 bg-gray-400 rounded-full cursor-pointer"
+                onClick={onClose}
+              ></div>
+            </div>
             {children}
           </motion.div>
         </motion.div>
