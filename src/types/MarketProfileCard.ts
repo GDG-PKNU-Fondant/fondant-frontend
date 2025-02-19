@@ -1,4 +1,4 @@
-export default interface MarketProfileProps {
+export default interface MarketProfileCardProps {
   profileImageUrl: string;
   marketName: string;
   description: string;
