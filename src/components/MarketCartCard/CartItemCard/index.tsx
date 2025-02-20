@@ -52,7 +52,7 @@ const AdditionalOption = ({ option }: { option: CartItemOption }) => (
 
 const PriceInfo = ({ item }: { item: CartItem }) => (
   <div
-    className={`flex justify-between ${item.additionalOptions ? 'mt-[20px]' : 'mt-[12px]'}`}
+    className={`flex items-center justify-between ${item.additionalOptions ? 'mt-[20px]' : 'mt-[12px]'} leading-none`}
   >
     <div className="text-[12px] text-brown-secondary">상품 금액</div>
     <div className="text-[15px] text-brown-primary">
