@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
 interface BottomSheetProps {
@@ -9,16 +9,22 @@ interface BottomSheetProps {
 }
 
 const BottomSheet = ({ isOpen, onClose, children }: BottomSheetProps) => {
+  const sheetRef = useRef<HTMLDivElement | null>(null);
+  const lastFocusedElementRef = useRef<HTMLElement | null>(null);
+
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      lastFocusedElementRef.current = document.activeElement as HTMLElement; // 현재 포커스된 요소 저장
+      setTimeout(() => {
+        sheetRef.current?.focus();
+      }, 10);
     } else {
-      document.body.style.overflow = 'auto';
+      lastFocusedElementRef.current?.focus();
     }
   }, [isOpen]);
 
   return createPortal(
-    <AnimatePresence mode="wait">
+    <AnimatePresence>
       {isOpen && (
         <motion.div
           className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-end"
@@ -29,6 +35,8 @@ const BottomSheet = ({ isOpen, onClose, children }: BottomSheetProps) => {
           transition={{ duration: 0.2, ease: 'easeOut' }}
         >
           <motion.div
+            ref={sheetRef}
+            tabIndex={-1}
             className="bg-white w-full max-w-md rounded-t-2xl p-4 origin-bottom"
             onClick={(e) => e.stopPropagation()}
             initial={{ y: '100%' }}
