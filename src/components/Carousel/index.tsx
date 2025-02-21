@@ -117,19 +117,25 @@ const useSlideSwipe = ({
   const [startX, setStartX] = useState(0);
   const [swipeOffset, setSwipeOffset] = useState(0);
 
-  const handleSwipeStart = (e: React.TouchEvent | React.MouseEvent) => {
-    setIsSwiping(true);
-    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
-    setStartX(clientX);
-  };
+  const handleSwipeStart = useCallback(
+    (e: React.TouchEvent | React.MouseEvent) => {
+      setIsSwiping(true);
+      const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+      setStartX(clientX);
+    },
+    [],
+  );
 
-  const handleSwipeMove = (e: React.TouchEvent | React.MouseEvent) => {
-    if (!isSwiping) return;
-    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
-    setSwipeOffset(clientX - startX);
-  };
+  const handleSwipeMove = useCallback(
+    (e: React.TouchEvent | React.MouseEvent) => {
+      if (!isSwiping) return;
+      const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+      setSwipeOffset(clientX - startX);
+    },
+    [isSwiping, startX],
+  );
 
-  const handleSwipeEnd = () => {
+  const handleSwipeEnd = useCallback(() => {
     if (isSwiping && Math.abs(swipeOffset) > 100) {
       if (swipeOffset > 0) {
         goToPrev();
@@ -139,7 +145,7 @@ const useSlideSwipe = ({
     }
     setIsSwiping(false);
     setSwipeOffset(0);
-  };
+  }, [isSwiping, swipeOffset]);
 
   return {
     isSwiping,
