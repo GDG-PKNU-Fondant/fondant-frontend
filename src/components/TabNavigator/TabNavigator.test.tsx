@@ -1,7 +1,8 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import TabNavigator from '@components/TabNavigator';
-import { filterTabs, HEADER_TABS } from '@components/TabNavigator/tabs';
+import { HEADER_TABS } from '@components/TabNavigator/tabs';
+import MOCK_TABS from '@mocks/constants/mockTabs';
 
 describe('TabNavigator Component', () => {
   it('탭이 정상적으로 렌더링되는지 확인', () => {
@@ -49,14 +50,16 @@ describe('TabNavigator Component', () => {
     expect(fondantTab).toHaveClass('text-pink');
   });
 
-  it('하단 인디케이터(Framer Motion)가 선택된 탭으로 이동하는지 확인', () => {
+  it('하단 인디케이터가 선택된 탭으로 이동하는지 확인', () => {
     render(<TabNavigator tabs={HEADER_TABS} />);
 
     const discountTab = screen.getByText('할인');
     fireEvent.click(discountTab);
 
     const indicator = screen.getByTestId('tab-indicator');
-    expect(indicator).toBeInTheDocument();
+    const parentButton = indicator.closest('button');
+
+    expect(parentButton).toHaveTextContent('할인');
   });
 
   it('기본 텍스트 설정 시, 선택된 탭만 +2px 되는지 확인', () => {
@@ -75,18 +78,18 @@ describe('TabNavigator Component', () => {
   });
 
   it('탭의 타입이 "inner"이면 글씨 굵기가 고정되는지 확인', () => {
-    render(<TabNavigator tabs={filterTabs} type="inner" />);
+    render(<TabNavigator tabs={MOCK_TABS} type="inner" />);
 
-    filterTabs.forEach((tab) => {
+    MOCK_TABS.forEach((tab) => {
       const tabElement = screen.getByText(tab.label);
       expect(tabElement).toHaveClass('font-normal');
     });
   });
 
   it('고정된 텍스트 크기 설정 시, 크기가 변하지 않는지 확인', () => {
-    render(<TabNavigator tabs={filterTabs} fixedTextSize={13} />);
+    render(<TabNavigator tabs={MOCK_TABS} fixedTextSize={13} />);
 
-    filterTabs.forEach((tab) => {
+    MOCK_TABS.forEach((tab) => {
       const tabElement = screen.getByText(tab.label);
       expect(tabElement).toHaveStyle({ fontSize: '13px' });
     });
