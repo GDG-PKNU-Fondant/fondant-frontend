@@ -233,6 +233,9 @@ const Carousel: React.FC<{ slides: CarouselSlide[] }> = ({ slides }) => {
           />
         </div>
         <div className="absolute inset-0 w-full h-full border-beige-secondary border-4 rounded-[10px]" />
+        <div className="hidden" data-testid="carousel-slide-index">
+          {slideIndex}
+        </div>
       </div>
     );
   }
@@ -271,6 +274,12 @@ const Carousel: React.FC<{ slides: CarouselSlide[] }> = ({ slides }) => {
         totalSlides={slides.length}
         animationDelay={ANIMATION_DELAY_MS}
       />
+      <div className="hidden" data-testid="carousel-slide-index">
+        {slideIndex}
+      </div>
+      <div className="hidden" data-testid="carousel-progress-index">
+        {progressIndex}
+      </div>
     </div>
   );
 };
