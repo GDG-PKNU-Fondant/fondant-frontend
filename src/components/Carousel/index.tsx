@@ -223,7 +223,7 @@ const Carousel: React.FC<{ slides: CarouselSlide[] }> = ({ slides }) => {
 
   if (slides.length === 1) {
     return (
-      <div className="flex relative overflow-hidden aspect-[1.2] bg-beige-primary rounded-[10px]">
+      <div className="flex relative overflow-hidden aspect-[36/29] bg-beige-primary rounded-[10px]">
         <div className="flex h-full">
           <img
             src={slides[0].thumbnailUrl}
@@ -242,7 +242,7 @@ const Carousel: React.FC<{ slides: CarouselSlide[] }> = ({ slides }) => {
 
   return (
     <div
-      className="flex relative overflow-hidden aspect-[1.2] bg-beige-primary rounded-[10px]"
+      className="flex relative overflow-hidden aspect-[36/29] bg-beige-primary rounded-[10px]"
       onMouseDown={handleStart}
       onTouchStart={handleStart}
       onMouseMove={handleSwipeMove}
