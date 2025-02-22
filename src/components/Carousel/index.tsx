@@ -5,6 +5,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
+import { motion } from 'framer-motion';
 import CarouselSlide from '@type/Carousel';
 
 interface ProgressBarProps {
@@ -172,16 +173,21 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
   totalSlides,
   animationDelay,
 }) => {
-  const progressBarStyle = {
-    width: `${100 / totalSlides}%`,
-    left: `${progressIndex * (100 / totalSlides)}%`,
-  };
+  const width = 100 / totalSlides;
 
   return (
-    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-[90%] h-[4px] bg-beige-secondary">
-      <div
-        className={`absolute h-[4px] bg-pink transition-all duration-${animationDelay} ease-out`}
-        style={progressBarStyle}
+    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[90%] h-[4px] bg-beige-secondary">
+      <motion.div
+        className="absolute h-[4px] bg-pink"
+        initial={false}
+        animate={{
+          left: `${progressIndex * width}%`,
+          width: `${width}%`,
+        }}
+        transition={{
+          duration: animationDelay / 1000,
+          ease: 'easeOut',
+        }}
       />
     </div>
   );
@@ -244,18 +250,21 @@ const Carousel: React.FC<{ slides: CarouselSlide[] }> = ({ slides }) => {
       role="button"
       tabIndex={0}
     >
-      <div
-        className={`flex h-full transition-transform duration-${ANIMATION_DELAY_MS} ease-out`}
-        style={{
-          transform: `translateX(${translateX}%)`,
-          transitionProperty:
-            isSwiping || !slideAnimated ? 'none' : 'transform',
+      <motion.div
+        className="flex h-full"
+        initial={false}
+        animate={{
+          x: `${translateX}%`,
+        }}
+        transition={{
+          duration: isSwiping || !slideAnimated ? 0 : ANIMATION_DELAY_MS / 1000,
+          ease: 'easeOut',
         }}
       >
         {displayedSlides.map((slide) => (
           <SlideImage key={slide.id} slide={slide} />
         ))}
-      </div>
+      </motion.div>
       <div className="absolute inset-0 w-full h-full border-beige-secondary border-[4px] rounded-[10px]" />
       <ProgressBar
         progressIndex={progressIndex}
