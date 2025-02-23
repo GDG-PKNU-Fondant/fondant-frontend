@@ -22,75 +22,106 @@ const MarketProfileCard: React.FC<MarketProfileCardProps> = ({
   likes,
 }) => {
   const [isLiked, setIsLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(likes);
 
   const handleLikeToggle = () => {
-    setIsLiked((prev) => !prev);
+    setIsLiked((prev) => {
+      setLikeCount((prevLikes) => (prev ? prevLikes - 1 : prevLikes + 1));
+      return !prev;
+    });
   };
 
   return (
-    <div className="flex flex-col p-4 border-b border-gray-200">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-2">
+    <div className="flex flex-col w-full border-b border-beige-secondary px-[24px] py-[16px] leading-none">
+      <div className="flex justify-between">
+        <div className="flex items-center">
           <img
             src={profileImageUrl}
             alt={marketName}
-            className="w-12 h-12 rounded-full border border-brown-primary flex-shrink-0"
+            className="w-[48px] h-[48px] rounded-full"
           />
-          <div>
-            <div className="flex items-center space-x-1">
-              <h2 className="text-[15px] font-semibold text-brown-primary tracking-[-0.5px]">
+          <div className="ml-[10px]">
+            <div className="flex items-center leading-tight">
+              <div className="text-[15px] font-semibold text-brown-primary tracking-[-0.5px]">
                 {marketName}
-              </h2>
-              <RateIcon className="w-[10px] h-[10px]" />
-              <span className="text-[10px] font-medium text-brown-tertiary tracking-[-0.5px]">
+              </div>
+              <RateIcon className="w-[10px] h-[10px] ml-[8px]" />
+              <div className="text-[10px] font-medium text-brown-tertiary tracking-[-0.5px] ml-[2px]">
                 {rating.toFixed(1)}
-              </span>
+              </div>
             </div>
-            <p className="text-[12px] font-medium text-brown-secondary tracking-[-0.5px] mt-[2px]">
+            <div className="text-[12px] font-medium text-brown-secondary tracking-[-0.5px] mt-[4px]">
               {description}
-            </p>
+            </div>
           </div>
         </div>
-        <div className="flex items-center space-x-[2px]">
-          <span className="text-[9px] font-medium text-pink tracking-[-0.5px]">
-            {formatLikes(likes)}
-          </span>
-          <button
-            type="button"
-            onClick={handleLikeToggle}
-            className="focus:outline-none"
-          >
+        <div className="flex items-center">
+          <div className="text-[9px] font-medium text-pink tracking-[-0.5px] mr-[4px]">
+            {formatLikes(likeCount)}
+          </div>
+          <button type="button" onClick={handleLikeToggle}>
             <HeartIcon
               fill={isLiked ? '#FF80A6' : 'none'}
-              stroke="#EBD8CB"
-              strokeWidth="2"
+              stroke={isLiked ? '#FF80A6' : '#EBD8CB'}
             />
           </button>
         </div>
       </div>
-      <div className="mt-2 flex space-x-[2px]">
-        {thumbnailUrls.slice(0, 4).map((url, index) => {
-          let imageSize = '';
-          if (index === 0) {
-            imageSize = 'w-[160px] h-[85px]';
-          } else if (thumbnailUrls.length === 2) {
-            imageSize = 'w-[160px] h-[85px]';
-          } else if (thumbnailUrls.length === 3 && index >= 1) {
-            imageSize = 'w-[91px] h-[85px]';
-          } else if (thumbnailUrls.length === 4 && index === 1) {
-            imageSize = 'w-[91px] h-[85px]';
-          } else {
-            imageSize = 'w-[95px] h-[42px]';
-          }
-          return (
-            <img
-              key={url}
-              src={url}
-              alt={marketName}
-              className={`rounded-md object-cover ${imageSize}`}
-            />
-          );
-        })}
+      <div className="flex w-full aspect-[7/2] mt-[10px] overflow-hidden">
+        {thumbnailUrls.length === 3 ? (
+          <div className="flex w-full">
+            <div className="w-1/2">
+              <img
+                src={thumbnailUrls[0]}
+                alt={marketName}
+                className="object-cover w-full h-full rounded-l-[10px]"
+              />
+            </div>
+            <div className="w-1/4">
+              <img
+                src={thumbnailUrls[1]}
+                alt={marketName}
+                className="object-cover w-full h-full"
+              />
+            </div>
+            <div className="w-1/4">
+              <img
+                src={thumbnailUrls[2]}
+                alt={marketName}
+                className="object-cover w-full h-full rounded-r-[10px]"
+              />
+            </div>
+          </div>
+        ) : (
+          <div className="flex w-full">
+            <div className="w-1/2">
+              <img
+                src={thumbnailUrls[0]}
+                alt={marketName}
+                className="object-cover w-full h-full rounded-l-[10px]"
+              />
+            </div>
+            <div className="w-1/4">
+              <img
+                src={thumbnailUrls[1]}
+                alt={marketName}
+                className="object-cover w-full h-full"
+              />
+            </div>
+            <div className="w-1/4 flex flex-col">
+              <img
+                src={thumbnailUrls[2]}
+                alt={marketName}
+                className="object-cover w-full h-1/2 rounded-tr-[10px]"
+              />
+              <img
+                src={thumbnailUrls[3]}
+                alt={marketName}
+                className="object-cover w-full h-1/2 rounded-br-[10px]"
+              />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
