@@ -1,10 +1,9 @@
-import { render, screen, fireEvent, cleanup} from '@testing-library/react';
+import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import MarketProfileCard from '@components/MarketProfileCard';
 import MOCK_MARKET_PROFILES from '@mocks/constants/mockMarketProfiles';
 
 describe('MarketProfileCard Component', () => {
-
   it('좋아요 버튼 클릭 시 색상이 변경된다.', () => {
     render(<MarketProfileCard {...MOCK_MARKET_PROFILES[0]} />);
     const likeButton = screen.getByRole('button');
@@ -29,7 +28,9 @@ describe('MarketProfileCard Component', () => {
     expect(likeCountElement).toBeInTheDocument();
 
     fireEvent.click(likeButton);
-    expect(screen.getByText((profile.likes + 1).toString())).toBeInTheDocument();
+    expect(
+      screen.getByText((profile.likes + 1).toString()),
+    ).toBeInTheDocument();
 
     fireEvent.click(likeButton);
     expect(screen.getByText(profile.likes.toString())).toBeInTheDocument();
@@ -45,15 +46,15 @@ describe('MarketProfileCard Component', () => {
       expect(screen.getByText(profile.rating.toFixed(1))).toBeInTheDocument();
 
       if (profile.profileImageUrl) {
-        const profileImage = screen.getAllByRole('img').find(
-          (img) => img.getAttribute('src') === profile.profileImageUrl
-        );
+        const profileImage = screen
+          .getAllByRole('img')
+          .find((img) => img.getAttribute('src') === profile.profileImageUrl);
         expect(profileImage).toBeInTheDocument();
       }
 
       const allImages = screen.getAllByRole('img');
-      const thumbnails = allImages.filter(
-        (img) => profile.thumbnailUrls.includes(img.getAttribute('src') || '')
+      const thumbnails = allImages.filter((img) =>
+        profile.thumbnailUrls.includes(img.getAttribute('src') || ''),
       );
 
       expect(thumbnails.length).toBe(profile.thumbnailUrls.length);
