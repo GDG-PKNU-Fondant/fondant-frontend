@@ -1,121 +1,168 @@
-import { render, screen, fireEvent, act } from '@testing-library/react';
+import React from 'react';
+import { renderHook, act } from '@testing-library/react';
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { MotionGlobalConfig } from 'framer-motion';
-import Carousel from '@components/Carousel';
+import {
+  useCarouselState,
+  useAutoSlide,
+  useSlideSwipe,
+} from '@components/Carousel';
 import MOCK_CAROUSEL_SLIDES from '@mocks/constants/mockCarouselSlides';
 
-MotionGlobalConfig.skipAnimations = true;
-
-describe('Carousel', () => {
+describe('Carousel Hooks', () => {
   beforeEach(() => {
     vi.useFakeTimers();
   });
 
   afterEach(() => {
+    vi.clearAllTimers();
     vi.restoreAllMocks();
   });
 
-  it('모든 슬라이드가 올바르게 렌더링된다.', () => {
-    render(<Carousel slides={MOCK_CAROUSEL_SLIDES} />);
+  describe('useCarouselState', () => {
+    it('초기 상태가 올바르게 설정된다.', () => {
+      const { result } = renderHook(() =>
+        useCarouselState(MOCK_CAROUSEL_SLIDES.length),
+      );
 
-    const images = screen.getAllByRole('img');
-    expect(images).toHaveLength(7);
+      expect(result.current.slideIndex).toBe(1);
+      expect(result.current.progressIndex).toBe(0);
+      expect(result.current.slideAnimated).toBe(true);
+    });
 
-    expect(images[0]).toHaveAttribute(
-      'src',
-      MOCK_CAROUSEL_SLIDES[4].thumbnailUrl,
-    );
-    expect(images[6]).toHaveAttribute(
-      'src',
-      MOCK_CAROUSEL_SLIDES[0].thumbnailUrl,
-    );
+    it('다음 슬라이드로 이동한다.', () => {
+      const { result } = renderHook(() =>
+        useCarouselState(MOCK_CAROUSEL_SLIDES.length),
+      );
+
+      act(() => {
+        result.current.goToNext();
+      });
+
+      expect(result.current.slideIndex).toBe(2);
+      expect(result.current.progressIndex).toBe(1);
+    });
+
+    it('마지막 슬라이드에서 첫 슬라이드로 순환한다.', () => {
+      const { result } = renderHook(() =>
+        useCarouselState(MOCK_CAROUSEL_SLIDES.length),
+      );
+
+      // eslint-disable-next-line
+      for (let i = 1; i < MOCK_CAROUSEL_SLIDES.length; i++) {
+        act(() => {
+          result.current.goToNext();
+        });
+      }
+
+      expect(result.current.slideIndex).toBe(MOCK_CAROUSEL_SLIDES.length);
+
+      act(() => {
+        result.current.goToNext();
+      });
+
+      act(() => {
+        vi.advanceTimersByTime(500);
+      });
+
+      expect(result.current.slideIndex).toBe(1);
+      expect(result.current.progressIndex).toBe(0);
+    });
   });
 
-  it('5초 간격으로 슬라이드가 자동 재생된다.', async () => {
-    render(<Carousel slides={MOCK_CAROUSEL_SLIDES} />);
+  describe('useAutoSlide', () => {
+    it('5초마다 자동으로 다음 슬라이드로 이동한다.', () => {
+      const mockGoToNext = vi.fn();
+      renderHook(() => useAutoSlide(mockGoToNext));
 
-    const slideIndex = screen.getByTestId('carousel-slide-index');
+      act(() => {
+        vi.advanceTimersByTime(5000);
+      });
 
-    act(() => {
-      vi.advanceTimersByTime(5000);
+      expect(mockGoToNext).toHaveBeenCalledTimes(1);
+
+      act(() => {
+        vi.advanceTimersByTime(5000);
+      });
+
+      expect(mockGoToNext).toHaveBeenCalledTimes(2);
     });
 
-    expect(slideIndex).toHaveTextContent('2');
+    it('타이머를 일시정지하고 재시작할 수 있다.', () => {
+      const mockGoToNext = vi.fn();
+      const { result } = renderHook(() => useAutoSlide(mockGoToNext));
+
+      act(() => {
+        result.current.pauseTimer();
+        vi.advanceTimersByTime(5000);
+      });
+
+      expect(mockGoToNext).not.toHaveBeenCalled();
+
+      act(() => {
+        result.current.resetTimer();
+        vi.advanceTimersByTime(5000);
+      });
+
+      expect(mockGoToNext).toHaveBeenCalledTimes(1);
+    });
   });
 
-  it('스와이프 제스처가 올바르게 동작한다.', () => {
-    render(<Carousel slides={MOCK_CAROUSEL_SLIDES} />);
+  describe('useSlideSwipe', () => {
+    it('스와이프 제스처를 올바르게 처리한다.', () => {
+      const mockGoToNext = vi.fn();
+      const mockGoToPrev = vi.fn();
 
-    const carouselElement = screen.getByRole('button');
-    const slideIndex = screen.getByTestId('carousel-slide-index');
+      const { result } = renderHook(() =>
+        useSlideSwipe({ goToNext: mockGoToNext, goToPrev: mockGoToPrev }),
+      );
 
-    fireEvent.mouseDown(carouselElement, { clientX: 200 });
-    fireEvent.mouseMove(carouselElement, { clientX: 50 });
-    fireEvent.mouseUp(carouselElement);
+      act(() => {
+        result.current.handleSwipeStart({ clientX: 200 } as React.MouseEvent);
+      });
 
-    expect(slideIndex).toHaveTextContent('2');
+      act(() => {
+        result.current.handleSwipeMove({ clientX: 50 } as React.MouseEvent);
+      });
 
-    fireEvent.mouseDown(carouselElement, { clientX: 200 });
-    fireEvent.mouseMove(carouselElement, { clientX: 350 });
-    fireEvent.mouseUp(carouselElement);
+      act(() => {
+        result.current.handleSwipeEnd();
+      });
 
-    expect(slideIndex).toHaveTextContent('1');
-  });
+      expect(mockGoToNext).toHaveBeenCalledTimes(1);
 
-  it('마지막 슬라이드 이후 첫 번째 슬라이드로 돌아간다.', () => {
-    render(<Carousel slides={MOCK_CAROUSEL_SLIDES} />);
+      mockGoToNext.mockClear();
+      mockGoToPrev.mockClear();
 
-    const slideIndex = screen.getByTestId('carousel-slide-index');
+      act(() => {
+        result.current.handleSwipeStart({ clientX: 50 } as React.MouseEvent);
+      });
 
-    act(() => {
-      vi.advanceTimersByTime(5000 * (MOCK_CAROUSEL_SLIDES.length - 1));
+      act(() => {
+        result.current.handleSwipeMove({ clientX: 200 } as React.MouseEvent);
+      });
+
+      act(() => {
+        result.current.handleSwipeEnd();
+      });
+
+      expect(mockGoToPrev).toHaveBeenCalledTimes(1);
     });
 
-    act(() => {
-      vi.advanceTimersByTime(5000);
+    it('짧은 스와이프는 무시한다.', () => {
+      const mockGoToNext = vi.fn();
+      const mockGoToPrev = vi.fn();
+      const { result } = renderHook(() =>
+        useSlideSwipe({ goToNext: mockGoToNext, goToPrev: mockGoToPrev }),
+      );
+
+      act(() => {
+        result.current.handleSwipeStart({ clientX: 200 } as React.MouseEvent);
+        result.current.handleSwipeMove({ clientX: 150 } as React.MouseEvent);
+        result.current.handleSwipeEnd();
+      });
+
+      expect(mockGoToNext).not.toHaveBeenCalled();
+      expect(mockGoToPrev).not.toHaveBeenCalled();
     });
-
-    act(() => {
-      vi.advanceTimersByTime(500);
-    });
-
-    expect(slideIndex).toHaveTextContent('1');
-  });
-
-  it('프로그레스 바가 올바르게 업데이트된다.', () => {
-    render(<Carousel slides={MOCK_CAROUSEL_SLIDES} />);
-
-    const progressIndex = screen.getByTestId('carousel-progress-index');
-
-    expect(progressIndex).toHaveTextContent('0');
-
-    act(() => {
-      vi.advanceTimersByTime(5000);
-    });
-
-    expect(progressIndex).toHaveTextContent('1');
-  });
-
-  it('스와이프 중에는 자동 재생이 멈추고 스와이프가 끝나면 재개된다.', () => {
-    render(<Carousel slides={MOCK_CAROUSEL_SLIDES} />);
-
-    const carouselElement = screen.getByRole('button');
-    const slideIndex = screen.getByTestId('carousel-slide-index');
-
-    fireEvent.mouseDown(carouselElement, { clientX: 200 });
-
-    act(() => {
-      vi.advanceTimersByTime(5000);
-    });
-
-    expect(slideIndex).toHaveTextContent('1');
-
-    fireEvent.mouseUp(carouselElement);
-
-    act(() => {
-      vi.advanceTimersByTime(5000);
-    });
-
-    expect(slideIndex).toHaveTextContent('2');
   });
 });

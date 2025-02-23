@@ -30,7 +30,7 @@ const useSlideSetup = (slides: CarouselSlide[]) => {
   return { displayedSlides };
 };
 
-const useCarouselState = (totalSlides: number) => {
+export const useCarouselState = (totalSlides: number) => {
   const [slideIndex, setSlideIndex] = useState(1);
   const [progressIndex, setProgressIndex] = useState(0);
   const [slideAnimated, setSlideAnimated] = useState(true);
@@ -78,7 +78,7 @@ const useCarouselState = (totalSlides: number) => {
   return { slideIndex, progressIndex, slideAnimated, goToNext, goToPrev };
 };
 
-const useAutoSlide = (goToNext: () => void) => {
+export const useAutoSlide = (goToNext: () => void) => {
   const autoSlideTimer = useRef<NodeJS.Timeout | null>(null);
 
   const resetTimer = useCallback(() => {
@@ -107,7 +107,7 @@ const useAutoSlide = (goToNext: () => void) => {
   return { resetTimer, pauseTimer };
 };
 
-const useSlideSwipe = ({
+export const useSlideSwipe = ({
   goToNext,
   goToPrev,
 }: {
@@ -233,9 +233,6 @@ const Carousel: React.FC<{ slides: CarouselSlide[] }> = ({ slides }) => {
           />
         </div>
         <div className="absolute inset-0 w-full h-full border-beige-secondary border-4 rounded-[10px]" />
-        <div className="hidden" data-testid="carousel-slide-index">
-          {slideIndex}
-        </div>
       </div>
     );
   }
@@ -274,12 +271,6 @@ const Carousel: React.FC<{ slides: CarouselSlide[] }> = ({ slides }) => {
         totalSlides={slides.length}
         animationDelay={ANIMATION_DELAY_MS}
       />
-      <div className="hidden" data-testid="carousel-slide-index">
-        {slideIndex}
-      </div>
-      <div className="hidden" data-testid="carousel-progress-index">
-        {progressIndex}
-      </div>
     </div>
   );
 };
