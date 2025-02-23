@@ -23,12 +23,11 @@ const Header = ({
   };
 
   return (
-    <div className="w-full bg-background z-50">
-      <div className="flex items-center justify-between p-4">
+    <header className="fixed top-0 left-0 right-0 w-full max-w-[480px] bg-background mx-auto">
+      <div className="flex items-center justify-between p-[18px] mt-[9px]">
         <h1 className="font-black text-[40px] leading-[20px] tracking-[-5px] text-center text-brown-primary">
           LOGO
         </h1>
-
         <div className="flex space-x-4">
           <button
             type="button"
@@ -60,7 +59,7 @@ const Header = ({
         </button>
       </div>
       <TabNavigator tabs={HEADER_TABS} />
-    </div>
+    </header>
   );
 };
 

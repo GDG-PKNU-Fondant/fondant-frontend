@@ -48,7 +48,7 @@ const BottomTab = () => {
   };
 
   return (
-    <div className="fixed w-full h-[90px] bottom-0 bg-background rounded-tl-[10px] rounded-tr-[10px] shadow-[0px_-4px_10px_0px_rgba(156,108,79,0.10)]">
+    <footer className="fixed bottom-0 left-0 right-0 w-full max-w-[480px] h-[90px] bg-background rounded-tl-[10px] rounded-tr-[10px] shadow-[0px_-4px_10px_0px_rgba(156,108,79,0.10)] mx-auto">
       <div className="flex justify-around items-center h-full">
         {TABS.map(({ Icon, label, path }) => (
           <BottomTabItem
@@ -60,7 +60,7 @@ const BottomTab = () => {
           />
         ))}
       </div>
-    </div>
+    </footer>
   );
 };
 

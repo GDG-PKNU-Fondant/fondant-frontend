@@ -19,7 +19,7 @@ const TabNavigator = ({
   };
 
   return (
-    <div className="relative flex items-center justify-center space-x-6">
+    <div className="relative flex items-center justify-between space-x-1 px-[20px]">
       {tabs.map((tab) => {
         const isSelected = tab.key === selectedTab;
         const textColor =
