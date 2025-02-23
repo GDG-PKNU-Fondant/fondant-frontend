@@ -10,7 +10,6 @@ const useScrollVisibility = (
     const currentScrollY = window.scrollY;
     const maxScrollY =
       document.documentElement.scrollHeight - window.innerHeight;
-
     const currentThreshold = threshold !== undefined ? threshold : lastScrollY;
 
     if (currentScrollY <= 0 || currentScrollY >= maxScrollY) {
@@ -21,7 +20,6 @@ const useScrollVisibility = (
     }
 
     setVisibility(currentScrollY < currentThreshold);
-
     setLastScrollY(currentScrollY);
   };
 
