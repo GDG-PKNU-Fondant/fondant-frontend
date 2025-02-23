@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
-import { useAtom } from 'jotai';
+import { useAtom, useAtomValue } from 'jotai';
+import { motion } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
 import TABS from '@components/BottomTab/tabs';
 import activeBottomTabAtom, { getInitialTab } from '@stores/bottomTabState';
+import { bottomTabVisibilityAtom } from '@stores/layoutState';
 
 interface BottomTabItemProps {
   Icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
@@ -35,6 +37,7 @@ const BottomTabItem: React.FC<BottomTabItemProps> = ({
 
 const BottomTab = () => {
   const [activeTab, setActiveTab] = useAtom(activeBottomTabAtom);
+  const isVisible = useAtomValue(bottomTabVisibilityAtom);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -48,7 +51,16 @@ const BottomTab = () => {
   };
 
   return (
-    <footer className="fixed bottom-0 left-0 right-0 w-full max-w-[480px] h-[90px] bg-background rounded-tl-[10px] rounded-tr-[10px] shadow-[0px_-4px_10px_0px_rgba(156,108,79,0.10)] mx-auto">
+    <motion.footer
+      className="fixed bottom-0 left-0 right-0 w-full max-w-[480px] h-[90px] bg-background rounded-tl-[10px] rounded-tr-[10px] shadow-[0px_-4px_10px_0px_rgba(156,108,79,0.10)] mx-auto"
+      variants={{
+        hidden: { opacity: 0, y: 50 },
+        visible: { opacity: 1, y: 0 },
+      }}
+      initial={false}
+      animate={isVisible ? 'visible' : 'hidden'}
+      transition={{ duration: 0.3 }}
+    >
       <div className="flex justify-around items-center h-full">
         {TABS.map(({ Icon, label, path }) => (
           <BottomTabItem
@@ -60,7 +72,7 @@ const BottomTab = () => {
           />
         ))}
       </div>
-    </footer>
+    </motion.footer>
   );
 };
 
