@@ -25,7 +25,7 @@ describe('Carousel Hooks', () => {
       );
 
       expect(result.current.slideIndex).toBe(1);
-      expect(result.current.progressIndex).toBe(0);
+      expect(result.current.indicatorPosition).toBe(0);
       expect(result.current.slideAnimated).toBe(true);
     });
 
@@ -39,7 +39,7 @@ describe('Carousel Hooks', () => {
       });
 
       expect(result.current.slideIndex).toBe(2);
-      expect(result.current.progressIndex).toBe(1);
+      expect(result.current.indicatorPosition).toBe(1);
     });
 
     it('마지막 슬라이드에서 첫 슬라이드로 순환한다.', () => {
@@ -65,7 +65,7 @@ describe('Carousel Hooks', () => {
       });
 
       expect(result.current.slideIndex).toBe(1);
-      expect(result.current.progressIndex).toBe(0);
+      expect(result.current.indicatorPosition).toBe(0);
     });
   });
 
