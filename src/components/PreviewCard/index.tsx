@@ -70,7 +70,7 @@ const PreviewCard: React.FC<PreviewCardProps> = ({
           className="w-full h-full object-cover rounded-[10px]"
         />
       </div>
-      <div className="flex flex-col mt-[8px] mx-[9px] tracking-[-0.5px] gap-[4px]">
+      <div className="flex flex-col mt-[8px] mx-[9px] tracking-[-0.5px] gap-[4px] leading-none">
         {marketName && (
           <div className="text-[12px] text-brown-primary font-semibold truncate">
             {marketName}
