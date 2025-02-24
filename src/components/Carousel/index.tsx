@@ -8,8 +8,8 @@ import React, {
 import { motion } from 'framer-motion';
 import CarouselSlide from '@type/Carousel';
 
-interface ProgressBarProps {
-  progressIndex: number;
+interface IndicatorProps {
+  indicatorPosition: number;
   totalSlides: number;
   animationDelay: number;
 }
@@ -32,8 +32,9 @@ const useSlideSetup = (slides: CarouselSlide[]) => {
 
 export const useCarouselState = (totalSlides: number) => {
   const [slideIndex, setSlideIndex] = useState(1);
-  const [progressIndex, setProgressIndex] = useState(0);
   const [slideAnimated, setSlideAnimated] = useState(true);
+
+  const indicatorPosition = (slideIndex + totalSlides - 1) % totalSlides;
 
   const goToNext = useCallback(() => {
     if (slideIndex === totalSlides) {
@@ -63,19 +64,7 @@ export const useCarouselState = (totalSlides: number) => {
     }
   }, [totalSlides, slideIndex]);
 
-  useEffect(() => {
-    let newProgressIndex = slideIndex - 1;
-
-    if (slideIndex === 0) {
-      newProgressIndex = totalSlides - 1;
-    } else if (slideIndex === totalSlides + 1) {
-      newProgressIndex = 0;
-    }
-
-    setProgressIndex(newProgressIndex);
-  }, [slideIndex, totalSlides]);
-
-  return { slideIndex, progressIndex, slideAnimated, goToNext, goToPrev };
+  return { slideIndex, indicatorPosition, slideAnimated, goToNext, goToPrev };
 };
 
 export const useAutoSlide = (goToNext: () => void) => {
@@ -168,8 +157,8 @@ const SlideImage = ({ slide }: { slide: CarouselSlide }) => (
   </div>
 );
 
-const ProgressBar: React.FC<ProgressBarProps> = ({
-  progressIndex,
+const Indicator: React.FC<IndicatorProps> = ({
+  indicatorPosition,
   totalSlides,
   animationDelay,
 }) => {
@@ -181,7 +170,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
         className="absolute h-[4px] bg-pink"
         initial={false}
         animate={{
-          left: `${progressIndex * width}%`,
+          left: `${indicatorPosition * width}%`,
           width: `${width}%`,
         }}
         transition={{
@@ -195,7 +184,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
 
 const Carousel: React.FC<{ slides: CarouselSlide[] }> = ({ slides }) => {
   const { displayedSlides } = useSlideSetup(slides);
-  const { slideIndex, progressIndex, slideAnimated, goToNext, goToPrev } =
+  const { slideIndex, indicatorPosition, slideAnimated, goToNext, goToPrev } =
     useCarouselState(slides.length);
   const {
     isSwiping,
@@ -266,8 +255,8 @@ const Carousel: React.FC<{ slides: CarouselSlide[] }> = ({ slides }) => {
         ))}
       </motion.div>
       <div className="absolute inset-0 w-full h-full border-beige-secondary border-[4px] rounded-[10px]" />
-      <ProgressBar
-        progressIndex={progressIndex}
+      <Indicator
+        indicatorPosition={indicatorPosition}
         totalSlides={slides.length}
         animationDelay={ANIMATION_DELAY_MS}
       />
