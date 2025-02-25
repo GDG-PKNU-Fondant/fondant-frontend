@@ -2,7 +2,8 @@ import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import BottomSheet from '@components/BottomSheet';
 import SortSheet from '@components/BottomSheet/SortSheet';
-import MOCK_SORT_OPTIONS from '@mocks/constants/mockSortList'; // 정렬 옵션
+import MOCK_SORT_OPTIONS from '@mocks/constants/mockSortList';
+import FilterSheet from './FilterSheet';
 
 const meta: Meta<typeof BottomSheet> = {
   title: 'Components/BottomSheet',
@@ -60,5 +61,36 @@ export const SortBottomSheet: Story = {
         />
       </div>
     );
+  },
+};
+
+export const FilterBottomSheet: Story = {
+  render: (args) => {
+    const [isOpen, setIsOpen] = useState(args.isOpen ?? false);
+    const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
+
+    return (
+      <div>
+        <button
+          onClick={() => setIsOpen(true)}
+          className="p-2 bg-blue-500 text-white rounded"
+        >
+          필터 열기
+        </button>
+
+        <FilterSheet
+          isOpen={isOpen}
+          onClose={() => {
+            console.log('모달 닫기 시도');
+            setIsOpen(false);
+          }}
+          selectedFilters={selectedFilters}
+          onSelect={(filters) => setSelectedFilters(filters)}
+        />
+      </div>
+    );
+  },
+  args: {
+    isOpen: false,
   },
 };
