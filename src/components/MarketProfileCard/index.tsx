@@ -2,14 +2,9 @@ import React, { useState } from 'react';
 import MarketProfileCardProps from '@type/MarketProfileCard';
 import RateIcon from '@assets/icons/rate.svg?react';
 import HeartIcon from '@assets/icons/heart.svg?react';
+import formatPeopleCount from '@utils/formatPeopleCount';
 
-const formatLikes = (likes: number): string => {
-  if (likes >= 10000) return `${Math.floor(likes / 10000)}만`;
-  if (likes >= 1000) return `${Math.floor(likes / 100) / 10}천`;
-  return new Intl.NumberFormat().format(likes);
-};
-
-const thumbnailList = (thumbnailUrls: string[], marketName: string) => (
+const ThumbnailList = ({ thumbnailUrls, marketName }: { thumbnailUrls: string[]; marketName: string }) => (
   <div className="flex w-full aspect-[7/2] mt-[10px] overflow-hidden">
     {thumbnailUrls.length === 3 ? (
       <div className="flex w-full">
@@ -85,7 +80,7 @@ const ProfileInfo = ({
         <div className="text-[15px] font-semibold text-brown-primary tracking-[-0.5px]">
           {marketName}
         </div>
-        <RateIcon className="w-[10px] h-[10px] ml-[8px]" />
+        <RateIcon className="ml-[8px]" />
         <div className="text-[10px] font-medium text-brown-tertiary tracking-[-0.5px] ml-[2px]">
           {rating.toFixed(1)}
         </div>
@@ -111,7 +106,7 @@ const LikeButton = ({ likes }: { likes: number }) => {
   return (
     <div className="flex items-center">
       <div className="text-[9px] font-medium text-pink tracking-[-0.5px] mr-[4px]">
-        {formatLikes(likeCount)}
+        {formatPeopleCount(likeCount)}
       </div>
       <button type="button" onClick={handleLikeToggle}>
         <HeartIcon
@@ -142,7 +137,7 @@ const MarketProfileCard: React.FC<MarketProfileCardProps> = ({
         />
         <LikeButton likes={likes} />
       </div>
-      {thumbnailList(thumbnailUrls, marketName)}
+      <ThumbnailList thumbnailUrls={thumbnailUrls} marketName={marketName} />
     </div>
   );
 };

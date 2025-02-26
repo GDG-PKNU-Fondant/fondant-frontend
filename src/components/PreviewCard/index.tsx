@@ -1,6 +1,7 @@
 import React from 'react';
 import PreviewCardProps from '@type/PreviewCard';
 import RateIcon from '@assets/icons/rate.svg?react';
+import formatPeopleCount from '@utils/formatPeopleCount';
 
 const sizeClasses = {
   small: 'w-[116px] h-[156px]',
@@ -35,17 +36,6 @@ const renderPrice = (price: number, discountPrice: number | undefined) => {
       {formatPrice(price)}
     </div>
   );
-};
-
-const formatReviewer = (reviewer: number) => {
-  if (reviewer >= 10000) {
-    const formattedReviewer =
-      reviewer >= 100000
-        ? Math.floor(reviewer / 10000)
-        : Math.floor(reviewer / 1000) / 10;
-    return `${formattedReviewer}만`;
-  }
-  return new Intl.NumberFormat().format(reviewer);
 };
 
 const PreviewCard: React.FC<PreviewCardProps> = ({
@@ -87,7 +77,7 @@ const PreviewCard: React.FC<PreviewCardProps> = ({
         <div className="flex flex-row items-center gap-[2px]">
           <RateIcon />
           <div className="text-[10px] text-brown-tertiary font-medium">
-            {`${rate.toFixed(1)} (${formatReviewer(reviewer)})`}
+            {`${rate.toFixed(1)} (${formatPeopleCount(reviewer)})`}
           </div>
         </div>
       </div>
