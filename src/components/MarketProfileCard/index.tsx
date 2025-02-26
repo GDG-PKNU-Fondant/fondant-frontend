@@ -4,7 +4,13 @@ import RateIcon from '@assets/icons/rate.svg?react';
 import HeartIcon from '@assets/icons/heart.svg?react';
 import formatPeopleCount from '@utils/formatPeopleCount';
 
-const ThumbnailList = ({ thumbnailUrls, marketName }: { thumbnailUrls: string[]; marketName: string }) => (
+const ThumbnailList = ({
+  thumbnailUrls,
+  marketName,
+}: {
+  thumbnailUrls: string[];
+  marketName: string;
+}) => (
   <div className="flex w-full aspect-[7/2] mt-[10px] overflow-hidden">
     {thumbnailUrls.length === 3 ? (
       <div className="flex w-full">
