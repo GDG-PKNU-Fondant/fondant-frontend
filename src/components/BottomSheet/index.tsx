@@ -14,7 +14,7 @@ const BottomSheet = ({ isOpen, onClose, children }: BottomSheetProps) => {
 
   useEffect(() => {
     if (isOpen) {
-      lastFocusedElementRef.current = document.activeElement as HTMLElement; // 현재 포커스된 요소 저장
+      lastFocusedElementRef.current = document.activeElement as HTMLElement;
       setTimeout(() => {
         sheetRef.current?.focus();
       }, 10);
