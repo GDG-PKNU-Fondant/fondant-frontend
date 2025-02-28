@@ -37,7 +37,7 @@ const BottomSheet = ({ isOpen, onClose, children }: BottomSheetProps) => {
           <motion.div
             ref={sheetRef}
             tabIndex={-1}
-            className="bg-white w-full max-w-md rounded-t-2xl p-4 origin-bottom"
+            className="bg-background w-full max-w-md rounded-t-2xl p-4 origin-bottom"
             onClick={(e) => e.stopPropagation()}
             initial={{ y: '100%' }}
             animate={{ y: 0 }}

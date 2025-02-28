@@ -18,7 +18,7 @@ const SortSheet = ({
     <BottomSheet isOpen={isOpen} onClose={onClose}>
       <div className="p-4">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-bold">정렬</h2>
+          <h2 className="text-brown-primary text-lg font-bold">정렬</h2>
         </div>
 
         <ul className="space-y-3">
@@ -31,15 +31,15 @@ const SortSheet = ({
               <div
                 className={`w-5 h-5 flex justify-center items-center rounded-full border-2 ${
                   selectedOption === option.value
-                    ? 'border-brown-primary bg-brown-primary text-white'
-                    : 'border-gray-400 bg-white'
+                    ? 'border-pink bg-pink text-white'
+                    : 'border-beige-primary bg-white'
                 }`}
               >
                 {selectedOption === option.value && (
                   <div className="w-2.5 h-2.5 bg-white rounded-full"></div>
                 )}
               </div>
-              <span className="text-gray-800">{option.label}</span>
+              <span className="text-brown-primary">{option.label}</span>
             </li>
           ))}
         </ul>
