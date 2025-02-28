@@ -57,19 +57,16 @@ const FilterSheet = ({
           tabs={MOCK_TABS}
           defaultColor="text-brown-tertiary"
           selectedColor="text-pink"
-          fixedTextSize={18}
-          type="inner"
+          fixedTextSize={16}
           onTabChange={(tab) => setActiveTab(tab)}
         />
 
-        <div
-          className={`flex-grow overflow-y-auto mt-3 relative ${selected.length > 0 ? 'pb-16' : ''}`}
-        >
-          <ul className="space-y-3">
+        <div className={`flex-grow overflow-y-auto mt-3 relative`}>
+          <ul className="space-y-3 text-[14px]">
             {MOCK_FILTERS[activeTab]?.map((filter) => (
               <li
                 key={filter.value}
-                className="flex items-center justify-start gap-3 p-2 rounded-lg cursor-pointer"
+                className="flex items-center justify-start gap-3 py-1.5 px-3 rounded-lg cursor-pointer"
                 onClick={() => handleFilterSelect(filter.value)}
               >
                 <CheckButton selected={selected.includes(filter.value)} />

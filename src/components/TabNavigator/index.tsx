@@ -9,7 +9,7 @@ const TabNavigator = ({
   selectedColor = 'text-brown-primary',
   textSize = 16,
   fixedTextSize,
-  type = 'outer',
+  fixedFontWeight,
 }: TabNavigatorProps) => {
   const [selectedTab, setSelectedTab] = useState(tabs[0].key);
 
@@ -29,9 +29,7 @@ const TabNavigator = ({
           fixedTextSize || (isSelected ? textSize + 2 : textSize);
 
         const fontWeight =
-          type === 'inner'
-            ? 'font-normal'
-            : (isSelected && 'font-bold') || 'font-semibold';
+          fixedFontWeight || (isSelected ? 'font-bold' : 'font-medium');
 
         return (
           <button
