@@ -14,7 +14,7 @@ const BottomSheet = ({ isOpen, onClose, children }: BottomSheetProps) => {
 
   useEffect(() => {
     if (isOpen) {
-      lastFocusedElementRef.current = document.activeElement as HTMLElement; // 현재 포커스된 요소 저장
+      lastFocusedElementRef.current = document.activeElement as HTMLElement;
       setTimeout(() => {
         sheetRef.current?.focus();
       }, 10);
@@ -37,7 +37,7 @@ const BottomSheet = ({ isOpen, onClose, children }: BottomSheetProps) => {
           <motion.div
             ref={sheetRef}
             tabIndex={-1}
-            className="bg-white w-full max-w-md rounded-t-2xl p-4 origin-bottom"
+            className="bg-background w-full max-w-md rounded-t-2xl p-4 origin-bottom"
             onClick={(e) => e.stopPropagation()}
             initial={{ y: '100%' }}
             animate={{ y: 0 }}
