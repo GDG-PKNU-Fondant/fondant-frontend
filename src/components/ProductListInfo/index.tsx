@@ -8,7 +8,7 @@ import {
 } from '@stores/selectedSortFilter';
 import FilterIcon from '@assets/icons/filter.svg?react';
 import ArrowDownIcon from '@assets/icons/arrow-down.svg?react';
-import SelectedFilterTags from './SelectedFilterTags';
+import SelectedFilterTags from '@components/ProductListInfo/SelectedFilterTags';
 
 interface ProductListInfoProps {
   totalCount: number;

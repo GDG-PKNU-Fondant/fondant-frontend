@@ -1,5 +1,5 @@
 import MOCK_SORT_OPTIONS from '@mocks/constants/mockSortList';
-import BottomSheet from '..';
+import BottomSheet from '@components/BottomSheet';
 
 interface SortSheetProps {
   isOpen: boolean;
@@ -25,7 +25,7 @@ const SortSheet = ({
           {MOCK_SORT_OPTIONS.map((option) => (
             <li
               key={option.value}
-              className="flex items-center gap-3 p-3 rounded-lg cursor-pointer"
+              className="flex items-center gap-3 p-2 rounded-lg cursor-pointer"
               onClick={() => onSelect(option.value)}
             >
               <div

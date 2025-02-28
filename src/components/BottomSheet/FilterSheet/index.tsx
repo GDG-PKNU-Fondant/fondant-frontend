@@ -49,7 +49,7 @@ const FilterSheet = ({
 
   return (
     <BottomSheet isOpen={isOpen} onClose={onClose}>
-      <div className="p-4 h-[60vh] flex flex-col">
+      <div className="p-4 h-[65vh] flex flex-col">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-brown-primary text-lg font-bold">필터</h2>
         </div>
@@ -63,13 +63,13 @@ const FilterSheet = ({
         />
 
         <div
-          className={`flex-grow overflow-y-auto mt-3 relative z-0 ${selected.length > 0 ? 'pb-16' : ''}`}
+          className={`flex-grow overflow-y-auto mt-3 relative ${selected.length > 0 ? 'pb-16' : ''}`}
         >
           <ul className="space-y-3">
             {MOCK_FILTERS[activeTab]?.map((filter) => (
               <li
                 key={filter.value}
-                className="flex items-center justify-start gap-3 py-1 px-3 rounded-lg cursor-pointer"
+                className="flex items-center justify-start gap-3 p-2 rounded-lg cursor-pointer"
                 onClick={() => handleFilterSelect(filter.value)}
               >
                 <CheckButton selected={selected.includes(filter.value)} />
@@ -89,7 +89,7 @@ const FilterSheet = ({
             className="flex items-center justify-center px-4 py-3 text-gray-300 rounded-lg"
             onClick={handleResetFilters}
           >
-            <ReloadIcon className="w-5 h-5 fill-gray-300 mx-1" />
+            <ReloadIcon className="w-5 h-5 mx-1" />
             초기화
           </button>
           <button
