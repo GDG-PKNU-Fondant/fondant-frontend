@@ -13,11 +13,7 @@ const JotaiProviderWrapper = ({ children }: { children: React.ReactNode }) => {
   return <Provider>{children}</Provider>;
 };
 
-const ProductListInfoWithProducts = ({
-  totalCount,
-}: {
-  totalCount: number;
-}) => {
+const ProductListInfoWithProducts = () => {
   const [sortOption] = useAtom(sortOptionAtom);
   const [selectedFilters] = useAtom(selectedFiltersAtom);
 
@@ -26,7 +22,7 @@ const ProductListInfoWithProducts = ({
 
   return (
     <div className="w-full">
-      <ProductListInfo totalCount={totalCount} />
+      <ProductListInfo products={MOCK_PRODUCT_ITEMS} />
 
       <div className="mt-4 p-4 border rounded-md">
         <h3 className="text-lg font-bold">상품 목록 ({sortOption})</h3>
@@ -92,19 +88,13 @@ const meta: Meta<typeof ProductListInfo> = {
       </JotaiProviderWrapper>
     ),
   ],
-  argTypes: {
-    totalCount: { control: 'number' },
-  },
 };
 
 export default meta;
 type Story = StoryObj<typeof ProductListInfo>;
 
 export const Default: Story = {
-  render: (args) => {
-    return <ProductListInfoWithProducts totalCount={args.totalCount ?? 100} />;
-  },
-  args: {
-    totalCount: 100,
+  render: () => {
+    return <ProductListInfoWithProducts />;
   },
 };

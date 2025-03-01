@@ -9,12 +9,16 @@ import {
 import FilterIcon from '@assets/icons/filter.svg?react';
 import ArrowDownIcon from '@assets/icons/arrow-down.svg?react';
 import SelectedFilterTags from '@components/ProductListInfo/SelectedFilterTags';
+import { ProductItem } from '@mocks/constants/mockProductItems';
+import useProductCount from '@hooks/useProductCount';
 
 interface ProductListInfoProps {
-  totalCount: number;
+  products: ProductItem[];
 }
 
-const ProductListInfo = ({ totalCount }: ProductListInfoProps) => {
+const ProductListInfo = ({ products }: ProductListInfoProps) => {
+  const totalCount = useProductCount(products);
+
   const [sortOption, setSortOption] = useAtom(sortOptionAtom);
   const [selectedFilters, setSelectedFilters] = useAtom(selectedFiltersAtom);
 
