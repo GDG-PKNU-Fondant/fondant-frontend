@@ -1,13 +1,12 @@
-const formatPeopleCount = (reviewer: number): string => {
-  if (reviewer >= 1000) {
-    if (reviewer >= 10000) {
-      return reviewer >= 100000
-        ? `${Math.floor(reviewer / 10000)}만`
-        : `${Math.floor(reviewer / 1000) / 10}만`;
-    }
-    return `${Math.floor(reviewer / 100) / 10}천`;
+const formatPeopleCount = (count: number): string => {
+  if (count >= 10000) {
+    const formattedReviewer =
+      count >= 100000
+        ? Math.floor(count / 10000)
+        : Math.floor(count / 1000) / 10;
+    return `${formattedReviewer}만`;
   }
-  return new Intl.NumberFormat().format(reviewer);
+  return new Intl.NumberFormat().format(count);
 };
 
 export default formatPeopleCount;
