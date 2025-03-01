@@ -10,8 +10,8 @@ import SelectedFilterTags from '@components/ProductListInfo/SelectedFilterTags';
 interface FilterSheetProps {
   isOpen: boolean;
   onClose: () => void;
-  selectedFilters: string[];
-  onSelect: (filters: string[]) => void;
+  selectedFilters: Record<string, string[]>;
+  onSelect: (filters: Record<string, string[]>) => void;
 }
 
 const FilterSheet = ({
@@ -21,7 +21,8 @@ const FilterSheet = ({
   onSelect,
 }: FilterSheetProps) => {
   const [activeTab, setActiveTab] = useState(MOCK_TABS[0].key);
-  const [selected, setSelected] = useState<string[]>(selectedFilters);
+  const [selected, setSelected] =
+    useState<Record<string, string[]>>(selectedFilters);
 
   useEffect(() => {
     if (isOpen) {
@@ -30,16 +31,20 @@ const FilterSheet = ({
     }
   }, [isOpen]);
 
-  const handleFilterSelect = (filter: string) => {
-    setSelected((prev) =>
-      prev.includes(filter)
-        ? prev.filter((item) => item !== filter)
-        : [...prev, filter],
-    );
+  const handleFilterSelect = (category: string, filter: string) => {
+    setSelected((prev) => {
+      const currentFilters = prev[category] || [];
+      return {
+        ...prev,
+        [category]: currentFilters.includes(filter)
+          ? currentFilters.filter((item) => item !== filter)
+          : [...currentFilters, filter],
+      };
+    });
   };
 
   const handleResetFilters = () => {
-    setSelected([]);
+    setSelected({});
   };
 
   const handleApplyFilters = () => {
@@ -67,9 +72,11 @@ const FilterSheet = ({
               <li
                 key={filter.value}
                 className="flex items-center justify-start gap-3 py-1.5 px-3 rounded-lg cursor-pointer"
-                onClick={() => handleFilterSelect(filter.value)}
+                onClick={() => handleFilterSelect(activeTab, filter.value)}
               >
-                <CheckButton selected={selected.includes(filter.value)} />
+                <CheckButton
+                  selected={selected[activeTab]?.includes(filter.value)}
+                />
                 <span className="text-brown-primary">{filter.label}</span>
               </li>
             ))}
@@ -78,7 +85,7 @@ const FilterSheet = ({
 
         <SelectedFilterTags
           selectedFilters={selected}
-          onRemove={handleFilterSelect}
+          onRemove={(category, filter) => handleFilterSelect(category, filter)}
         />
 
         <div className="mt-4 flex gap-2">

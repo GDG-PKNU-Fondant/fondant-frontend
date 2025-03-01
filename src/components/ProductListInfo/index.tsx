@@ -46,9 +46,21 @@ const ProductListInfo = ({ totalCount }: ProductListInfoProps) => {
 
       <SelectedFilterTags
         selectedFilters={selectedFilters}
-        onRemove={(filter) =>
-          setSelectedFilters((prev) => prev.filter((f) => f !== filter))
-        }
+        onRemove={(category, filter) => {
+          setSelectedFilters((prev) => {
+            const updatedFilters = { ...prev };
+
+            updatedFilters[category] = updatedFilters[category].filter(
+              (item) => item !== filter,
+            );
+
+            if (updatedFilters[category].length === 0) {
+              delete updatedFilters[category];
+            }
+
+            return { ...updatedFilters };
+          });
+        }}
       />
 
       <SortSheet
