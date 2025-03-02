@@ -22,6 +22,14 @@ export default {
     },
     onClick: { description: '버튼이 클릭되었을 때 호출되는 콜백 함수입니다.' },
   },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          '여러 옵션을 선택할 수 있는 체크 버튼 컴포넌트입니다.',
+      },
+    },
+  },
 } as Meta;
 
 export const Default = {
