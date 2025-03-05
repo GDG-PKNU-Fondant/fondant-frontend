@@ -3,6 +3,7 @@ import ButtonProps from '@type/Button';
 const Button = ({
   variant = 'primary',
   size = 'medium',
+  block = false,
   type,
   ...props
 }: ButtonProps) => {
@@ -24,10 +25,15 @@ const Button = ({
     large: 'p-[15px] text-[18px]',
   };
 
+  const blockStyles = {
+    true: 'w-full',
+    false: 'inline-block',
+  };
+
   return (
     <button
       type={variant === 'submit' ? 'submit' : 'button'}
-      className={`${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]}`}
+      className={`${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${blockStyles[block ? 'true' : 'false']}`}
       {...props}
     />
   );

@@ -10,13 +10,26 @@ const meta: Meta<ButtonProps> = {
   argTypes: {
     variant: {
       control: 'radio',
-      options: ['primary', 'secondary', 'submit'],
+      options: ['primary', 'secondary', 'tertiary', 'submit'],
       description: '버튼의 스타일을 결정합니다.',
+      table: {
+        type: { summary: 'primary | secondary | tertiary | submit' },
+      },
     },
     size: {
       control: 'radio',
       options: ['small', 'medium', 'large'],
       description: '버튼 크기를 설정합니다.',
+      table: {
+        type: { summary: 'small | medium | large' },
+      },
+    },
+    block: {
+      control: 'boolean',
+      description: '부모 width를 따라가도록 설정합니다.',
+      table: {
+        type: { summary: 'boolean' },
+      },
     },
     children: {
       control: 'text',
@@ -35,8 +48,8 @@ const meta: Meta<ButtonProps> = {
     },
   },
 };
-
 export default meta;
+
 type Story = StoryObj<ButtonProps>;
 
 export const Primary: Story = {
@@ -59,7 +72,7 @@ export const Tertiary: Story = {
   args: {
     variant: 'tertiary',
     size: 'small',
-    children: 'Secondary',
+    children: 'Tertiary',
   },
 };
 

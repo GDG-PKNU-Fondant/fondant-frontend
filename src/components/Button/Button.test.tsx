@@ -75,4 +75,14 @@ describe('Button Component', () => {
     setup({ variant: 'submit' });
     expect(screen.getByRole('button')).toHaveAttribute('type', 'submit');
   });
+
+  it('block prop이 올바르게 반영되는지 확인', () => {
+    setup({ block: true });
+    expect(screen.getByRole('button')).toHaveClass('w-full');
+
+    cleanup();
+
+    setup({ block: false });
+    expect(screen.getByRole('button')).toHaveClass('inline-block');
+  });
 });
