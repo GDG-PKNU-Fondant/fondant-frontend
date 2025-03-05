@@ -1,10 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import Button from '@components/Button';
 import ButtonProps from '@type/Button';
+import '@styles/tailwind.css';
 
 const meta: Meta<ButtonProps> = {
   title: 'Components/Button',
   component: Button,
+  tags: ['autodocs'],
   argTypes: {
     variant: {
       control: 'radio',
@@ -15,15 +17,6 @@ const meta: Meta<ButtonProps> = {
       control: 'radio',
       options: ['small', 'medium', 'large'],
       description: '버튼 크기를 설정합니다.',
-    },
-    block: {
-      control: 'boolean',
-      description: '부모 width를 따라가도록 설정합니다.',
-    },
-    align: {
-      control: 'radio',
-      options: ['left', 'center', 'right'],
-      description: '버튼 내부 텍스트 정렬을 설정합니다.',
     },
     children: {
       control: 'text',
@@ -37,8 +30,7 @@ const meta: Meta<ButtonProps> = {
   parameters: {
     docs: {
       description: {
-        component:
-          '공통적으로 사용될 버튼 컴포넌트입니다. `variant`, `size`, `block`, `align` props를 이용하여 다양한 스타일을 적용할 수 있습니다.',
+        component: '공통적으로 사용될 버튼 컴포넌트입니다.',
       },
     },
   },
@@ -63,11 +55,18 @@ export const Secondary: Story = {
   },
 };
 
+export const Tertiary: Story = {
+  args: {
+    variant: 'tertiary',
+    size: 'small',
+    children: 'Secondary',
+  },
+};
+
 export const Submit: Story = {
   args: {
     variant: 'submit',
     size: 'large',
-    block: true,
     children: 'Submit',
   },
 };
