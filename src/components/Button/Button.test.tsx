@@ -17,68 +17,43 @@ describe('Button Component', () => {
   it('variant prop이 올바르게 반영되는지 확인', () => {
     setup({ variant: 'primary' });
     expect(screen.getByRole('button')).toHaveClass(
-      'bg-pink text-white font-bold',
+      'rounded-[5px] bg-pink text-white font-bold',
     );
 
     cleanup();
 
     setup({ variant: 'secondary' });
     expect(screen.getByRole('button')).toHaveClass(
-      'border border-bg-brown-tertiary text-brown-tertiary font-medium',
+      'rounded-[5px] border border-beige-primary text-brown-tertiary font-medium',
+    );
+    cleanup();
+
+    setup({ variant: 'tertiary' });
+    expect(screen.getByRole('button')).toHaveClass(
+      'rounded-[5px] bg-beige-tertiary text-brown-secondary font-medium',
     );
 
     cleanup();
 
     setup({ variant: 'submit' });
     expect(screen.getByRole('button')).toHaveClass(
-      'bg-pink text-white font-semibold',
+      'w-full rounded-full bg-pink text-white font-semibold text-[18px] p-[18px]',
     );
   });
 
   it('size prop이 올바르게 반영되는지 확인', () => {
     setup({ size: 'small' });
-    expect(screen.getByRole('button')).toHaveClass(
-      'w-[150px] h-[35px] text-[13px]',
-    );
+    expect(screen.getByRole('button')).toHaveClass('p-[5px] text-[12px]');
 
     cleanup();
 
     setup({ size: 'medium' });
-    expect(screen.getByRole('button')).toHaveClass(
-      'w-[165px] h-[35px] text-[13px]',
-    );
+    expect(screen.getByRole('button')).toHaveClass('p-[9px] text-[13px]');
 
     cleanup();
 
     setup({ size: 'large' });
-    expect(screen.getByRole('button')).toHaveClass(
-      'w-[180px] h-[46px] text-[18px]',
-    );
-  });
-
-  it('block prop이 올바르게 반영되는지 확인', () => {
-    setup({ block: true });
-    expect(screen.getByRole('button')).toHaveClass('w-full');
-
-    cleanup();
-
-    setup({ block: false });
-    expect(screen.getByRole('button')).toHaveClass('inline-block');
-  });
-
-  it('align prop이 올바르게 반영되는지 확인', () => {
-    setup({ align: 'left' });
-    expect(screen.getByRole('button')).toHaveClass('text-left');
-
-    cleanup();
-
-    setup({ align: 'center' });
-    expect(screen.getByRole('button')).toHaveClass('text-center');
-
-    cleanup();
-
-    setup({ align: 'right' });
-    expect(screen.getByRole('button')).toHaveClass('text-right');
+    expect(screen.getByRole('button')).toHaveClass('p-[15px] text-[18px]');
   });
 
   it('onClick 이벤트가 정상적으로 호출되는지 확인', () => {
@@ -89,5 +64,15 @@ describe('Button Component', () => {
     fireEvent.click(button);
 
     expect(handleClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('type prop이 올바르게 설정되는지 확인', () => {
+    setup();
+    expect(screen.getByRole('button')).toHaveAttribute('type', 'button');
+
+    cleanup();
+
+    setup({ variant: 'submit' });
+    expect(screen.getByRole('button')).toHaveAttribute('type', 'submit');
   });
 });
