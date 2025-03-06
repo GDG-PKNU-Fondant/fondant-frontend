@@ -1,7 +1,7 @@
 export interface SearchItem {
   rank: number;
   keyword: string;
-  trend?: 'up' | 'down' | 'neutral';
+  trend?: string;
 }
 
 export interface PopularSearchesProps {
