@@ -1,7 +1,7 @@
 export interface SearchItem {
   rank: number;
   keyword: string;
-  trend?: string;
+  trend: string;
 }
 
 export interface PopularSearchesProps {
