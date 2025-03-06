@@ -4,7 +4,7 @@ const Button = ({
   variant = 'primary',
   size = 'medium',
   block = false,
-  align = 'center',
+  type,
   ...props
 }: ButtonProps) => {
   const baseStyles = 'focus:outline-hidden transition';
@@ -12,20 +12,17 @@ const Button = ({
   const variantStyles = {
     primary: 'rounded-[5px] bg-pink text-white font-bold',
     secondary:
-      'rounded-[5px] border border-bg-brown-tertiary text-brown-tertiary font-medium',
-    submit: 'rounded-full bg-pink text-white font-semibold',
+      'rounded-[5px] border border-beige-primary text-brown-tertiary font-medium',
+    tertiary:
+      'rounded-[5px] bg-beige-tertiary text-brown-secondary font-medium',
+    submit:
+      'w-full rounded-full bg-pink text-white font-semibold text-[18px] p-[18px]',
   };
 
   const sizeStyles = {
-    small: 'w-[150px] h-[35px] text-[13px]',
-    medium: 'w-[165px] h-[35px] text-[13px]',
-    large: 'w-[180px] h-[46px] text-[18px]',
-  };
-
-  const alignStyles = {
-    left: 'text-left',
-    center: 'text-center',
-    right: 'text-right',
+    small: 'p-[5px] text-[12px]',
+    medium: 'p-[9px] text-[13px]',
+    large: 'p-[15px] text-[18px]',
   };
 
   const blockStyles = {
@@ -35,7 +32,8 @@ const Button = ({
 
   return (
     <button
-      className={`${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${blockStyles[block ? 'true' : 'false']} ${alignStyles[align]}`}
+      type={variant === 'submit' ? 'submit' : 'button'}
+      className={`${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${blockStyles[block ? 'true' : 'false']}`}
       {...props}
     />
   );
