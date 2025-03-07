@@ -17,18 +17,18 @@ interface ProductListInfoProps {
 }
 
 const ProductListInfo = ({ products }: ProductListInfoProps) => {
-  const totalCount = useProductCount(products);
-
   const [sortOption, setSortOption] = useAtom(sortOptionAtom);
   const [selectedFilters, setSelectedFilters] = useAtom(selectedFiltersAtom);
 
   const [isSortOpen, setIsSortOpen] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
+  const productCount = useProductCount({ products, filters: selectedFilters });
+
   return (
     <div className="w-full flex-col items-start justify-center">
       <div className="flex justify-between items-center text-brown-secondary px-4 py-2 text-sm">
-        <span>총 {totalCount}개</span>
+        <span>총 {productCount}개</span>
 
         <div className="flex items-center gap-4">
           <button
@@ -78,6 +78,7 @@ const ProductListInfo = ({ products }: ProductListInfoProps) => {
         onClose={() => setIsFilterOpen(false)}
         selectedFilters={selectedFilters}
         onSelect={(filters) => setSelectedFilters(filters)}
+        products={products}
       />
     </div>
   );

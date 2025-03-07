@@ -1,8 +1,13 @@
 import { ProductItem } from '@mocks/constants/mockProductItems';
-import useFilteredProducts from './useFilteredProduct';
+import useFilteredProducts from '@hooks/useFilteredProduct';
 
-const useProductCount = (products: ProductItem[]) => {
-  const filteredProducts = useFilteredProducts(products);
+interface ProductCountProps {
+  products: ProductItem[];
+  filters: Record<string, string[]>;
+}
+
+const useProductCount = ({ products, filters }: ProductCountProps) => {
+  const filteredProducts = useFilteredProducts({ products, filters });
   return filteredProducts.length;
 };
 

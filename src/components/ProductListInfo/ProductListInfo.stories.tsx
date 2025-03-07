@@ -17,7 +17,10 @@ const ProductListInfoWithProducts = () => {
   const [sortOption] = useAtom(sortOptionAtom);
   const [selectedFilters] = useAtom(selectedFiltersAtom);
 
-  const filteredProducts = useFilteredProducts(MOCK_PRODUCT_ITEMS);
+  const filteredProducts = useFilteredProducts({
+    products: MOCK_PRODUCT_ITEMS,
+    filters: selectedFilters,
+  });
   const sortedProducts = useSortedProducts(filteredProducts);
 
   return (
@@ -94,6 +97,12 @@ export default meta;
 type Story = StoryObj<typeof ProductListInfo>;
 
 export const Default: Story = {
+  render: () => {
+    return <ProductListInfo products={MOCK_PRODUCT_ITEMS} />;
+  },
+};
+
+export const ProductListInfoWithItems: Story = {
   render: () => {
     return <ProductListInfoWithProducts />;
   },

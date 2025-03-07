@@ -6,12 +6,15 @@ import MOCK_FILTERS from '@mocks/constants/mockFilters';
 import ReloadIcon from '@assets/icons/reload.svg?react';
 import CheckButton from '@components/CheckButton';
 import SelectedFilterTags from '@components/ProductListInfo/SelectedFilterTags';
+import useProductCount from '@hooks/useProductCount';
+import { ProductItem } from '@mocks/constants/mockProductItems';
 
 interface FilterSheetProps {
   isOpen: boolean;
   onClose: () => void;
   selectedFilters: Record<string, string[]>;
   onSelect: (filters: Record<string, string[]>) => void;
+  products: ProductItem[];
 }
 
 const FilterSheet = ({
@@ -19,6 +22,7 @@ const FilterSheet = ({
   onClose,
   selectedFilters,
   onSelect,
+  products,
 }: FilterSheetProps) => {
   const [activeTab, setActiveTab] = useState(MOCK_TABS[0].key);
   const [selected, setSelected] =
@@ -51,6 +55,8 @@ const FilterSheet = ({
     onSelect(selected);
     onClose();
   };
+
+  const productCount = useProductCount({ products, filters: selected });
 
   return (
     <BottomSheet isOpen={isOpen} onClose={onClose}>
@@ -100,7 +106,7 @@ const FilterSheet = ({
             className="flex-1 py-3 rounded-lg bg-pink text-white font-semibold"
             onClick={handleApplyFilters}
           >
-            {selected.length}개 상품 보기
+            {productCount}개 상품 보기
           </button>
         </div>
       </div>

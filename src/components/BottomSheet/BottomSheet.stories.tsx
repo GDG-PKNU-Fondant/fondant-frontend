@@ -4,14 +4,12 @@ import BottomSheet from '@components/BottomSheet';
 import SortSheet from '@components/BottomSheet/SortSheet';
 import MOCK_SORT_OPTIONS from '@mocks/constants/mockSortList';
 import FilterSheet from './FilterSheet';
+import MOCK_PRODUCT_ITEMS from '@mocks/constants/mockProductItems';
 
 const meta: Meta<typeof BottomSheet> = {
   title: 'Components/BottomSheet',
   component: BottomSheet,
-  argTypes: {
-    isOpen: { control: 'boolean' },
-    onClose: { action: 'closed' },
-  },
+  argTypes: { isOpen: { control: 'boolean' }, onClose: { action: 'closed' } },
 };
 
 export default meta;
@@ -67,7 +65,9 @@ export const SortBottomSheet: Story = {
 export const FilterBottomSheet: Story = {
   render: (args) => {
     const [isOpen, setIsOpen] = useState(args.isOpen ?? false);
-    const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
+    const [selectedFilters, setSelectedFilters] = useState<
+      Record<string, string[]>
+    >({});
 
     return (
       <div>
@@ -81,16 +81,14 @@ export const FilterBottomSheet: Story = {
         <FilterSheet
           isOpen={isOpen}
           onClose={() => {
-            console.log('모달 닫기 시도');
             setIsOpen(false);
           }}
           selectedFilters={selectedFilters}
           onSelect={(filters) => setSelectedFilters(filters)}
+          products={MOCK_PRODUCT_ITEMS}
         />
       </div>
     );
   },
-  args: {
-    isOpen: false,
-  },
+  args: { isOpen: false },
 };

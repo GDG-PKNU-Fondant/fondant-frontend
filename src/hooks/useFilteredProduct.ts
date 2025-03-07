@@ -1,58 +1,57 @@
-import { useAtom } from 'jotai';
 import { useMemo } from 'react';
-import { selectedFiltersAtom } from '@stores/selectedSortFilter';
 import { ProductItem } from '@mocks/constants/mockProductItems';
 
-const useFilteredProducts = (products: ProductItem[]) => {
-  const [selectedFilters] = useAtom(selectedFiltersAtom);
+interface FilteredProductsProps {
+  products: ProductItem[];
+  filters: Record<string, string[]>;
+}
 
+const useFilteredProducts = ({ products, filters }: FilteredProductsProps) => {
   const filteredProducts = useMemo(() => {
     if (!products || products.length === 0) return [];
 
     return products.filter((product) => {
       if (
-        selectedFilters.category &&
-        selectedFilters.category.length > 0 &&
-        !selectedFilters.category.includes(product.category)
+        filters.category &&
+        filters.category.length > 0 &&
+        !filters.category.includes(product.category)
       ) {
         return false;
       }
       if (
-        selectedFilters.shipping &&
-        selectedFilters.shipping.length > 0 &&
-        !selectedFilters.shipping.includes(product.shipping)
+        filters.shipping &&
+        filters.shipping.length > 0 &&
+        !filters.shipping.includes(product.shipping)
       ) {
         return false;
       }
       if (
-        selectedFilters.packaging &&
-        selectedFilters.packaging.length > 0 &&
-        !selectedFilters.packaging.includes(product.packaging)
+        filters.packaging &&
+        filters.packaging.length > 0 &&
+        !filters.packaging.includes(product.packaging)
       ) {
         return false;
       }
 
       if (
-        selectedFilters.brand &&
-        selectedFilters.brand.length > 0 &&
-        !selectedFilters.brand.includes(product.brand)
+        filters.brand &&
+        filters.brand.length > 0 &&
+        !filters.brand.includes(product.brand)
       ) {
         return false;
       }
 
       if (
-        selectedFilters.benefit &&
-        selectedFilters.benefit.length > 0 &&
-        !selectedFilters.benefit.some((benefit) =>
-          product.benefit.includes(benefit),
-        )
+        filters.benefit &&
+        filters.benefit.length > 0 &&
+        !filters.benefit.some((benefit) => product.benefit.includes(benefit))
       ) {
         return false;
       }
 
-      if (selectedFilters.price && selectedFilters.price.length > 0) {
+      if (filters.price && filters.price.length > 0) {
         const productPrice = product.discountPrice ?? product.price;
-        const priceFilters = selectedFilters.price;
+        const priceFilters = filters.price;
 
         let isPriceMatch = false;
 
@@ -72,7 +71,7 @@ const useFilteredProducts = (products: ProductItem[]) => {
 
       return true;
     });
-  }, [products, selectedFilters]);
+  }, [products, filters]);
 
   return filteredProducts;
 };
