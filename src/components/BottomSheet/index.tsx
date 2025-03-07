@@ -27,7 +27,7 @@ const BottomSheet = ({ isOpen, onClose, children }: BottomSheetProps) => {
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-end"
+          className="fixed inset-0 bg-black/30 flex justify-center items-end"
           onClick={onClose}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

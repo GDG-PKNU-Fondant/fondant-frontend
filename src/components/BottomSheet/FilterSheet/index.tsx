@@ -82,6 +82,7 @@ const FilterSheet = ({
               >
                 <CheckButton
                   selected={selected[activeTab]?.includes(filter.value)}
+                  size={14}
                 />
                 <span className="text-brown-primary">{filter.label}</span>
               </li>
