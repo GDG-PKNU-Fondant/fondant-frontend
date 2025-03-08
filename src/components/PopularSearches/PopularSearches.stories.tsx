@@ -7,6 +7,7 @@ import '@styles/tailwind.css';
 export default {
   title: 'Components/PopularSearches',
   component: PopularSearches,
+  tags: ['autodocs'],
 } as Meta;
 
 const Template: StoryFn<PopularSearchesProps> = (args) => (
