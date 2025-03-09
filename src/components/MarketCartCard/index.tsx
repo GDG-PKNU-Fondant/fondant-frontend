@@ -26,7 +26,7 @@ const MarketHeader = ({
       onClick={() => onMarketSelect(!selected)}
       className="flex items-center gap-[10px]"
     >
-      <CheckButton selected={selected} />
+      <CheckButton selected={selected} rounded />
       <span className="text-brown-primary font-semibold tracking-[-0.5px]">
         {name}
       </span>

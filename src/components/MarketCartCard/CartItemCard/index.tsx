@@ -1,6 +1,7 @@
 import React from 'react';
 import { CartItem, CartItemOption } from '@type/MarketCartCard';
 import QuantityController from '@components/QuantityController';
+import Button from '@components/Button';
 import CheckButton from '@components/CheckButton';
 import formatDate from '@utils/formatDate';
 import { calculateItemTotal } from '@utils/cartCalculations';
@@ -71,17 +72,9 @@ const ActionButtons = ({
   onQuantityChange: (quantity: number) => void;
 }) => (
   <div className="flex mt-[12px] gap-[7px]">
-    <button
-      type="button"
-      disabled={!hasOptions}
-      className={`flex flex-1 items-center justify-center border border-beige-secondary text-[13px] font-medium rounded-[5px] p-[10px] ${
-        !hasOptions
-          ? 'text-brown-tertiary text-opacity-50'
-          : 'text-brown-secondary'
-      }`}
-    >
+    <Button variant="secondary" disabled={!hasOptions} block>
       옵션 변경
-    </button>
+    </Button>
     <QuantityController value={quantity} onChange={onQuantityChange} />
   </div>
 );
@@ -95,7 +88,7 @@ const CartItemCard: React.FC<CartItemCardProps> = ({
     <div className="p-[16px] font-medium">
       <div className="flex items-start gap-4">
         <button type="button" onClick={() => onSelect(!item.selected)}>
-          <CheckButton selected={item.selected} />
+          <CheckButton selected={item.selected} rounded />
         </button>
         <div className="flex-1">
           <div className="flex flex-row">
