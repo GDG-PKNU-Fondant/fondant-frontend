@@ -1,37 +1,53 @@
 import React from 'react';
+import CheckIcon from '@assets/icons/check.svg?react';
 
 interface CheckButtonProps {
+  size?: number;
+  rounded?: boolean;
   selected: boolean;
+  onClick?: () => void;
 }
 
-const CheckButton: React.FC<CheckButtonProps> = ({ selected }) =>
-  selected ? (
-    <svg
-      width="22"
-      height="22"
-      viewBox="0 0 22 22"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
+const CheckButton: React.FC<CheckButtonProps> = ({
+  size = 22,
+  rounded = false,
+  selected,
+  onClick,
+}) => {
+  const radiusClass = rounded ? 'rounded-full' : 'rounded-[3px]';
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      onClick?.();
+    }
+  };
+
+  return selected ? (
+    <div
+      role="checkbox"
+      aria-checked={selected}
+      aria-label={selected ? 'selected' : 'unselected'}
+      tabIndex={0}
+      className={`flex items-center justify-center bg-pink ${radiusClass} cursor-pointer`}
+      style={{ width: size, height: size }}
+      onClick={onClick}
+      onKeyDown={handleKeyDown}
     >
-      <circle cx="11" cy="11" r="11" fill="#FF80A6" />
-      <path
-        d="M16.1665 7.95825L9.08317 15.0416L5.5415 11.4999"
-        stroke="white"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+      <CheckIcon width={size} height={size} />
+    </div>
   ) : (
-    <svg
-      width="22"
-      height="22"
-      viewBox="0 0 22 22"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <circle cx="11" cy="11" r="10" stroke="#EBD8CB" strokeWidth="2" />
-    </svg>
+    <div
+      role="checkbox"
+      aria-checked={selected}
+      aria-label={selected ? 'selected' : 'unselected'}
+      tabIndex={0}
+      className={`border-[2px] border-beige-primary ${radiusClass} cursor-pointer`}
+      style={{ width: size, height: size }}
+      onClick={onClick}
+      onKeyDown={handleKeyDown}
+    />
   );
+};
 
 export default CheckButton;

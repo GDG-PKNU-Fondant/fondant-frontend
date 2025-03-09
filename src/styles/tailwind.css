@@ -1,7 +1,39 @@
-@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css')
+layer(base);
+@import 'tailwindcss';
+
+@theme {
+  --color-background: #fffefc;
+
+  --color-beige-primary: #ebd8cb;
+  --color-beige-secondary: #f1e3d9;
+  --color-beige-tertiary: #fdf4ed;
+
+  --color-brown-primary: #613e29;
+  --color-brown-secondary: #bc8462;
+  --color-brown-tertiary: #debba3;
+
+  --color-pink: #ff80a6;
+  --color-placeholder: #e8dccb;
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
 
 body {
   font-family:
@@ -20,4 +52,13 @@ body {
     'Segoe UI Emoji',
     'Segoe UI Symbol',
     sans-serif;
+  background: #fffefc;
+}
+
+.app-container {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  box-shadow: 0 0 10px 0 rgba(156, 108, 79, 0.1);
+  min-height: 100vh;
 }

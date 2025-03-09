@@ -1,7 +1,7 @@
 import { Meta, StoryFn } from '@storybook/react';
 import Carousel from '@components/Carousel';
 import CarouselSlide from '@type/Carousel';
-import { mockSlides } from '@mocks/handlers';
+import MOCK_CAROUSEL_SLIDES from '@mocks/constants/mockCarouselSlides';
 import '@styles/tailwind.css';
 
 export default {
@@ -20,10 +20,10 @@ const Template: StoryFn<{ slides: CarouselSlide[] }> = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  slides: mockSlides,
+  slides: MOCK_CAROUSEL_SLIDES,
 };
 
 export const OnlyOneSlide = Template.bind({});
 OnlyOneSlide.args = {
-  slides: [mockSlides[0]],
+  slides: [MOCK_CAROUSEL_SLIDES[0]],
 };
