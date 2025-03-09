@@ -33,7 +33,7 @@ const Button = ({
   return (
     <button
       type={variant === 'submit' ? 'submit' : 'button'}
-      className={`${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${blockStyles[block ? 'true' : 'false']}`}
+      className={`${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${blockStyles[block ? 'true' : 'false']} cursor-pointer`}
       {...props}
     />
   );
