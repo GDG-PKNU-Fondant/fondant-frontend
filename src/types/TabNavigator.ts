@@ -11,5 +11,5 @@ export interface TabNavigatorProps {
   selectedColor?: string;
   textSize?: number;
   fixedTextSize?: number;
-  type?: 'outer' | 'inner';
+  fixedFontWeight?: string;
 }

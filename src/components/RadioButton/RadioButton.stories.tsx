@@ -21,24 +21,15 @@ export default {
   parameters: {
     docs: {
       description: {
-        component:
-          '단일 옵션을 선택할 수 있는 라디오 버튼 컴포넌트입니다.',
+        component: '단일 옵션을 선택할 수 있는 라디오 버튼 컴포넌트입니다.',
       },
     },
   },
 } as Meta;
 
-export const Default = {
-  args: {
-    selected: false,
-  },
-};
+export const Default = { args: { selected: false } };
 
-export const Selected = {
-  args: {
-    selected: true,
-  },
-};
+export const Selected = { args: { selected: true } };
 
 export const RadioButtonGroupExample = {
   render: () => {
