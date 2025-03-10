@@ -67,7 +67,7 @@ const PriceSummary = ({
   return (
     <div className="flex justify-center border-t border-beige-secondary border-opacity-80 py-[15px]">
       <div>
-        <span className="text-[12px] text-brown-secondary font-medium">
+        <span className="text-[13px] text-brown-secondary font-medium">
           상품 {totalPrice.toLocaleString()}원 + 배송비{' '}
           {deliveryCost.toLocaleString()}원
         </span>
