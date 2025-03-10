@@ -29,7 +29,7 @@ export const MOCK_PRODUCT_ITEMS: ProductItem[] = [
     sales: 1100,
   },
 ];
-for (let i = 2; i <= 30; i++) {
+for (let i = 2; i <= 30; i += 1) {
   MOCK_PRODUCT_ITEMS.push({
     marketName: `Market ${i}`,
     productName: `Sample Product ${i}`,

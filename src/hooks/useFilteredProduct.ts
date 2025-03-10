@@ -53,18 +53,15 @@ const useFilteredProducts = ({ products, filters }: FilteredProductsProps) => {
         const productPrice = product.discountPrice ?? product.price;
         const priceFilters = filters.price;
 
-        let isPriceMatch = false;
-
-        for (const filter of priceFilters) {
-          if (filter === '~3000원' && productPrice <= 3000) isPriceMatch = true;
-          if (filter === '~5000원' && productPrice <= 5000) isPriceMatch = true;
-          if (filter === '1만원 이하' && productPrice <= 10000)
-            isPriceMatch = true;
-          if (filter === '3만원 이하' && productPrice <= 30000)
-            isPriceMatch = true;
-          if (filter === '3만원 이상' && productPrice > 30000)
-            isPriceMatch = true;
-        }
+        const isPriceMatch = priceFilters.some((filter) => {
+          return (
+            (filter === '~3000원' && productPrice <= 3000) ||
+            (filter === '~5000원' && productPrice <= 5000) ||
+            (filter === '1만원 이하' && productPrice <= 10000) ||
+            (filter === '3만원 이하' && productPrice <= 30000) ||
+            (filter === '3만원 이상' && productPrice > 30000)
+          );
+        });
 
         if (!isPriceMatch) return false;
       }

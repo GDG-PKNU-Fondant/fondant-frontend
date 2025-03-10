@@ -27,6 +27,7 @@ const BottomSheet = ({ isOpen, onClose, children }: BottomSheetProps) => {
     <AnimatePresence>
       {isOpen && (
         <motion.div
+          data-testid="bottom-sheet-overlay"
           className="fixed inset-0 bg-black/30 flex justify-center items-end"
           onClick={onClose}
           initial={{ opacity: 0 }}
@@ -51,10 +52,13 @@ const BottomSheet = ({ isOpen, onClose, children }: BottomSheetProps) => {
             }}
           >
             <div className="flex justify-center items-center mb-3">
-              <div
+              <button
+                type="button"
+                aria-label="닫기"
+                data-testid="bottom-sheet-close-button"
                 className="w-10 h-1.5 bg-gray-400 rounded-full cursor-pointer"
                 onClick={onClose}
-              ></div>
+              />
             </div>
             {children}
           </motion.div>

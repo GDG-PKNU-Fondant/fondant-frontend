@@ -1,5 +1,6 @@
 import MOCK_SORT_OPTIONS from '@mocks/constants/mockSortList';
 import BottomSheet from '@components/BottomSheet';
+import RadioButton from '@components/RadioButton';
 
 interface SortSheetProps {
   isOpen: boolean;
@@ -26,20 +27,18 @@ const SortSheet = ({
             <li
               key={option.value}
               className="flex items-center gap-3 p-2 rounded-lg cursor-pointer"
-              onClick={() => onSelect(option.value)}
             >
-              <div
-                className={`w-5 h-5 flex justify-center items-center rounded-full border-2 ${
-                  selectedOption === option.value
-                    ? 'border-pink bg-pink text-white'
-                    : 'border-beige-primary bg-white'
-                }`}
+              <button
+                type="button"
+                className="flex items-center gap-3 p-2 w-full text-left rounded-lg cursor-pointer"
+                onClick={() => onSelect(option.value)}
               >
-                {selectedOption === option.value && (
-                  <div className="w-2.5 h-2.5 bg-white rounded-full"></div>
-                )}
-              </div>
-              <span className="text-brown-primary">{option.label}</span>
+                <RadioButton
+                  selected={selectedOption === option.value}
+                  onClick={() => onSelect(option.value)}
+                />
+                <span className="text-brown-primary">{option.label}</span>
+              </button>
             </li>
           ))}
         </ul>

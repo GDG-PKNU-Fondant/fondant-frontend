@@ -32,6 +32,7 @@ const ProductListInfo = ({ products }: ProductListInfoProps) => {
 
         <div className="flex items-center gap-4">
           <button
+            type="button"
             onClick={() => setIsSortOpen(true)}
             className="flex items-center"
           >
@@ -39,6 +40,7 @@ const ProductListInfo = ({ products }: ProductListInfoProps) => {
             <ArrowDownIcon className="w-3 h-3 fill-brown-secondary mx-1" />
           </button>
           <button
+            type="button"
             onClick={() => setIsFilterOpen(true)}
             className="flex items-center"
           >
@@ -49,6 +51,7 @@ const ProductListInfo = ({ products }: ProductListInfoProps) => {
       </div>
 
       <SelectedFilterTags
+        data-testid="product-list-selected-tags"
         selectedFilters={selectedFilters}
         onRemove={(category, filter) => {
           setSelectedFilters((prev) => {

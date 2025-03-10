@@ -21,6 +21,7 @@ const SelectedFilterTags = ({
             >
               {filter}
               <button
+                type="button"
                 onClick={() => onRemove(category, filter)}
                 className="ml-1"
               >

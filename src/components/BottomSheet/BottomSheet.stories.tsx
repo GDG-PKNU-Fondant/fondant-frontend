@@ -3,8 +3,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 import BottomSheet from '@components/BottomSheet';
 import SortSheet from '@components/BottomSheet/SortSheet';
 import MOCK_SORT_OPTIONS from '@mocks/constants/mockSortList';
-import FilterSheet from './FilterSheet';
 import MOCK_PRODUCT_ITEMS from '@mocks/constants/mockProductItems';
+import FilterSheet from '@components/BottomSheet/FilterSheet';
 
 const meta: Meta<typeof BottomSheet> = {
   title: 'Components/BottomSheet',
@@ -22,6 +22,7 @@ export const Default: Story = {
     return (
       <div>
         <button
+          type="button"
           onClick={() => setIsOpen(true)}
           className="p-2 bg-blue-500 text-white rounded"
         >
@@ -46,6 +47,7 @@ export const SortBottomSheet: Story = {
     return (
       <div>
         <button
+          type="button"
           onClick={() => setIsOpen(true)}
           className="p-2 bg-blue-500 text-white rounded"
         >
@@ -72,6 +74,7 @@ export const FilterBottomSheet: Story = {
     return (
       <div>
         <button
+          type="button"
           onClick={() => setIsOpen(true)}
           className="p-2 bg-blue-500 text-white rounded"
         >

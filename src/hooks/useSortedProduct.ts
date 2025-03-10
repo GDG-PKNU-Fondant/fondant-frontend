@@ -3,13 +3,13 @@ import { sortOptionAtom } from '@stores/selectedSortFilter';
 import { useAtom } from 'jotai';
 import { useMemo } from 'react';
 
-const useSortedProducts = (ProductItem: ProductItem[]) => {
+const useSortedProducts = (Items: ProductItem[]) => {
   const [sortOption] = useAtom(sortOptionAtom);
 
   const sortedProducts = useMemo(() => {
-    if (!ProductItem || ProductItem.length === 0) return [];
+    if (!Items || Items.length === 0) return [];
 
-    return [...ProductItem].sort((a, b) => {
+    return [...Items].sort((a, b) => {
       switch (sortOption) {
         case '할인순': {
           const discountRateA = a.discountPrice
@@ -32,7 +32,7 @@ const useSortedProducts = (ProductItem: ProductItem[]) => {
           return 0;
       }
     });
-  }, [ProductItem, sortOption]);
+  }, [Items, sortOption]);
 
   return sortedProducts;
 };

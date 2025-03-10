@@ -72,19 +72,24 @@ const FilterSheet = ({
           onTabChange={(tab) => setActiveTab(tab)}
         />
 
-        <div className={`flex-grow overflow-y-auto mt-3 relative`}>
+        <div className="flex-grow overflow-y-auto mt-3 relative">
           <ul className="space-y-3 text-[14px]">
             {MOCK_FILTERS[activeTab]?.map((filter) => (
               <li
                 key={filter.value}
                 className="flex items-center justify-start gap-3 py-1.5 px-3 rounded-lg cursor-pointer"
-                onClick={() => handleFilterSelect(activeTab, filter.value)}
               >
-                <CheckButton
-                  selected={selected[activeTab]?.includes(filter.value)}
-                  size={14}
-                />
-                <span className="text-brown-primary">{filter.label}</span>
+                <button
+                  type="button"
+                  onClick={() => handleFilterSelect(activeTab, filter.value)}
+                  className="flex items-center gap-3 w-full text-left"
+                >
+                  <CheckButton
+                    selected={selected[activeTab]?.includes(filter.value)}
+                    size={14}
+                  />
+                  <span className="text-brown-primary">{filter.label}</span>
+                </button>
               </li>
             ))}
           </ul>
@@ -97,6 +102,7 @@ const FilterSheet = ({
 
         <div className="mt-4 flex gap-2">
           <button
+            type="button"
             className="flex items-center justify-center px-4 py-3 text-gray-300 rounded-lg"
             onClick={handleResetFilters}
           >
@@ -104,6 +110,7 @@ const FilterSheet = ({
             초기화
           </button>
           <button
+            type="button"
             className="flex-1 py-3 rounded-lg bg-pink text-white font-semibold"
             onClick={handleApplyFilters}
           >
