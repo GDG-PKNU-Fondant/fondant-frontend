@@ -45,8 +45,8 @@ const AdditionalOption = ({ option }: { option: CartItemOption }) => (
         </span>
       )}
     </div>
-    <span className="justify-self-end text-[11px] text-brown-secondary text-opacity-70">
-      × {option.quantity}
+    <span className="flex items-center justify-center w-[33px] h-[24px] bg-background border border-beige-primary text-[12px] text-brown-primary rounded-[5px]">
+      {option.quantity}
     </span>
   </div>
 );
@@ -73,7 +73,7 @@ const ActionButtons = ({
 }) => (
   <div className="flex mt-[12px] gap-[7px]">
     <Button variant="secondary" disabled={!hasOptions} block>
-      옵션 변경
+      {hasOptions ? '옵션 변경' : '단일 옵션'}
     </Button>
     <QuantityController value={quantity} onChange={onQuantityChange} />
   </div>
