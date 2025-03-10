@@ -8,6 +8,7 @@ import {
 import MOCK_PRODUCT_ITEMS from '@mocks/constants/mockProductItems';
 import useFilteredProducts from '@hooks/useFilteredProduct';
 import useSortedProducts from '@hooks/useSortedProduct';
+import '@styles/tailwind.css';
 
 const JotaiProviderWrapper = ({ children }: { children: React.ReactNode }) => {
   return <Provider>{children}</Provider>;
@@ -91,6 +92,20 @@ const meta: Meta<typeof ProductListInfo> = {
       </JotaiProviderWrapper>
     ),
   ],
+  tags: ['autodocs'],
+  argTypes: {
+    products: {
+      description: '상품 리스트를 Props으로 받게 만들었으나 이후 리팩토링 예정',
+    },
+  },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          '상품 리스트 상단에서 정렬, 필터링 옵션을 선택할 수 있는 컴포넌트입니다.',
+      },
+    },
+  },
 };
 
 export default meta;

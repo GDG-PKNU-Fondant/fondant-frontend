@@ -5,11 +5,27 @@ import SortSheet from '@components/BottomSheet/SortSheet';
 import MOCK_SORT_OPTIONS from '@mocks/constants/mockSortList';
 import MOCK_PRODUCT_ITEMS from '@mocks/constants/mockProductItems';
 import FilterSheet from '@components/BottomSheet/FilterSheet';
+import '@styles/tailwind.css';
 
 const meta: Meta<typeof BottomSheet> = {
   title: 'Components/BottomSheet',
   component: BottomSheet,
-  argTypes: { isOpen: { control: 'boolean' }, onClose: { action: 'closed' } },
+  tags: ['autodocs'],
+  argTypes: {
+    isOpen: {
+      control: 'boolean',
+      options: ['true', 'false'],
+      description: '모달의 열리고 닫힘을 제어.',
+    },
+    onClose: {
+      action: 'closed',
+      description: '부모에게서 받는 함수.(모달이 닫힐 때 적용할 함수)',
+    },
+    children: { description: '모달 내부에 들어갈 자식 컴포넌트.' },
+  },
+  parameters: {
+    docs: { description: { component: '하단 모달 시트 컴포넌트입니다.' } },
+  },
 };
 
 export default meta;

@@ -28,7 +28,7 @@ const BottomSheet = ({ isOpen, onClose, children }: BottomSheetProps) => {
       {isOpen && (
         <motion.div
           data-testid="bottom-sheet-overlay"
-          className="fixed inset-0 bg-black/30 flex justify-center items-end"
+          className="z-1 fixed inset-0 bg-black/30 flex justify-center items-end"
           onClick={onClose}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
