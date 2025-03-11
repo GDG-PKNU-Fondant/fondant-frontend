@@ -14,10 +14,10 @@ const Login = () => {
     <div className="flex flex-col min-h-dvh items-center p-[36px] justify-between">
       <div className="flex flex-col items-center mt-[96px] mb-[24px]">
         <img src={CharactersImage} alt="fondant" className="w-1/2 mb-[24px]" />
-        <div className="text-[20px] text-brown-secondary text-center font-semibold tracking-[-0.5px] mb-[8px]">
+        <div className="text-[20px] text-brown-secondary text-center font-semibold tracking-[-0.5px] leading-[28px] mb-[12px]">
           간편하게 로그인하고, <br /> 다양한 서비스를 이용해 보세요.
         </div>
-        <div className="text-[14px] text-brown-tertiary font-medium tracking-[-0.5px]">
+        <div className="text-[16px] text-brown-tertiary font-medium tracking-[-0.5px]">
           한입에 퐁~ 배송까지 땅!
         </div>
       </div>

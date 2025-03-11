@@ -17,7 +17,7 @@ const LoginButton: React.FC<LoginButtonProps> = ({ type, onClick }) => {
     kakao: {
       icon: KakaoIcon,
       className:
-        'w-full bg-[#FEE500] text-[#191919] font-semibold p-[15px] rounded-[12px] cursor-pointer',
+        'w-[calc(100%-16px)] bg-[#FEE500] text-[#191919] font-semibold p-[15px] rounded-[12px] cursor-pointer',
     },
     google: {
       icon: GoogleIcon,
