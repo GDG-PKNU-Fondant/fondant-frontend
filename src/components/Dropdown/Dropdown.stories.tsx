@@ -34,29 +34,26 @@ export default {
   },
 } as Meta;
 
-const defaultOptions = [
+const MOCK_OPTIONS = [
   { id: 1, label: '옵션 1' },
   { id: 2, label: '옵션 2' },
   { id: 3, label: '옵션 3' },
+  { id: 4, label: '옵션 4' },
+  { id: 5, label: '옵션 5' },
 ];
 
 export const Default = {
   args: {
     title: '옵션 선택',
-    options: defaultOptions,
+    options: MOCK_OPTIONS,
+    maxVisibleItems: 6,
   },
 };
 
 export const LimitedVisibleItems = {
   args: {
     title: '옵션 선택',
-    options: [
-      { id: 1, label: '옵션 1' },
-      { id: 2, label: '옵션 2' },
-      { id: 3, label: '옵션 3' },
-      { id: 4, label: '옵션 4' },
-      { id: 5, label: '옵션 5' },
-    ],
+    options: MOCK_OPTIONS,
   },
 };
 
@@ -67,13 +64,7 @@ export const InteractiveExample = {
       label: string;
     } | null>(null);
 
-    const options = [
-      { id: 1, label: '옵션 1' },
-      { id: 2, label: '옵션 2' },
-      { id: 3, label: '옵션 3' },
-      { id: 4, label: '옵션 4' },
-      { id: 5, label: '옵션 5' },
-    ];
+    const options = MOCK_OPTIONS;
 
     const handleSelect = (option: { id: number; label: string } | null) => {
       setSelectedOption(option);
