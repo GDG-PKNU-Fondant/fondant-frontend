@@ -10,26 +10,21 @@ const TrendIcon = ({ trend }: { trend: string }) => {
   return <NeutralIcon className="ml-[2px]" />;
 };
 
-const getUpdateTime = () => {
-  const hours = String(new Date().getHours()).padStart(2, '0');
-  return `${hours}시 업데이트`;
-};
-
-const PopularSearches: React.FC<PopularSearchesProps> = ({ searches }) => {
-  const updateTime = getUpdateTime();
+const PopularSearches: React.FC<PopularSearchesProps> = ({ searches, updateTime }) => {
+  const formatUpdateTime = `${String(updateTime).padStart(2, '0')}시 업데이트`;
 
   return (
     <div className="w-full px-[24px] py-[16px]">
       <div className="flex justify-between text-brown-tertiary text-[13px] font-semibold tracking-[0.2px] mb-[16px]">
         <div>인기 검색어</div>
-        <div>{updateTime}</div>
+        <div>{formatUpdateTime}</div>
       </div>
       <div className="flex w-full gap-[20px]">
         <div className="flex-1 flex flex-col gap-[22px]">
           {searches.slice(0, 3).map(({ rank, keyword, trend }) => (
             <div
               key={rank}
-              className="flex items-center text-brown-primary text-[14px]"
+              className="flex items-center text-brown-primary text-[14px] ml-[-8px]"
             >
               <div className="w-[20px] font-semibold text-center">{rank}</div>
               <div className="ml-[8px] font-medium flex-1">{keyword}</div>
@@ -43,7 +38,7 @@ const PopularSearches: React.FC<PopularSearchesProps> = ({ searches }) => {
           {searches.slice(3, 6).map(({ rank, keyword, trend }) => (
             <div
               key={rank}
-              className="flex items-center text-brown-primary text-[14px] font-medium"
+              className="flex items-center text-brown-primary text-[14px]"
             >
               <div className="w-[20px] font-semibold text-center">{rank}</div>
               <div className="ml-[8px] font-medium flex-1">{keyword}</div>
