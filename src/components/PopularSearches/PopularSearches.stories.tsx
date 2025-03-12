@@ -16,7 +16,7 @@ export default {
     updateTime: {
       description: '업데이트 시간을 설정합니다.',
       control: 'number',
-    }
+    },
   },
   parameters: {
     docs: {
