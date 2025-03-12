@@ -1,25 +1,21 @@
-import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import BottomSheet from '@components/BottomSheet';
-import SortSheet from '@components/BottomSheet/SortSheet';
-import MOCK_SORT_OPTIONS from '@mocks/constants/mockSortList';
-import MOCK_PRODUCT_ITEMS from '@mocks/constants/mockProductItems';
-import FilterSheet from '@components/BottomSheet/FilterSheet';
+import SortSheetContent from '@components/BottomSheet/SortSheetContent';
 import '@styles/tailwind.css';
+import useModal from '@hooks/useModal';
+import { useState } from 'react';
+import MOCK_SORT_OPTIONS from '@mocks/constants/mockSortList';
+import FilterSheetContent from './FilterSheetContent';
+import MOCK_PRODUCT_ITEMS from '@mocks/constants/mockProductItems';
 
 const meta: Meta<typeof BottomSheet> = {
   title: 'Components/BottomSheet',
   component: BottomSheet,
   tags: ['autodocs'],
   argTypes: {
-    isOpen: {
-      control: 'boolean',
-      options: ['true', 'false'],
-      description: '모달의 열리고 닫힘을 제어.',
-    },
-    onClose: {
-      action: 'closed',
-      description: '부모에게서 받는 함수.(모달이 닫힐 때 적용할 함수)',
+    sheetKey: {
+      control: 'text',
+      description: '모달의 고유 키값(구별용)',
     },
     children: { description: '모달 내부에 들어갈 자식 컴포넌트.' },
   },
@@ -32,82 +28,65 @@ export default meta;
 type Story = StoryObj<typeof BottomSheet>;
 
 export const Default: Story = {
-  render: (args) => {
-    const [isOpen, setIsOpen] = useState(args.isOpen ?? false);
+  render: () => {
+    const { openModal, closeModal } = useModal();
 
-    return (
-      <div>
-        <button
-          type="button"
-          onClick={() => setIsOpen(true)}
-          className="p-2 bg-blue-500 text-white rounded"
-        >
-          모달 열기
-        </button>
-
-        <BottomSheet isOpen={isOpen} onClose={() => setIsOpen(false)}>
-          <p className="text-center">내용 추가</p>
-        </BottomSheet>
-      </div>
-    );
-  },
-};
-
-export const SortBottomSheet: Story = {
-  render: (args) => {
-    const [isOpen, setIsOpen] = useState(args.isOpen ?? false);
     const [selectedSort, setSelectedSort] = useState(
       MOCK_SORT_OPTIONS[0].value,
     );
 
-    return (
-      <div>
-        <button
-          type="button"
-          onClick={() => setIsOpen(true)}
-          className="p-2 bg-blue-500 text-white rounded"
-        >
-          정렬 모달 열기
-        </button>
-        <SortSheet
-          isOpen={isOpen}
-          onClose={() => setIsOpen(false)}
-          onSelect={(option) => setSelectedSort(option)}
-          selectedOption={selectedSort}
-        />
-      </div>
-    );
-  },
-};
-
-export const FilterBottomSheet: Story = {
-  render: (args) => {
-    const [isOpen, setIsOpen] = useState(args.isOpen ?? false);
     const [selectedFilters, setSelectedFilters] = useState<
       Record<string, string[]>
     >({});
 
     return (
-      <div>
-        <button
-          type="button"
-          onClick={() => setIsOpen(true)}
-          className="p-2 bg-blue-500 text-white rounded"
-        >
-          필터 열기
-        </button>
+      <>
+        <div className="flex gap-[16px]">
+          <button
+            type="button"
+            onClick={() => openModal('bottom-sheet')}
+            className="p-[8px] bg-blue-500 text-white rounded"
+          >
+            바텀시트 열기
+          </button>
 
-        <FilterSheet
-          isOpen={isOpen}
-          onClose={() => {
-            setIsOpen(false);
-          }}
-          selectedFilters={selectedFilters}
-          onSelect={(filters) => setSelectedFilters(filters)}
-          products={MOCK_PRODUCT_ITEMS}
-        />
-      </div>
+          <button
+            type="button"
+            onClick={() => openModal('sort-sheet')}
+            className="p-[8px] bg-green-500 text-white rounded"
+          >
+            정렬 바텀시트 열기
+          </button>
+
+          <button
+            type="button"
+            onClick={() => openModal('filter-sheet')}
+            className="p-[8px] bg-red-500 text-white rounded"
+          >
+            필터 바텀시트 열기
+          </button>
+        </div>
+
+        <BottomSheet sheetKey="bottom-sheet">
+          <p className="text-center">Content를 추가</p>
+        </BottomSheet>
+
+        <BottomSheet sheetKey="sort-sheet">
+          <SortSheetContent
+            onSelect={(option) => setSelectedSort(option)}
+            selectedOption={selectedSort}
+          />
+        </BottomSheet>
+
+        <BottomSheet sheetKey="filter-sheet">
+          <FilterSheetContent
+            selectedFilters={selectedFilters}
+            onSelect={(filters) => setSelectedFilters(filters)}
+            products={MOCK_PRODUCT_ITEMS}
+            onClose={() => closeModal('filter-sheet')}
+          />
+        </BottomSheet>
+      </>
     );
   },
-  args: { isOpen: false },
 };
