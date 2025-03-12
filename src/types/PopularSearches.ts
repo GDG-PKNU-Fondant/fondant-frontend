@@ -6,4 +6,5 @@ export interface SearchItem {
 
 export interface PopularSearchesProps {
   searches: SearchItem[];
+  updateTime: number;
 }
