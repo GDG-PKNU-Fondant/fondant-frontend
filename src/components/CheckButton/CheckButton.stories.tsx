@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Meta } from '@storybook/react';
 import CheckButton from '@components/CheckButton';
 import '@styles/tailwind.css';
@@ -17,7 +17,7 @@ export default {
       control: 'boolean',
     },
     selected: {
-      description: '버튼이 선택된 상태인지 여부를 설정합니다.',
+      description: '버튼의 선택 여부를 설정합니다.',
       control: 'boolean',
     },
     onClick: { description: '버튼이 클릭되었을 때 호출되는 콜백 함수입니다.' },
@@ -25,8 +25,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component:
-          '여러 옵션을 선택할 수 있는 체크 버튼 컴포넌트입니다.',
+        component: '여러 옵션을 선택할 수 있는 체크 버튼 컴포넌트입니다.',
       },
     },
   },
@@ -60,9 +59,11 @@ export const RoundedSelected = {
   },
 };
 
-export const CheckButtonGroupExample = {
+export const InteractiveExample = {
   render: () => {
-    const [selectedOptions, setSelectedOptions] = useState<number[]>([]);
+    const [selectedOptions, setSelectedOptions] = useState<
+      { id: number; label: string }[]
+    >([]);
 
     const options = [
       { id: 1, label: '옵션 1' },
@@ -70,36 +71,43 @@ export const CheckButtonGroupExample = {
       { id: 3, label: '옵션 3' },
     ];
 
-    const handleToggle = (id: number) => {
+    const handleToggle = (id: number, label: string) => {
       setSelectedOptions((prevSelected) => {
-        if (prevSelected.includes(id)) {
-          return prevSelected.filter((optionId) => optionId !== id);
+        const isAlreadySelected = prevSelected.some(
+          (option) => option.id === id,
+        );
+        if (isAlreadySelected) {
+          return prevSelected.filter((option) => option.id !== id);
         }
-        return [...prevSelected, id];
+        return [...prevSelected, { id, label }];
       });
     };
 
-    const handleKeyDown = (e: React.KeyboardEvent, id: number) => {
+    const handleKeyDown = (
+      e: React.KeyboardEvent,
+      id: number,
+      label: string,
+    ) => {
       if (e.key === 'Enter') {
         e.preventDefault();
-        handleToggle(id);
+        handleToggle(id, label);
       }
     };
 
     return (
-      <div className="flex flex-col gap-[10px]">
+      <div className="flex flex-col gap-[12px]">
         {options.map((option) => (
           <div
             key={option.id}
-            className="flex items-center gap-[10px] cursor-pointer"
+            className="flex items-center gap-[12px] cursor-pointer"
           >
             <CheckButton
-              selected={selectedOptions.includes(option.id)}
-              onClick={() => handleToggle(option.id)}
+              selected={selectedOptions.some((opt) => opt.id === option.id)}
+              onClick={() => handleToggle(option.id, option.label)}
             />
             <span
-              onClick={() => handleToggle(option.id)}
-              onKeyDown={(e) => handleKeyDown(e, option.id)}
+              onClick={() => handleToggle(option.id, option.label)}
+              onKeyDown={(e) => handleKeyDown(e, option.id, option.label)}
               tabIndex={0}
               role="button"
             >
@@ -107,9 +115,16 @@ export const CheckButtonGroupExample = {
             </span>
           </div>
         ))}
-        <span className="font-semibold">
-          선택한 옵션: {selectedOptions.join(', ')}
-        </span>
+        <div className="bg-beige-tertiary rounded-md p-[12px]">
+          <span className="font-semibold">선택한 항목: </span>
+          {selectedOptions.length > 0 ? (
+            <span>
+              {selectedOptions.map((option) => option.label).join(', ')}
+            </span>
+          ) : (
+            <span>선택한 항목이 없습니다.</span>
+          )}
+        </div>
       </div>
     );
   },
