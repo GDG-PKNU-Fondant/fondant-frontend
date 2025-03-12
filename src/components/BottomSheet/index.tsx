@@ -1,19 +1,22 @@
+import useModal from '@hooks/useModal';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
 interface BottomSheetProps {
-  isOpen: boolean;
-  onClose: () => void;
+  sheetKey: string;
   children: React.ReactNode;
 }
 
-const BottomSheet = ({ isOpen, onClose, children }: BottomSheetProps) => {
+const BottomSheet = ({ sheetKey, children }: BottomSheetProps) => {
+  const { isModalOpen, closeModal } = useModal();
+  const isBottomSheetOpen = isModalOpen(sheetKey);
+
   const sheetRef = useRef<HTMLDivElement | null>(null);
   const lastFocusedElementRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    if (isOpen) {
+    if (isBottomSheetOpen) {
       lastFocusedElementRef.current = document.activeElement as HTMLElement;
       setTimeout(() => {
         sheetRef.current?.focus();
@@ -21,15 +24,15 @@ const BottomSheet = ({ isOpen, onClose, children }: BottomSheetProps) => {
     } else {
       lastFocusedElementRef.current?.focus();
     }
-  }, [isOpen]);
+  }, [isBottomSheetOpen]);
 
   return createPortal(
     <AnimatePresence>
-      {isOpen && (
+      {isBottomSheetOpen && (
         <motion.div
           data-testid="bottom-sheet-overlay"
           className="z-1 fixed inset-0 bg-black/30 flex justify-center items-end"
-          onClick={onClose}
+          onClick={() => closeModal(sheetKey)}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -38,7 +41,7 @@ const BottomSheet = ({ isOpen, onClose, children }: BottomSheetProps) => {
           <motion.div
             ref={sheetRef}
             tabIndex={-1}
-            className="bg-background w-full max-w-md rounded-t-2xl p-4 origin-bottom"
+            className="bg-background w-full max-w-md rounded-t-2xl p-[8px] origin-bottom"
             onClick={(e) => e.stopPropagation()}
             initial={{ y: '100%' }}
             animate={{ y: 0 }}
@@ -48,16 +51,16 @@ const BottomSheet = ({ isOpen, onClose, children }: BottomSheetProps) => {
             dragConstraints={{ top: 0, bottom: 100 }}
             dragElastic={0}
             onDragEnd={(_, info) => {
-              if (info.offset.y > 50) onClose();
+              if (info.offset.y > 50) closeModal(sheetKey);
             }}
           >
-            <div className="flex justify-center items-center mb-3">
+            <div className="flex justify-center items-center mb-[12px]">
               <button
                 type="button"
                 aria-label="닫기"
                 data-testid="bottom-sheet-close-button"
-                className="w-10 h-1.5 bg-gray-400 rounded-full cursor-pointer"
-                onClick={onClose}
+                className="w-[40px] h-[4px] bg-beige-primary rounded-full cursor-pointer"
+                onClick={() => closeModal(sheetKey)}
               />
             </div>
             {children}
