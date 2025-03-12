@@ -83,8 +83,8 @@ const Dropdown: React.FC<DropdownProps> = ({
     open: { rotate: 0 },
   };
 
-  const itemHeight = 54;
-  const maxHeight = maxVisibleItems * itemHeight;
+  const ITEM_HEIGHT = 54;
+  const maxHeight = maxVisibleItems * ITEM_HEIGHT;
 
   const displayTitle = selectedOption ? selectedOption.label : title;
 
