@@ -1,6 +1,3 @@
-import { useState } from 'react';
-import SortSheet from '@components/BottomSheet/SortSheet';
-import FilterSheet from '@components/BottomSheet/FilterSheet';
 import { useAtom } from 'jotai';
 import {
   selectedFiltersAtom,
@@ -11,6 +8,10 @@ import ArrowDownIcon from '@assets/icons/arrow-down.svg?react';
 import SelectedFilterTags from '@components/ProductListInfo/SelectedFilterTags';
 import { ProductItem } from '@mocks/constants/mockProductItems';
 import useProductCount from '@hooks/useProductCount';
+import useModal from '@hooks/useModal';
+import SortSheetContent from '@components/BottomSheet/SortSheetContent';
+import BottomSheet from '@components/BottomSheet';
+import FilterSheetContent from '@components/BottomSheet/FilterSheetContent';
 
 interface ProductListInfoProps {
   products: ProductItem[];
@@ -20,8 +21,7 @@ const ProductListInfo = ({ products }: ProductListInfoProps) => {
   const [sortOption, setSortOption] = useAtom(sortOptionAtom);
   const [selectedFilters, setSelectedFilters] = useAtom(selectedFiltersAtom);
 
-  const [isSortOpen, setIsSortOpen] = useState(false);
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const { openModal, closeModal } = useModal();
 
   const productCount = useProductCount({ products, filters: selectedFilters });
 
@@ -33,7 +33,7 @@ const ProductListInfo = ({ products }: ProductListInfoProps) => {
         <div className="flex items-center gap-4">
           <button
             type="button"
-            onClick={() => setIsSortOpen(true)}
+            onClick={() => openModal('sort-sheet')}
             className="flex items-center"
           >
             {sortOption}
@@ -41,7 +41,7 @@ const ProductListInfo = ({ products }: ProductListInfoProps) => {
           </button>
           <button
             type="button"
-            onClick={() => setIsFilterOpen(true)}
+            onClick={() => openModal('filter-sheet')}
             className="flex items-center"
           >
             필터
@@ -69,20 +69,20 @@ const ProductListInfo = ({ products }: ProductListInfoProps) => {
           });
         }}
       />
-
-      <SortSheet
-        isOpen={isSortOpen}
-        onClose={() => setIsSortOpen(false)}
-        onSelect={setSortOption}
-        selectedOption={sortOption}
-      />
-      <FilterSheet
-        isOpen={isFilterOpen}
-        onClose={() => setIsFilterOpen(false)}
-        selectedFilters={selectedFilters}
-        onSelect={(filters) => setSelectedFilters(filters)}
-        products={products}
-      />
+      <BottomSheet sheetKey="sort-sheet">
+        <SortSheetContent
+          onSelect={setSortOption}
+          selectedOption={sortOption}
+        />
+      </BottomSheet>
+      <BottomSheet sheetKey="filter-sheet">
+        <FilterSheetContent
+          selectedFilters={selectedFilters}
+          onSelect={(filters) => setSelectedFilters(filters)}
+          products={products}
+          onClose={() => closeModal('filter-sheet')}
+        />
+      </BottomSheet>
     </div>
   );
 };
