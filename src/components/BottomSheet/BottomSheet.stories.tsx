@@ -5,7 +5,7 @@ import '@styles/tailwind.css';
 import useModal from '@hooks/useModal';
 import { useState } from 'react';
 import MOCK_SORT_OPTIONS from '@mocks/constants/mockSortList';
-import FilterSheetContent from './FilterSheetContent';
+import FilterSheetContent from '@components/BottomSheet/FilterSheetContent';
 import MOCK_PRODUCT_ITEMS from '@mocks/constants/mockProductItems';
 
 const meta: Meta<typeof BottomSheet> = {

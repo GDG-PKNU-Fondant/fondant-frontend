@@ -94,10 +94,12 @@ const FilterSheetContent = ({
         </ul>
       </div>
 
-      <SelectedFilterTags
-        selectedFilters={selected}
-        onRemove={handleFilterSelect}
-      />
+      <div data-testid="Tags">
+        <SelectedFilterTags
+          selectedFilters={selected}
+          onRemove={handleFilterSelect}
+        />
+      </div>
 
       <div className="mt-[16px] flex gap-[12px] px-[18px]">
         <button
