@@ -29,5 +29,4 @@ FilterTab.args = {
   defaultColor: 'text-gray-400',
   selectedColor: 'text-brown-primary',
   fixedTextSize: 13,
-  type: 'inner',
 };

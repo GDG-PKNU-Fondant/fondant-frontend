@@ -18,7 +18,7 @@ describe('TabNavigator Component', () => {
 
     const bestTab = screen.getByText('베스트');
 
-    expect(bestTab).toHaveClass('font-semibold text-brown-secondary');
+    expect(bestTab).toHaveClass('font-medium text-brown-secondary');
 
     fireEvent.click(bestTab);
 
@@ -75,15 +75,6 @@ describe('TabNavigator Component', () => {
 
     expect(firstTab).toHaveStyle({ fontSize: '20px' });
     expect(secondTab).toHaveStyle({ fontSize: '22px' });
-  });
-
-  it('탭의 타입이 "inner"이면 글씨 굵기가 고정되는지 확인', () => {
-    render(<TabNavigator tabs={MOCK_TABS} type="inner" />);
-
-    MOCK_TABS.forEach((tab) => {
-      const tabElement = screen.getByText(tab.label);
-      expect(tabElement).toHaveClass('font-normal');
-    });
   });
 
   it('고정된 텍스트 크기 설정 시, 크기가 변하지 않는지 확인', () => {

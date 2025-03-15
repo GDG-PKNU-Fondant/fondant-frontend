@@ -7,9 +7,10 @@ const TabNavigator = ({
   onTabChange,
   defaultColor = 'text-brown-secondary',
   selectedColor = 'text-brown-primary',
+  bottomBorder,
   textSize = 16,
   fixedTextSize,
-  type = 'outer',
+  fixedFontWeight,
 }: TabNavigatorProps) => {
   const [selectedTab, setSelectedTab] = useState(tabs[0].key);
 
@@ -19,39 +20,42 @@ const TabNavigator = ({
   };
 
   return (
-    <div className="relative flex items-center justify-between space-x-1 px-[20px] pb-[5px]">
-      {tabs.map((tab) => {
-        const isSelected = tab.key === selectedTab;
-        const textColor =
-          tab.fixedColor || (isSelected ? selectedColor : defaultColor);
+    <div className="relative px-[20px]">
+      <div className="flex items-center justify-between pb-[5px]">
+        {tabs.map((tab) => {
+          const isSelected = tab.key === selectedTab;
+          const textColor =
+            tab.fixedColor || (isSelected ? selectedColor : defaultColor);
 
-        const fontSize =
-          fixedTextSize || (isSelected ? textSize + 2 : textSize);
+          const fontSize =
+            fixedTextSize || (isSelected ? textSize + 2 : textSize);
 
-        const fontWeight =
-          type === 'inner'
-            ? 'font-normal'
-            : (isSelected && 'font-bold') || 'font-semibold';
+          const fontWeight =
+            fixedFontWeight || (isSelected ? 'font-bold' : 'font-medium');
 
-        return (
-          <button
-            type="button"
-            key={tab.key}
-            className={`relative py-2 leading-[20px] tracking-[-0.5px] ${fontWeight} ${textColor}`}
-            style={{ fontSize: `${fontSize}px` }}
-            onClick={() => handleTabClick(tab.key)}
-          >
-            {tab.label}
-            {isSelected && (
-              <motion.div
-                data-testid="tab-indicator"
-                layoutId="tab-indicator"
-                className={`absolute bottom-[-2px] h-[3px]  w-[80%] left-[10%] ${textColor} bg-current`}
-              />
-            )}
-          </button>
-        );
-      })}
+          return (
+            <button
+              type="button"
+              key={tab.key}
+              className={`relative py-[8px] leading-[20px] tracking-[-0.5px] ${fontWeight} ${textColor}`}
+              style={{ fontSize: `${fontSize}px` }}
+              onClick={() => handleTabClick(tab.key)}
+            >
+              {tab.label}
+              {isSelected && (
+                <motion.div
+                  data-testid="tab-indicator"
+                  layoutId="tab-indicator"
+                  className={`absolute bottom-[-2px] h-[3px]  w-[100%] rounded-[3px] ${textColor} bg-current`}
+                />
+              )}
+            </button>
+          );
+        })}
+      </div>
+      {bottomBorder && (
+        <div className="w-full h-[1px] bg-beige-secondary mt-[-3px]" />
+      )}
     </div>
   );
 };
