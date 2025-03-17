@@ -25,6 +25,14 @@ const Dropdown: React.FC<DropdownProps> = ({
     null,
   );
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const [buttonHeight, setButtonHeight] = useState<number>(0);
+
+  useEffect(() => {
+    if (buttonRef.current) {
+      setButtonHeight(buttonRef.current.offsetHeight);
+    }
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -89,78 +97,85 @@ const Dropdown: React.FC<DropdownProps> = ({
   const displayTitle = selectedOption ? selectedOption.label : title;
 
   return (
-    <div ref={dropdownRef} className="relative w-full">
-      <div className="w-full bg-background border-[2px] border-beige-primary rounded-[10px] overflow-hidden">
-        <button
-          type="button"
-          onClick={handleToggle}
-          className="flex items-center justify-between w-full p-[16px] text-left tracking-[-0.5px] cursor-pointer"
-          aria-haspopup="listbox"
-          aria-expanded={isOpen}
-        >
-          <span className="text-brown-primary text-[16px] font-semibold">
-            {displayTitle}
-          </span>
-          <motion.div
-            animate={isOpen ? 'open' : 'closed'}
-            variants={arrowVariants}
-            transition={{ duration: 0.2, ease: 'easeInOut' }}
+    <div
+      className="relative"
+      style={{ height: buttonHeight }}
+      ref={dropdownRef}
+    >
+      <div className="w-full absolute z-0" style={{ width: '100%' }}>
+        <div className="w-full bg-background border-[2px] border-beige-primary rounded-[10px] overflow-hidden">
+          <button
+            ref={buttonRef}
+            type="button"
+            onClick={handleToggle}
+            className="flex items-center justify-between w-full p-[16px] text-left tracking-[-0.5px] cursor-pointer"
+            aria-haspopup="listbox"
+            aria-expanded={isOpen}
           >
-            <DropdownArrowIcon />
-          </motion.div>
-        </button>
-        <AnimatePresence>
-          {isOpen && (
+            <span className="text-brown-primary text-[16px] font-semibold">
+              {displayTitle}
+            </span>
             <motion.div
-              initial="hidden"
-              animate="visible"
-              exit="hidden"
-              variants={contentVariants}
-              className="overflow-hidden border-t border-beige-secondary"
-              transition={{ duration: 0.3, ease: 'easeInOut' }}
-              style={{
-                maxHeight:
-                  options.length + 1 > maxVisibleItems ? maxHeight : 'none',
-                overflowY:
-                  options.length + 1 > maxVisibleItems ? 'auto' : 'hidden',
-              }}
-              role="listbox"
+              animate={isOpen ? 'open' : 'closed'}
+              variants={arrowVariants}
+              transition={{ duration: 0.2, ease: 'easeInOut' }}
             >
-              <div className="divide-y divide-beige-secondary">
-                <motion.div
-                  variants={itemVariants}
-                  initial="hidden"
-                  animate="visible"
-                  transition={{ duration: 0.3, delay: 0.05 }}
-                  className="p-[16px] text-brown-primary text-[15px] cursor-pointer hover:bg-beige-tertiary"
-                  onClick={handleTitleClick}
-                  role="option"
-                >
-                  {title}
-                </motion.div>
-                {options.map((option) => (
+              <DropdownArrowIcon />
+            </motion.div>
+          </button>
+          <AnimatePresence>
+            {isOpen && (
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+                variants={contentVariants}
+                className="overflow-hidden border-t border-beige-secondary"
+                transition={{ duration: 0.3, ease: 'easeInOut' }}
+                style={{
+                  maxHeight:
+                    options.length + 1 > maxVisibleItems ? maxHeight : 'none',
+                  overflowY:
+                    options.length + 1 > maxVisibleItems ? 'auto' : 'hidden',
+                }}
+                role="listbox"
+              >
+                <div className="divide-y divide-beige-secondary">
                   <motion.div
-                    key={option.id}
                     variants={itemVariants}
                     initial="hidden"
                     animate="visible"
                     transition={{ duration: 0.3, delay: 0.05 }}
-                    className={`p-[16px] text-brown-primary text-[15px] cursor-pointer hover:bg-beige-tertiary ${
-                      selectedOption?.id === option.id
-                        ? 'bg-beige-tertiary'
-                        : ''
-                    }`}
-                    onClick={() => handleSelect(option)}
+                    className="p-[16px] text-brown-primary text-[15px] cursor-pointer hover:bg-beige-tertiary"
+                    onClick={handleTitleClick}
                     role="option"
-                    aria-selected={selectedOption?.id === option.id}
                   >
-                    {option.label}
+                    {title}
                   </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+                  {options.map((option) => (
+                    <motion.div
+                      key={option.id}
+                      variants={itemVariants}
+                      initial="hidden"
+                      animate="visible"
+                      transition={{ duration: 0.3, delay: 0.05 }}
+                      className={`p-[16px] text-brown-primary text-[15px] cursor-pointer hover:bg-beige-tertiary ${
+                        selectedOption?.id === option.id
+                          ? 'bg-beige-tertiary'
+                          : ''
+                      }`}
+                      onClick={() => handleSelect(option)}
+                      role="option"
+                      aria-selected={selectedOption?.id === option.id}
+                    >
+                      {option.label}
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
     </div>
   );
