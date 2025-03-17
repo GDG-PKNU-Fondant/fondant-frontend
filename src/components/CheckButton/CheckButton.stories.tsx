@@ -25,40 +25,19 @@ export default {
   parameters: {
     docs: {
       description: {
-        component:
-          '여러 옵션을 선택할 수 있는 체크 버튼 컴포넌트입니다.',
+        component: '여러 옵션을 선택할 수 있는 체크 버튼 컴포넌트입니다.',
       },
     },
   },
 } as Meta;
 
-export const Default = {
-  args: {
-    rounded: false,
-    selected: false,
-  },
-};
+export const Default = { args: { rounded: false, selected: false } };
 
-export const Selected = {
-  args: {
-    rounded: false,
-    selected: true,
-  },
-};
+export const Selected = { args: { rounded: false, selected: true } };
 
-export const Rounded = {
-  args: {
-    rounded: true,
-    selected: false,
-  },
-};
+export const Rounded = { args: { rounded: true, selected: false } };
 
-export const RoundedSelected = {
-  args: {
-    rounded: true,
-    selected: true,
-  },
-};
+export const RoundedSelected = { args: { rounded: true, selected: true } };
 
 export const CheckButtonGroupExample = {
   render: () => {
