@@ -16,8 +16,16 @@ const meta: Meta<typeof BottomSheet> = {
     sheetKey: {
       control: 'text',
       description: '모달의 고유 키값(구별용)',
+      table: {
+        type: { summary: 'string' },
+      },
     },
-    children: { description: '모달 내부에 들어갈 자식 컴포넌트.' },
+    children: {
+      description: '모달 내부에 들어갈 자식 컴포넌트.',
+      table: {
+        type: { summary: 'React.ReactNode' },
+      },
+    },
   },
   parameters: {
     docs: { description: { component: '하단 모달 시트 컴포넌트입니다.' } },
