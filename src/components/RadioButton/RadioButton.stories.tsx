@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Meta } from '@storybook/react';
 import RadioButton from '@components/RadioButton';
 import '@styles/tailwind.css';
@@ -13,7 +13,7 @@ export default {
       control: { type: 'number', min: 16, max: 28, step: 2 },
     },
     selected: {
-      description: '버튼이 선택된 상태인지 여부를 설정합니다.',
+      description: '버튼의 선택 여부를 설정합니다.',
       control: 'boolean',
     },
     onClick: { description: '버튼이 클릭되었을 때 호출되는 콜백 함수입니다.' },
@@ -31,9 +31,12 @@ export const Default = { args: { selected: false } };
 
 export const Selected = { args: { selected: true } };
 
-export const RadioButtonGroupExample = {
+export const InteractiveExample = {
   render: () => {
-    const [selectedOption, setSelectedOption] = useState<number>(0);
+    const [selectedOption, setSelectedOption] = useState<{
+      id: number;
+      label: string;
+    }>({ id: 1, label: '옵션 1' });
 
     const options = [
       { id: 1, label: '옵션 1' },
@@ -41,14 +44,18 @@ export const RadioButtonGroupExample = {
       { id: 3, label: '옵션 3' },
     ];
 
-    const handleOptionSelect = (id: number) => {
-      setSelectedOption(id);
+    const handleOptionSelect = (id: number, label: string) => {
+      setSelectedOption({ id, label });
     };
 
-    const handleKeyDown = (e: React.KeyboardEvent, id: number) => {
+    const handleKeyDown = (
+      e: React.KeyboardEvent,
+      id: number,
+      label: string,
+    ) => {
       if (e.key === 'Enter') {
         e.preventDefault();
-        handleOptionSelect(id);
+        handleOptionSelect(id, label);
       }
     };
 
@@ -56,7 +63,7 @@ export const RadioButtonGroupExample = {
       <div
         role="radiogroup"
         aria-label="option-select"
-        className="flex flex-col gap-[10px]"
+        className="flex flex-col gap-[12px]"
       >
         {options.map((option) => (
           <div
@@ -64,12 +71,12 @@ export const RadioButtonGroupExample = {
             className="flex items-center gap-[10px] cursor-pointer"
           >
             <RadioButton
-              selected={selectedOption === option.id}
-              onClick={() => handleOptionSelect(option.id)}
+              selected={selectedOption.id === option.id}
+              onClick={() => handleOptionSelect(option.id, option.label)}
             />
             <span
-              onClick={() => handleOptionSelect(option.id)}
-              onKeyDown={(e) => handleKeyDown(e, option.id)}
+              onClick={() => handleOptionSelect(option.id, option.label)}
+              onKeyDown={(e) => handleKeyDown(e, option.id, option.label)}
               tabIndex={0}
               role="button"
             >
@@ -77,7 +84,10 @@ export const RadioButtonGroupExample = {
             </span>
           </div>
         ))}
-        <span className="font-semibold">선택한 옵션: {selectedOption}</span>
+        <div className="bg-beige-tertiary rounded-md p-[12px]">
+          <span className="font-semibold">선택한 항목: </span>
+          <span>{selectedOption.label}</span>
+        </div>
       </div>
     );
   },
