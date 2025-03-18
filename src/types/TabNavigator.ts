@@ -7,9 +7,10 @@ export interface Tab {
 export interface TabNavigatorProps {
   tabs: Tab[];
   onTabChange?: (key: string) => void;
+  bottomBorder?: boolean;
   defaultColor?: string;
   selectedColor?: string;
   textSize?: number;
   fixedTextSize?: number;
-  type?: 'outer' | 'inner';
+  fixedFontWeight?: string;
 }
