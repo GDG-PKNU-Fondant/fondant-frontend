@@ -6,6 +6,7 @@ import Category from '@pages/Category';
 import Search from '@pages/Search';
 import Wish from '@pages/Wish';
 import My from '@pages/My';
+import Market from '@pages/Market';
 import BottomTab from '@components/BottomTab';
 import useScrollVisibility from '@hooks/useScrollVisibility';
 import { bottomTabVisibilityAtom } from '@stores/layoutState';
@@ -24,6 +25,7 @@ const App: React.FC = () => {
           <Route path="/search" element={<Search />} />
           <Route path="/wish" element={<Wish />} />
           <Route path="/my" element={<My />} />
+          <Route path="/market" element={<Market />} />
         </Routes>
         <BottomTab />
       </div>
