@@ -4,7 +4,7 @@ import RateIcon from '@assets/icons/rate.svg?react';
 import formatPeopleCount from '@utils/formatPeopleCount';
 
 const sizeClasses = {
-  small: 'w-[116px] h-[156px]',
+  small: 'w-[100%] aspect-[144/168]',
   medium: 'w-[144px] h-[168px]',
   large: 'w-[179px] h-[234px]',
 };
