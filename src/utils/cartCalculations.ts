@@ -2,7 +2,7 @@ import { CartItem, MarketCart } from '@type/MarketCartCard';
 
 export const calculateItemTotal = (item: CartItem): number => {
   return (
-    item.additionalOptions?.reduce(
+    item.selectedOptions?.reduce(
       (sum, opt) =>
         sum +
         (item.basePrice + opt.additionalPrice) * opt.quantity * item.quantity,
@@ -19,5 +19,11 @@ export const calculateMarketTotal = (market: MarketCart): number => {
 };
 
 export const calculateCartTotal = (markets: MarketCart[]): number => {
-  return markets.reduce((sum, market) => sum + calculateMarketTotal(market), 0);
+  return markets.reduce((sum, market) => {
+    const totalPrice = calculateMarketTotal(market);
+    const deliveryCost =
+      totalPrice > 0 && market.freeDeliveryLimit > totalPrice ? 2500 : 0;
+
+    return sum + totalPrice + deliveryCost;
+  }, 0);
 };
