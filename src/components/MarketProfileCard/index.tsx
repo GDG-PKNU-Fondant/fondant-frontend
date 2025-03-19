@@ -98,7 +98,7 @@ const ProfileInfo = ({
   </div>
 );
 
-const LikeButton = ({ likes }: { likes: number }) => {
+export const LikeButton = ({ likes }: { likes: number }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(likes);
 
