@@ -16,7 +16,7 @@ const Button = ({
     tertiary:
       'rounded-[5px] bg-beige-tertiary text-brown-secondary font-medium',
     submit:
-      'w-full rounded-full bg-pink text-white font-semibold text-[18px] p-[18px]',
+      'w-full rounded-full bg-pink text-white font-semibold text-[18px] p-[15px]',
   };
 
   const sizeStyles = {
