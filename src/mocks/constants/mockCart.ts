@@ -14,7 +14,7 @@ const MOCK_CART = {
           quantity: 3,
           selected: false,
           arrivalDate: new Date(),
-          additionalOptions: [
+          selectedOptions: [
             {
               id: 0,
               name: '민트 초콜릿 시리얼',
@@ -44,7 +44,7 @@ const MOCK_CART = {
           quantity: 2,
           selected: false,
           arrivalDate: new Date(),
-          additionalOptions: [
+          selectedOptions: [
             {
               id: 0,
               name: '플레인 그릭 요거트',
@@ -62,7 +62,7 @@ const MOCK_CART = {
       selected: false,
       items: [
         {
-          id: 0,
+          id: 2,
           name: '바삭바삭 쿠키 (6개입)',
           basePrice: 20000,
           thumbnailUrl:

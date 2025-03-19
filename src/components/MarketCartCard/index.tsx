@@ -1,5 +1,5 @@
 import React from 'react';
-import { MarketCart } from '@type/MarketCartCard';
+import { MarketCart, CartItemOption } from '@type/MarketCartCard';
 import CartItemCard from '@components/MarketCartCard/CartItemCard';
 import CheckButton from '@components/CheckButton';
 import { calculateMarketTotal } from '@utils/cartCalculations';
@@ -9,6 +9,7 @@ interface MarketCartCardProps {
   onMarketSelect: (selected: boolean) => void;
   onItemSelect: (itemId: number, selected: boolean) => void;
   onQuantityChange: (itemId: number, quantity: number) => void;
+  onOptionChange: (itemId: number, options: CartItemOption[]) => void;
 }
 
 const MarketHeader = ({
@@ -38,10 +39,12 @@ const ItemsList = ({
   items,
   onItemSelect,
   onQuantityChange,
+  onOptionChange,
 }: {
   items: MarketCart['items'];
   onItemSelect: (itemId: number, selected: boolean) => void;
   onQuantityChange: (itemId: number, quantity: number) => void;
+  onOptionChange: (itemId: number, options: CartItemOption[]) => void;
 }) => (
   <div className="divide-y divide-beige-secondary divide-opacity-80">
     {items.map((item) => (
@@ -50,6 +53,7 @@ const ItemsList = ({
         item={item}
         onSelect={(selected) => onItemSelect(item.id, selected)}
         onQuantityChange={(quantity) => onQuantityChange(item.id, quantity)}
+        onOptionChange={(options) => onOptionChange(item.id, options)}
       />
     ))}
   </div>
@@ -85,6 +89,7 @@ const MarketCartCard: React.FC<MarketCartCardProps> = ({
   onMarketSelect,
   onItemSelect,
   onQuantityChange,
+  onOptionChange,
 }) => {
   const totalPrice = calculateMarketTotal(market);
   const deliveryCost = market.freeDeliveryLimit > totalPrice ? 2500 : 0;
@@ -100,6 +105,7 @@ const MarketCartCard: React.FC<MarketCartCardProps> = ({
         items={market.items}
         onItemSelect={onItemSelect}
         onQuantityChange={onQuantityChange}
+        onOptionChange={onOptionChange}
       />
       <PriceSummary totalPrice={totalPrice} deliveryCost={deliveryCost} />
     </div>

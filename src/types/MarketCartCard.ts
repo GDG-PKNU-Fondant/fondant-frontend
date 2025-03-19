@@ -12,7 +12,7 @@ export interface CartItem
   selected: boolean;
   quantity: number;
   arrivalDate: Date;
-  additionalOptions?: CartItemOption[];
+  selectedOptions?: CartItemOption[];
 }
 
 export interface MarketCart {

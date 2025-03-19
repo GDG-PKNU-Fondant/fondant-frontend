@@ -5,11 +5,15 @@ import Button from '@components/Button';
 import CheckButton from '@components/CheckButton';
 import formatDate from '@utils/formatDate';
 import { calculateItemTotal } from '@utils/cartCalculations';
+import BottomSheet from '@components/BottomSheet';
+import ProductOptionSheetContent from '@pages/Cart/components/ProductOptionSheetContent';
+import useModal from '@hooks/useModal';
 
 interface CartItemCardProps {
   item: CartItem;
   onSelect: (selected: boolean) => void;
   onQuantityChange: (quantity: number) => void;
+  onOptionChange: (options: CartItemOption[]) => void;
 }
 
 const ItemImage = ({ url, alt }: { url: string; alt: string }) => (
@@ -35,25 +39,31 @@ const ItemInfo = ({
   </div>
 );
 
-const AdditionalOption = ({ option }: { option: CartItemOption }) => (
+const SelectedOption = ({
+  selectedOption,
+}: {
+  selectedOption: CartItemOption;
+}) => (
   <div className="flex items-center justify-between h-[40px] bg-beige-tertiary rounded-[5px] px-[15px] mb-[8px] leading-none">
     <div className="flex items-center gap-[4px]">
-      <span className="text-[13px] text-brown-primary">{option.name}</span>
-      {option.additionalPrice > 0 && (
+      <span className="text-[13px] text-brown-primary">
+        {selectedOption.name}
+      </span>
+      {selectedOption.additionalPrice > 0 && (
         <span className="text-[11px] text-brown-secondary text-opacity-70">
-          (+{option.additionalPrice.toLocaleString()}원)
+          (+{selectedOption.additionalPrice.toLocaleString()}원)
         </span>
       )}
     </div>
-    <span className="flex items-center justify-center w-[33px] h-[24px] bg-background border border-beige-primary text-[12px] text-brown-primary rounded-[5px]">
-      {option.quantity}
+    <span className="flex items-center justify-center w-[32px] h-[24px] bg-background border border-beige-primary text-[12px] text-brown-primary rounded-[5px]">
+      {selectedOption.quantity}
     </span>
   </div>
 );
 
 const PriceInfo = ({ item }: { item: CartItem }) => (
   <div
-    className={`flex items-center justify-between ${item.additionalOptions ? 'mt-[20px]' : 'mt-[12px]'} leading-none`}
+    className={`flex items-center justify-between ${item.selectedOptions ? 'mt-[20px]' : 'mt-[12px]'} leading-none`}
   >
     <div className="text-[12px] text-brown-secondary">상품 금액</div>
     <div className="text-[15px] text-brown-primary">
@@ -66,13 +76,20 @@ const ActionButtons = ({
   hasOptions,
   quantity,
   onQuantityChange,
+  onOptionChangeClick,
 }: {
   hasOptions: boolean;
   quantity: number;
   onQuantityChange: (quantity: number) => void;
+  onOptionChangeClick: () => void;
 }) => (
   <div className="flex mt-[12px] gap-[7px]">
-    <Button variant="secondary" disabled={!hasOptions} block>
+    <Button
+      variant="secondary"
+      disabled={!hasOptions}
+      onClick={onOptionChangeClick}
+      block
+    >
       {hasOptions ? '옵션 변경' : '단일 옵션'}
     </Button>
     <QuantityController value={quantity} onChange={onQuantityChange} />
@@ -83,7 +100,16 @@ const CartItemCard: React.FC<CartItemCardProps> = ({
   item,
   onSelect,
   onQuantityChange,
+  onOptionChange,
 }) => {
+  const sheetKey = `product-option-sheet-${item.id}`;
+  const { closeModal, openModal } = useModal();
+
+  const handleOptionChange = (newSelectedOptions: CartItemOption[]) => {
+    onOptionChange(newSelectedOptions);
+    closeModal('product-option-sheet');
+  };
+
   return (
     <div className="p-[16px] font-medium">
       <div className="flex items-start gap-4">
@@ -95,17 +121,28 @@ const CartItemCard: React.FC<CartItemCardProps> = ({
             <ItemImage url={item.thumbnailUrl} alt={item.name} />
             <ItemInfo name={item.name} arrivalDate={item.arrivalDate} />
           </div>
-          {item.additionalOptions?.map((option) => (
-            <AdditionalOption key={option.id} option={option} />
+          {item.selectedOptions?.map((option) => (
+            <SelectedOption key={option.id} selectedOption={option} />
           ))}
           <PriceInfo item={item} />
           <ActionButtons
-            hasOptions={!!item.additionalOptions}
+            hasOptions={!!item.selectedOptions}
             quantity={item.quantity}
             onQuantityChange={onQuantityChange}
+            onOptionChangeClick={() => {
+              openModal(sheetKey);
+            }}
           />
         </div>
       </div>
+      <BottomSheet sheetKey={sheetKey}>
+        <ProductOptionSheetContent
+          onClose={() => closeModal(sheetKey)}
+          item={item}
+          totalPrice={calculateItemTotal(item)}
+          onOptionChange={handleOptionChange}
+        />
+      </BottomSheet>
     </div>
   );
 };
