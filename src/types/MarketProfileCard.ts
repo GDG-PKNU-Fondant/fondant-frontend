@@ -5,5 +5,6 @@ export default interface MarketProfileCardProps {
   description: string;
   thumbnailUrls: string[];
   rating: number;
+  liked?: boolean;
   likes: number;
 }
