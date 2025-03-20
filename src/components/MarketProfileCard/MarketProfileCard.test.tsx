@@ -5,7 +5,7 @@ import MOCK_MARKET_PROFILES from '@mocks/constants/mockMarketProfiles';
 
 describe('MarketProfileCard Component', () => {
   it('좋아요 버튼 클릭 시 색상이 변경된다.', () => {
-    render(<MarketProfileCard {...MOCK_MARKET_PROFILES[0]} />);
+    render(<MarketProfileCard {...MOCK_MARKET_PROFILES[1]} />);
     const likeButton = screen.getByRole('button');
     const heartIcon = likeButton.querySelector('svg');
 
@@ -29,7 +29,7 @@ describe('MarketProfileCard Component', () => {
 
     fireEvent.click(likeButton);
     expect(
-      screen.getByText((profile.likes + 1).toString()),
+      screen.getByText((profile.likes - 1).toString()),
     ).toBeInTheDocument();
 
     fireEvent.click(likeButton);
