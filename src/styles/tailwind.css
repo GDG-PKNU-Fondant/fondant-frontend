@@ -60,5 +60,5 @@ body {
   max-width: 480px;
   margin: 0 auto;
   box-shadow: 0 0 10px 0 rgba(156, 108, 79, 0.1);
-  min-height: 100vh;
+  min-height: 100dvh;
 }
