@@ -20,6 +20,7 @@ const BottomSheet = ({ sheetKey, children }: BottomSheetProps) => {
   const dragControls = useDragControls();
   const { lockBodyScroll, unlockBodyScroll } = useBodyScrollLock();
 
+  const mouseStartRef = useRef(false);
   const sheetRef = useRef<HTMLDivElement | null>(null);
   const lastFocusedElementRef = useRef<HTMLElement | null>(null);
 
@@ -66,13 +67,42 @@ const BottomSheet = ({ sheetKey, children }: BottomSheetProps) => {
     }
   };
 
+  const handlePointerDownOnSheet = () => {
+    mouseStartRef.current = true;
+  };
+
+  useEffect(() => {
+    const handlePointerUp = () => {
+      setTimeout(() => {
+        mouseStartRef.current = false;
+      }, 0);
+    };
+
+    if (isBottomSheetOpen) {
+      document.addEventListener('pointerup', handlePointerUp);
+    }
+
+    return () => {
+      document.removeEventListener('pointerup', handlePointerUp);
+    };
+  }, [isBottomSheetOpen]);
+
+  const handleOverlayClick = (e: React.MouseEvent) => {
+    if (mouseStartRef.current) {
+      e.preventDefault();
+      e.stopPropagation();
+      return;
+    }
+    closeModal(sheetKey);
+  };
+
   return createPortal(
     <AnimatePresence>
       {isBottomSheetOpen && (
         <motion.div
           data-testid="bottom-sheet-overlay"
           className="z-1 fixed inset-0 bg-black/30 flex justify-center items-end"
-          onClick={() => closeModal(sheetKey)}
+          onClick={handleOverlayClick}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -82,6 +112,7 @@ const BottomSheet = ({ sheetKey, children }: BottomSheetProps) => {
             ref={sheetRef}
             tabIndex={-1}
             className="bg-background w-full max-w-[480px] rounded-t-2xl p-[8px] origin-bottom"
+            onPointerDown={handlePointerDownOnSheet}
             onClick={(e) => e.stopPropagation()}
             initial={{ y: '100%' }}
             animate={{ y: 0 }}
@@ -91,7 +122,7 @@ const BottomSheet = ({ sheetKey, children }: BottomSheetProps) => {
             dragControls={dragControls}
             dragListener={false}
             dragConstraints={{ top: 0, bottom: 100 }}
-            dragElastic={0.5}
+            dragElastic={{ top: 0 }}
             onDragEnd={handleDragEnd}
             dragSnapToOrigin
           >
