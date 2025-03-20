@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import MarketProfileCardProps from '@type/MarketProfileCard';
 import RateIcon from '@assets/icons/rate.svg?react';
-import HeartIcon from '@assets/icons/heart.svg?react';
-import formatPeopleCount from '@utils/formatPeopleCount';
+import LikeButton from '@components/LikeButton';
 
 const ThumbnailList = ({
   thumbnailUrls,
@@ -98,38 +97,13 @@ const ProfileInfo = ({
   </div>
 );
 
-const LikeButton = ({ likes }: { likes: number }) => {
-  const [isLiked, setIsLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(likes);
-
-  const handleLikeToggle = () => {
-    setIsLiked((prev) => {
-      setLikeCount((prevLikes) => (prev ? prevLikes - 1 : prevLikes + 1));
-      return !prev;
-    });
-  };
-
-  return (
-    <div className="flex items-center">
-      <div className="text-[9px] font-medium text-pink tracking-[-0.5px] mr-[4px]">
-        {formatPeopleCount(likeCount)}
-      </div>
-      <button type="button" onClick={handleLikeToggle}>
-        <HeartIcon
-          fill={isLiked ? '#FF80A6' : 'none'}
-          stroke={isLiked ? '#FF80A6' : '#EBD8CB'}
-        />
-      </button>
-    </div>
-  );
-};
-
 const MarketProfileCard: React.FC<MarketProfileCardProps> = ({
   profileImageUrl,
   marketName,
   description,
   thumbnailUrls,
   rating,
+  liked,
   likes,
 }) => {
   return (
@@ -141,7 +115,7 @@ const MarketProfileCard: React.FC<MarketProfileCardProps> = ({
           description={description}
           rating={rating}
         />
-        <LikeButton likes={likes} />
+        <LikeButton liked={liked} count={likes} />
       </div>
       <ThumbnailList thumbnailUrls={thumbnailUrls} marketName={marketName} />
     </div>
