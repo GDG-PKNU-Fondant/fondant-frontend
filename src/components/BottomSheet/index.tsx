@@ -22,7 +22,6 @@ const BottomSheet = ({ sheetKey, children }: BottomSheetProps) => {
 
   const mouseStartRef = useRef(false);
   const sheetRef = useRef<HTMLDivElement | null>(null);
-  const lastFocusedElementRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const handleScrollLock = () => {
@@ -41,17 +40,6 @@ const BottomSheet = ({ sheetKey, children }: BottomSheetProps) => {
       }
     };
   }, [isBottomSheetOpen, lockBodyScroll, unlockBodyScroll]);
-
-  useEffect(() => {
-    if (isBottomSheetOpen) {
-      lastFocusedElementRef.current = document.activeElement as HTMLElement;
-      setTimeout(() => {
-        sheetRef.current?.focus();
-      }, 10);
-    } else {
-      lastFocusedElementRef.current?.focus();
-    }
-  }, [isBottomSheetOpen]);
 
   const startDrag = (event: React.PointerEvent) => {
     dragControls.start(event);
