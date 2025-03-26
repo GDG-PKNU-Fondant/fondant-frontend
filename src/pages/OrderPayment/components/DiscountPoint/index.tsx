@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import RightIcon from '@assets/icons/right.svg?react';
 import Button from '@components/Button';
-import MOCK_COUPON_AND_POINT from '@mocks/constants/mockCouponAndPoint';
+import MOCK_COUPON from '@mocks/constants/mockCoupon';
+import MOCK_POINT from '@mocks/constants/mockPoint'
 
 const DiscountPoint: React.FC = () => {
-  const { point, coupon } = MOCK_COUPON_AND_POINT;
-  const availablePoints = point.usable;
-  const totalPoints = point.total;
+  const coupon = MOCK_COUPON;
+  const { totalPoint , usablePoint } = MOCK_POINT;
 
   const [points, setPoints] = useState('');
   const [isFullUsed, setIsFullUsed] = useState(false);
 
   useEffect(() => {
     if (isFullUsed) {
-      setPoints(availablePoints.toString());
+      setPoints(usablePoint.toString());
     } else {
       setPoints('');
     }
@@ -68,8 +68,8 @@ const DiscountPoint: React.FC = () => {
             </div>
           </div>
           <div className="text-[12px] font-normal text-brown-secondary text-right mt-[4px]">
-            사용가능 : {availablePoints.toLocaleString()}P / 보유 :{' '}
-            {totalPoints.toLocaleString()}P
+            사용가능 : {usablePoint.toLocaleString()}P / 보유 :{' '}
+            {totalPoint.toLocaleString()}P
           </div>
         </div>
       </div>
