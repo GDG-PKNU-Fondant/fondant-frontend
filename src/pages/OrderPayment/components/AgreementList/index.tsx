@@ -29,7 +29,7 @@ const AgreementList: React.FC = () => {
   };
 
   return (
-    <div className="bg-background rounded-[10px] shadow-lg">
+    <div className="bg-background rounded-[10px] shadow-[0px_0px_10px_0px_rgba(156,108,79,0.15)]">
       <div className="p-[16px] flex items-center gap-[10px]">
         <CheckButton
           selected={agreements.all}

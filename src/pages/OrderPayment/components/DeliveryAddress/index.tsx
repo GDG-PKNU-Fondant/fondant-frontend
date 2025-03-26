@@ -15,7 +15,7 @@ const DeliveryAddress: React.FC = () => {
     MOCK_DELIVERY_ADDRESS;
 
   return (
-    <div className="w-full bg-background rounded-[10px] shadow-lg p-[16px] flex flex-col gap-[8px]">
+    <div className="w-full bg-background rounded-[10px] shadow-[0px_0px_10px_0px_rgba(156,108,79,0.15)] p-[16px] flex flex-col gap-[8px]">
       <div className="flex items-center justify-between">
         <div className="flex items-center">
           <div className="text-[16px] font-semibold text-brown-primary tracking-[-0.5px]">

@@ -3,7 +3,7 @@ import { OrderProductListProps } from '@type/OrderProductList';
 
 const OrderProductList: React.FC<OrderProductListProps> = ({ products }) => {
   return (
-    <div className="flex flex-col bg-background rounded-[10px] shadow-lg">
+    <div className="flex flex-col bg-background rounded-[10px] shadow-[0px_0px_10px_0px_rgba(156,108,79,0.15)]">
       <div className="w-full">
         <div className="p-[16px]">
           <div className="text-[16px] font-semibold text-brown-primary tracking-[-0.5px]">

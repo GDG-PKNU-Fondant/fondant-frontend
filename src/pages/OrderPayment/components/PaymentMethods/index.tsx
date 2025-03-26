@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import RadioButton from '@components/RadioButton';
-import tosspay from '@assets/icons/tosspay.png';
-import kakaopay from '@assets/icons/kakaopay.png';
+import tosspay from '@assets/images/tosspay.png';
+import kakaopay from '@assets/images/kakaopay.png';
 
 const PaymentMethods: React.FC = () => {
   const [selectedMethod, setSelectedMethod] = useState('');
@@ -21,7 +21,7 @@ const PaymentMethods: React.FC = () => {
   };
 
   return (
-    <div className="bg-background rounded-[10px] shadow-lg">
+    <div className="bg-background rounded-[10px] shadow-[0px_0px_10px_0px_rgba(156,108,79,0.15)]">
       <div className="w-full">
         <div className="px-[16px] pt-[16px] pb-[14px]">
           <div className="text-[16px] font-semibold text-brown-primary tracking-[-0.5px]">
