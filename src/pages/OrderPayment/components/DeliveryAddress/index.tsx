@@ -11,14 +11,15 @@ const memoOptions: MemoOptionsProps[] = [
 ];
 
 const DeliveryAddress: React.FC = () => {
-  const { label, name, phone, address, detailAddress } = MOCK_DELIVERY_ADDRESS;
+  const { addressAlias, name, phone, address, detailAddress, postalCode } =
+    MOCK_DELIVERY_ADDRESS;
 
   return (
     <div className="w-full bg-background rounded-[10px] shadow-lg p-[16px] flex flex-col gap-[8px]">
       <div className="flex items-center justify-between">
         <div className="flex items-center">
           <div className="text-[16px] font-semibold text-brown-primary tracking-[-0.5px]">
-            {label}
+            {addressAlias}
           </div>
           <div className="flex text-[10px] font-normal text-pink border border-pink px-[4px] rounded-[2px] ml-[6px]">
             기본배송지
@@ -31,7 +32,7 @@ const DeliveryAddress: React.FC = () => {
       </div>
       <div className="text-[13px] font-medium text-brown-secondary tracking-[0.2px] leading-[16px]">
         {address},<br />
-        {detailAddress}
+        {detailAddress} {postalCode}
       </div>
       <div className="mt-auto">
         <Dropdown title="배송 메모를 선택해주세요." options={memoOptions} />
