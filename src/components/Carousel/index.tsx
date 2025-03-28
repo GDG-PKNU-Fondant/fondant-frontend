@@ -8,6 +8,11 @@ import React, {
 import { motion } from 'framer-motion';
 import CarouselSlide from '@type/Carousel';
 
+interface CarouselProps {
+  slides: CarouselSlide[];
+  type?: 'banner' | 'product';
+}
+
 interface IndicatorProps {
   indicatorPosition: number;
   totalSlides: number;
@@ -15,7 +20,8 @@ interface IndicatorProps {
 }
 
 const SLIDE_DELAY_MS = 5000;
-const ANIMATION_DELAY_MS = 500;
+const ANIMATION_DELAY_MS = 250;
+const SWIPE_COOLDOWN_MS = 250;
 
 const useSlideSetup = (slides: CarouselSlide[]) => {
   const displayedSlides = useMemo(() => {
@@ -106,36 +112,54 @@ export const useSlideSwipe = ({
   const [isSwiping, setIsSwiping] = useState(false);
   const [startX, setStartX] = useState(0);
   const [swipeOffset, setSwipeOffset] = useState(0);
+  const [isSwipeCooldown, setIsSwipeCooldown] = useState(false);
+  const swipeCooldownTimer = useRef<NodeJS.Timeout | null>(null);
 
   const handleSwipeStart = useCallback(
     (e: React.TouchEvent | React.MouseEvent) => {
+      if (isSwipeCooldown) return;
+
       setIsSwiping(true);
       const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
       setStartX(clientX);
     },
-    [],
+    [isSwipeCooldown],
   );
 
   const handleSwipeMove = useCallback(
     (e: React.TouchEvent | React.MouseEvent) => {
-      if (!isSwiping) return;
+      if (!isSwiping || isSwipeCooldown) return;
       const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
       setSwipeOffset(clientX - startX);
     },
-    [isSwiping, startX],
+    [isSwiping, startX, isSwipeCooldown],
   );
 
   const handleSwipeEnd = useCallback(() => {
-    if (isSwiping && Math.abs(swipeOffset) > 100) {
+    if (isSwiping && !isSwipeCooldown && Math.abs(swipeOffset) > 100) {
       if (swipeOffset > 0) {
         goToPrev();
       } else {
         goToNext();
       }
+
+      setIsSwipeCooldown(true);
+      swipeCooldownTimer.current = setTimeout(() => {
+        setIsSwipeCooldown(false);
+      }, SWIPE_COOLDOWN_MS);
     }
+
     setIsSwiping(false);
     setSwipeOffset(0);
-  }, [isSwiping, swipeOffset]);
+  }, [isSwiping, swipeOffset, isSwipeCooldown]);
+
+  useEffect(() => {
+    return () => {
+      if (swipeCooldownTimer.current) {
+        clearTimeout(swipeCooldownTimer.current);
+      }
+    };
+  }, []);
 
   return {
     isSwiping,
@@ -143,21 +167,37 @@ export const useSlideSwipe = ({
     handleSwipeStart,
     handleSwipeMove,
     handleSwipeEnd,
+    isSwipeCooldown,
   };
 };
 
-const SlideImage = ({ slide }: { slide: CarouselSlide }) => (
-  <div className="shrink-0 w-full h-full">
+const SlideImage = ({
+  slide,
+  type,
+}: {
+  slide: CarouselSlide;
+  type: 'banner' | 'product';
+}) => (
+  <div className="shrink-0 w-full h-full relative">
     <img
       src={slide.thumbnailUrl}
       alt="Carousel"
       className="w-full h-full object-cover"
       draggable={false}
     />
+    {type === 'product' && (
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            'linear-gradient(180deg, rgba(24, 24, 24, 0.00) 0%, rgba(24, 24, 24, 0.20) 80%, rgba(24, 24, 24, 0.40) 100%)',
+        }}
+      />
+    )}
   </div>
 );
 
-const Indicator: React.FC<IndicatorProps> = ({
+const BannerIndicator: React.FC<IndicatorProps> = ({
   indicatorPosition,
   totalSlides,
   animationDelay,
@@ -182,7 +222,16 @@ const Indicator: React.FC<IndicatorProps> = ({
   );
 };
 
-const Carousel: React.FC<{ slides: CarouselSlide[] }> = ({ slides }) => {
+const ProductIndicator: React.FC<{
+  currentSlide: number;
+  totalSlides: number;
+}> = ({ currentSlide, totalSlides }) => (
+  <div className="absolute bottom-[14px] right-[14px] w-[40px] py-[2px] bg-beige-tertiary/20 rounded-full text-beige-tertiary text-[12px] text-center font-medium">
+    {currentSlide} / {totalSlides}
+  </div>
+);
+
+const Carousel: React.FC<CarouselProps> = ({ slides, type = 'banner' }) => {
   const { displayedSlides } = useSlideSetup(slides);
   const { slideIndex, indicatorPosition, slideAnimated, goToNext, goToPrev } =
     useCarouselState(slides.length);
@@ -193,7 +242,8 @@ const Carousel: React.FC<{ slides: CarouselSlide[] }> = ({ slides }) => {
     handleSwipeMove,
     handleSwipeEnd,
   } = useSlideSwipe({ goToNext, goToPrev });
-  const { resetTimer, pauseTimer } = useAutoSlide(goToNext);
+
+  const autoSlide = useAutoSlide(type === 'banner' ? goToNext : () => {});
 
   const translateX = useMemo(
     () => -100 * slideIndex + (swipeOffset / window.innerWidth) * 100,
@@ -202,33 +252,49 @@ const Carousel: React.FC<{ slides: CarouselSlide[] }> = ({ slides }) => {
 
   const handleStart = (e: React.TouchEvent | React.MouseEvent) => {
     handleSwipeStart(e);
-    pauseTimer();
+    if (type === 'banner') autoSlide.pauseTimer();
   };
 
   const handleEnd = () => {
     handleSwipeEnd();
-    resetTimer();
+    if (type === 'banner') autoSlide.resetTimer();
   };
+
+  const carouselClass = type === 'product' ? 'aspect-13/14' : 'aspect-36/29';
+  const borderClass =
+    type === 'product'
+      ? ''
+      : 'border-beige-secondary border-[4px] rounded-[10px]';
 
   if (slides.length === 1) {
     return (
-      <div className="flex relative overflow-hidden aspect-36/29 bg-beige-primary rounded-[10px]">
-        <div className="flex h-full">
+      <div
+        className={`flex relative overflow-hidden ${carouselClass} bg-beige-primary ${type === 'banner' ? 'rounded-[10px]' : ''}`}
+      >
+        <div className="flex h-full relative">
           <img
             src={slides[0].thumbnailUrl}
             alt="Carousel"
             className="w-full h-full object-cover"
             draggable={false}
           />
+          {type === 'product' && (
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+          )}
         </div>
-        <div className="absolute inset-0 w-full h-full border-beige-secondary border-4 rounded-[10px]" />
+        {type === 'banner' && (
+          <div className={`absolute inset-0 w-full h-full ${borderClass}`} />
+        )}
+        {type === 'product' && (
+          <ProductIndicator currentSlide={1} totalSlides={slides.length} />
+        )}
       </div>
     );
   }
 
   return (
     <div
-      className="flex relative overflow-hidden aspect-36/29 bg-beige-primary rounded-[10px]"
+      className={`flex relative overflow-hidden ${carouselClass} bg-beige-primary cursor-grab ${type === 'banner' ? 'rounded-[10px]' : ''}`}
       onMouseDown={handleStart}
       onTouchStart={handleStart}
       onMouseMove={handleSwipeMove}
@@ -251,15 +317,25 @@ const Carousel: React.FC<{ slides: CarouselSlide[] }> = ({ slides }) => {
         }}
       >
         {displayedSlides.map((slide) => (
-          <SlideImage key={slide.id} slide={slide} />
+          <SlideImage key={slide.id} slide={slide} type={type} />
         ))}
       </motion.div>
-      <div className="absolute inset-0 w-full h-full border-beige-secondary border-[4px] rounded-[10px]" />
-      <Indicator
-        indicatorPosition={indicatorPosition}
-        totalSlides={slides.length}
-        animationDelay={ANIMATION_DELAY_MS}
-      />
+      {type === 'banner' && (
+        <>
+          <div className={`absolute inset-0 w-full h-full ${borderClass}`} />
+          <BannerIndicator
+            indicatorPosition={indicatorPosition}
+            totalSlides={slides.length}
+            animationDelay={ANIMATION_DELAY_MS}
+          />
+        </>
+      )}
+      {type === 'product' && (
+        <ProductIndicator
+          currentSlide={indicatorPosition + 1}
+          totalSlides={slides.length}
+        />
+      )}
     </div>
   );
 };

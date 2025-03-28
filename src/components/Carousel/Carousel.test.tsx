@@ -61,7 +61,7 @@ describe('Carousel Hooks', () => {
       });
 
       act(() => {
-        vi.advanceTimersByTime(500);
+        vi.advanceTimersByTime(250);
       });
 
       expect(result.current.slideIndex).toBe(1);
@@ -129,6 +129,12 @@ describe('Carousel Hooks', () => {
       });
 
       expect(mockGoToNext).toHaveBeenCalledTimes(1);
+
+      vi.useFakeTimers();
+      act(() => {
+        vi.runAllTimers();
+      });
+      vi.useRealTimers();
 
       mockGoToNext.mockClear();
       mockGoToPrev.mockClear();
