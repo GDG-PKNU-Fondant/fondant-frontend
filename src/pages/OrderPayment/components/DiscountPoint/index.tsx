@@ -2,25 +2,35 @@ import React, { useState, useEffect } from 'react';
 import RightIcon from '@assets/icons/right.svg?react';
 import Button from '@components/Button';
 import MOCK_COUPON from '@mocks/constants/mockCoupon';
-import MOCK_POINT from '@mocks/constants/mockPoint'
+import MOCK_POINT from '@mocks/constants/mockPoint';
 
 const DiscountPoint: React.FC = () => {
   const coupon = MOCK_COUPON;
-  const { totalPoint , usablePoint } = MOCK_POINT;
+  const { totalPoint, usablePoint } = MOCK_POINT;
 
-  const [points, setPoints] = useState('');
+  const [pointInput, setPointInput] = useState('');
   const [isFullUsed, setIsFullUsed] = useState(false);
 
   useEffect(() => {
     if (isFullUsed) {
-      setPoints(usablePoint.toString());
+      setPointInput(usablePoint.toLocaleString());
     } else {
-      setPoints('');
+      setPointInput('');
     }
-  }, [isFullUsed]);
+  }, [isFullUsed, usablePoint]);
 
   const handleFullUse = () => {
     setIsFullUsed((prev) => !prev);
+  };
+
+  const handlePointInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const rawValue = e.target.value.replace(/,/g, '');
+    const inputValue = Number(rawValue);
+
+    const clampedValue = Math.min(inputValue, usablePoint);
+    setPointInput(clampedValue.toLocaleString());
+
+    if (isFullUsed) setIsFullUsed(false);
   };
 
   return (
@@ -53,8 +63,9 @@ const DiscountPoint: React.FC = () => {
             <div className="flex items-center gap-[8px]">
               <input
                 type="text"
-                value={points}
-                onChange={(e) => setPoints(e.target.value)}
+                inputMode="numeric"
+                value={pointInput}
+                onChange={handlePointInputChange}
                 className="w-[153px] min-w-[153px] h-[25px] border border-beige-primary rounded-[6px] text-[12px] font-normal text-brown-secondary pr-[4px] bg-background text-right placeholder:text-brown-secondary"
                 placeholder="0"
               />
