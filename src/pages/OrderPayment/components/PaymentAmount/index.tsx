@@ -6,8 +6,8 @@ const PaymentAmount: React.FC = () => {
     (sum, item) => sum + item.price,
     0,
   );
-  const shippingFee = 3000;
-  const totalPrice = productPrice + shippingFee;
+  const deliveryCost = 3000;
+  const totalPrice = productPrice + deliveryCost;
 
   return (
     <div className="bg-background rounded-[10px] shadow-[0px_0px_10px_0px_rgba(156,108,79,0.15)]">
@@ -35,7 +35,7 @@ const PaymentAmount: React.FC = () => {
             배송비
           </div>
           <div className="text-[12px] font-medium text-brown-secondary tracking-[0.2px] leading-[16px]">
-            {shippingFee.toLocaleString()}원
+            {deliveryCost.toLocaleString()}원
           </div>
         </div>
       </div>
