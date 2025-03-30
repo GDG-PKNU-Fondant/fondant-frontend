@@ -3,34 +3,50 @@ import RightIcon from '@assets/icons/right.svg?react';
 import Button from '@components/Button';
 import MOCK_COUPON from '@mocks/constants/mockCoupon';
 import MOCK_POINT from '@mocks/constants/mockPoint';
+import MOCK_ORDER_PRODUCTS from '@mocks/constants/mockOrderProducts';
 
 const DiscountPoint: React.FC = () => {
   const coupon = MOCK_COUPON;
-  const { totalPoint, usablePoint } = MOCK_POINT;
+  const { totalPoint } = MOCK_POINT;
+
+  const productPrice = MOCK_ORDER_PRODUCTS.reduce(
+    (sum, item) => sum + item.price,
+    0,
+  );
+
+  const pointLimitByPrice = Math.floor(productPrice * 0.1);
+  const maxAvailablePoint = Math.min(totalPoint, pointLimitByPrice);
 
   const [pointInput, setPointInput] = useState('');
   const [isFullUsed, setIsFullUsed] = useState(false);
 
   useEffect(() => {
     if (isFullUsed) {
-      setPointInput(usablePoint.toLocaleString());
-    } else {
-      setPointInput('');
+      setPointInput(maxAvailablePoint.toLocaleString());
     }
-  }, [isFullUsed, usablePoint]);
-
-  const handleFullUse = () => {
-    setIsFullUsed((prev) => !prev);
-  };
+  }, [isFullUsed, maxAvailablePoint]);
 
   const handlePointInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const rawValue = e.target.value.replace(/,/g, '');
-    const inputValue = Number(rawValue);
-
-    const clampedValue = Math.min(inputValue, usablePoint);
-    setPointInput(clampedValue.toLocaleString());
-
+    setPointInput(rawValue);
     if (isFullUsed) setIsFullUsed(false);
+  };
+
+  const handlePointInputBlur = () => {
+    const inputValue = Number(pointInput);
+
+    if (Number.isNaN(inputValue) || pointInput === '') {
+      setPointInput('');
+      return;
+    }
+
+    const clamped = Math.min(inputValue, maxAvailablePoint);
+    const rounded = Math.floor(clamped / 10) * 10;
+    setPointInput(rounded.toLocaleString());
+  };
+
+  const handleFullUse = () => {
+    setIsFullUsed((prev) => !prev);
   };
 
   return (
@@ -66,6 +82,7 @@ const DiscountPoint: React.FC = () => {
                 inputMode="numeric"
                 value={pointInput}
                 onChange={handlePointInputChange}
+                onBlur={handlePointInputBlur}
                 className="w-[153px] min-w-[153px] h-[25px] border border-beige-primary rounded-[6px] text-[12px] font-normal text-brown-secondary pr-[4px] bg-background text-right placeholder:text-brown-secondary"
                 placeholder="0"
               />
@@ -79,7 +96,7 @@ const DiscountPoint: React.FC = () => {
             </div>
           </div>
           <div className="text-[12px] font-normal text-brown-secondary text-right mt-[4px]">
-            사용가능 : {usablePoint.toLocaleString()}P / 보유 :{' '}
+            사용가능 : {maxAvailablePoint.toLocaleString()}P / 보유 :{' '}
             {totalPoint.toLocaleString()}P
           </div>
         </div>
