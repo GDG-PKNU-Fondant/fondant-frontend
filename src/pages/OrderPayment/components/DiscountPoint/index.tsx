@@ -42,6 +42,12 @@ const DiscountPoint: React.FC = () => {
 
     const clamped = Math.min(inputValue, maxAvailablePoint);
     const rounded = Math.floor(clamped / 10) * 10;
+
+    if (rounded < 1000) {
+      setPointInput('');
+      return;
+    }
+
     setPointInput(rounded.toLocaleString());
   };
 
