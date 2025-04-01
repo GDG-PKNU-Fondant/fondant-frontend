@@ -294,7 +294,7 @@ const Carousel: React.FC<CarouselProps> = ({ slides, type = 'banner' }) => {
 
   return (
     <div
-      className={`flex relative overflow-hidden ${carouselClass} bg-beige-primary cursor-grab ${type === 'banner' ? 'rounded-[10px]' : ''}`}
+      className={`flex relative overflow-hidden ${carouselClass} bg-beige-primary cursor-grab active:cursor-grabbing ${type === 'banner' ? 'rounded-[10px]' : ''}`}
       onMouseDown={handleStart}
       onTouchStart={handleStart}
       onMouseMove={handleSwipeMove}
