@@ -90,7 +90,7 @@ const ActionButtons = ({
       onClick={onOptionChangeClick}
       block
     >
-      {hasOptions ? '옵션 변경' : '단일 옵션'}
+      {hasOptions ? '옵션 변경' : '단일 옵션 상품'}
     </Button>
     <QuantityController value={quantity} onChange={onQuantityChange} />
   </div>

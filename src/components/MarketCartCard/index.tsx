@@ -75,7 +75,7 @@ const PriceSummary = ({
           상품 {totalPrice.toLocaleString()}원 + 배송비{' '}
           {deliveryCost.toLocaleString()}원
         </span>
-        <span className="text-[12px] text-brown-primary font-semibold">
+        <span className="text-[13px] text-brown-primary font-semibold">
           {' = '}
           {finalPrice.toLocaleString()}원
         </span>
