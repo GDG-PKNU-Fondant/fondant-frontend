@@ -4,9 +4,9 @@ import useDragScroll from '@hooks/useDragScroll';
 import ScrollableProductProps from '@type/ScrollableProduct';
 import MOCK_PRODUCTS from '@mocks/constants/mockProducts';
 
-
 const ScrollableProduct: React.FC<ScrollableProductProps> = ({ title }) => {
-  const { scrollRef, handleDragStart, handleDragMove, handleDragEnd } = useDragScroll();
+  const { scrollRef, handleDragStart, handleDragMove, handleDragEnd } =
+    useDragScroll();
 
   return (
     <div className="flex flex-col bg-background pt-[16px] px-[16px] pb-[20px]">
