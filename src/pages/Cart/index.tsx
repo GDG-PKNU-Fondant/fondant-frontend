@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSetAtom } from 'jotai';
 import { MarketCart, CartItemOption } from '@type/MarketCartCard';
 import PageHeader from '@components/PageHeader';
-import MarketCartCard from '@components/MarketCartCard';
+import MarketCartCard from '@pages/Cart/components/MarketCartCard';
 import Button from '@components/Button';
 import CheckButton from '@components/CheckButton';
 import MOCK_CART from '@mocks/constants/mockCart';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { MarketCart, CartItemOption } from '@type/MarketCartCard';
-import CartItemCard from '@components/MarketCartCard/CartItemCard';
+import CartItemCard from '@pages/Cart/components/MarketCartCard/CartItemCard';
 import CheckButton from '@components/CheckButton';
 import { calculateMarketTotal } from '@utils/cartCalculations';
 
