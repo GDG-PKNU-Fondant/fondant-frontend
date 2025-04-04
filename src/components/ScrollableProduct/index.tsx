@@ -9,7 +9,7 @@ const ScrollableProduct: React.FC<ScrollableProductProps> = ({ title }) => {
     useDragScroll();
 
   return (
-    <div className="flex flex-col bg-background pt-[16px] px-[16px] pb-[20px]">
+    <div className="flex flex-col bg-background shadow-[0px_0px_10px_0px_rgba(156,108,79,0.15)] pt-[16px] px-[16px] pb-[20px]">
       <div className="text-[16px] font-semibold text-brown-primary leading-[15px] pb-[15px] tracking-[-0.5px]">
         {title}
       </div>
