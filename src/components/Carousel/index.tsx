@@ -180,7 +180,7 @@ const SlideImage = ({
 }) => (
   <div className="shrink-0 w-full h-full relative">
     <img
-      src={slide.thumbnailUrl}
+      src={slide.imageUrl}
       alt="Carousel"
       className="w-full h-full object-cover"
       draggable={false}
@@ -273,7 +273,7 @@ const Carousel: React.FC<CarouselProps> = ({ slides, type = 'banner' }) => {
       >
         <div className="flex h-full relative">
           <img
-            src={slides[0].thumbnailUrl}
+            src={slides[0].imageUrl}
             alt="Carousel"
             className="w-full h-full object-cover"
             draggable={false}

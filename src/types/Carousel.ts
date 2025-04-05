@@ -1,4 +1,4 @@
 export default interface CarouselSlide {
   id: number;
-  thumbnailUrl: string;
+  imageUrl: string;
 }
