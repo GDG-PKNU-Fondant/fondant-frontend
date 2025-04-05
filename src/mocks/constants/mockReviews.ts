@@ -1,4 +1,4 @@
-import Review from '@type/Review.ts';
+import Review from '@type/Review';
 
 interface ProductReview {
   [productId: number]: {
