@@ -1,7 +1,8 @@
 import React from 'react';
 import PreviewCardProps from '@type/PreviewCard';
-import RateIcon from '@assets/icons/rate.svg?react';
+import calculateDiscountPercentage from '@utils/calculateDiscountPercentage';
 import formatPeopleCount from '@utils/formatPeopleCount';
+import RateIcon from '@assets/icons/rate.svg?react';
 
 const sizeClasses = {
   small: 'w-[116px] h-[156px]',
@@ -10,11 +11,6 @@ const sizeClasses = {
 };
 
 const formatPrice = (price: number): string => price.toLocaleString();
-
-const calculateDiscountPercentage = (
-  price: number,
-  discountPrice: number,
-): number => Math.floor(((price - discountPrice) / price) * 100);
 
 const renderPrice = (price: number, discountPrice: number | undefined) => {
   if (!price) return null;
