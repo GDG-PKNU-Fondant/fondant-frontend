@@ -18,6 +18,7 @@ export interface ProductDetail extends Product {
   basePrice: number;
   discountPrice?: number;
   additionalOptions?: ProductOption[];
+  freeDeliveryLimit: number;
   description: string;
   thumbnailImages: { id: number; imageUrl: string }[];
   detailImages: { id: number; imageUrl: string }[];
