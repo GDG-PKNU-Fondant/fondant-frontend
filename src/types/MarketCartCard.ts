@@ -1,4 +1,4 @@
-import Product, { ProductOption } from '@type/Product';
+import { ProductDetail, ProductOption } from '@type/Product';
 
 export interface CartItemOption extends ProductOption {
   quantity: number;
@@ -6,8 +6,13 @@ export interface CartItemOption extends ProductOption {
 
 export interface CartItem
   extends Omit<
-    Product,
-    'marketId' | 'marketName' | 'description' | 'detailImageUrl'
+    ProductDetail,
+    | 'marketId'
+    | 'marketName'
+    | 'description'
+    | 'detailImageUrl'
+    | 'thumbnailImages'
+    | 'detailImages'
   > {
   selected: boolean;
   quantity: number;

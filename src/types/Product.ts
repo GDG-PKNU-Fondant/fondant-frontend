@@ -9,9 +9,13 @@ export default interface Product {
   name: string;
   marketId: number;
   marketName: string;
+  thumbnailUrl: string;
+}
+
+export interface ProductDetail extends Product {
   basePrice: number;
   additionalOptions?: ProductOption[];
-  thumbnailUrl: string;
   description: string;
-  detailImageUrl: string[];
+  thumbnailImages: { id: number; imageUrl: string }[];
+  detailImages: { id: number; imageUrl: string }[];
 }
