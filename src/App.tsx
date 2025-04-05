@@ -6,6 +6,7 @@ import Search from '@pages/Search';
 import Wish from '@pages/Wish';
 import My from '@pages/My';
 import Login from '@pages/Login';
+import ProductDetail from '@pages/ProductDetail';
 import BottomTab from '@components/BottomTab';
 
 const App: React.FC = () => {
@@ -19,6 +20,7 @@ const App: React.FC = () => {
           <Route path="/wish" element={<Wish />} />
           <Route path="/my" element={<My />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/product/:productId" element={<ProductDetail />} />
         </Routes>
         <BottomTab />
       </div>
