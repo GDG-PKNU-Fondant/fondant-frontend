@@ -43,7 +43,7 @@ const PreviewCard: React.FC<PreviewCardProps> = ({
   productName,
   price,
   discountPrice,
-  rate,
+  rating,
   reviewer,
   thumbnailUrl,
   size = 'medium',
@@ -77,7 +77,7 @@ const PreviewCard: React.FC<PreviewCardProps> = ({
         <div className="flex flex-row items-center gap-[2px]">
           <RateIcon />
           <div className="text-[10px] text-brown-tertiary font-medium">
-            {`${rate.toFixed(1)} (${formatPeopleCount(reviewer)})`}
+            {`${rating.toFixed(1)} (${formatPeopleCount(reviewer)})`}
           </div>
         </div>
       </div>

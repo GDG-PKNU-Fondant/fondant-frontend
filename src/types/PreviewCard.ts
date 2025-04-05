@@ -5,7 +5,7 @@ export type CardSize = 'small' | 'medium' | 'large';
 export default interface PreviewCardProps {
   id: number;
   marketName?: string;
-  rate: number;
+  rating: number;
   reviewer: number;
   productName?: string;
   price?: number;

@@ -13,7 +13,10 @@ export default interface Product {
 }
 
 export interface ProductDetail extends Product {
+  rating: number;
+  reviewer: number;
   basePrice: number;
+  discountPrice?: number;
   additionalOptions?: ProductOption[];
   description: string;
   thumbnailImages: { id: number; imageUrl: string }[];
