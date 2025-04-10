@@ -6,6 +6,7 @@ import Button from '@components/Button';
 import ReviewTabContent, {
   ReviewItem,
 } from '@pages/ProductDetail/components/ReviewTabContent';
+import ErrorPage from '@pages/ErrorPage';
 import { bottomTabVisibilityAtom } from '@stores/layoutState';
 import type { ProductDetail } from '@type/Product';
 import Review from '@type/Review';
@@ -227,12 +228,76 @@ const TabContent = ({ activeTab, product, reviews }: TabContentProps) => {
   }
 };
 
+const SkeletonCarousel = () => (
+  <div className="aspect-13/14 bg-beige-secondary animate-pulse" />
+);
+
+const SkeletonInfoCard = () => (
+  <div className="p-[16px]">
+    <div className="flex flex-row items-center pb-[12px] mt-[-2px]">
+      <div className="bg-beige-tertiary animate-pulse h-[20px] w-[96px] rounded" />
+      <div className="ml-[8px] bg-beige-tertiary animate-pulse h-[16px] w-[16px] rounded" />
+    </div>
+    <div className="border-y border-y-beige-tertiary pb-[12px] mx-[-16px]">
+      <div className="mt-[16px] pl-[16px]">
+        <div className="bg-beige-tertiary animate-pulse h-[24px] w-3/4 rounded" />
+      </div>
+      <div className="flex flex-row items-center mt-[8px] pl-[16px]">
+        <div className="bg-beige-tertiary animate-pulse h-[16px] w-[16px] rounded mr-[2px]" />
+        <div className="bg-beige-tertiary animate-pulse h-[16px] w-[96px] rounded" />
+      </div>
+      <div className="mt-[12px] pl-[16px]">
+        <div className="bg-beige-tertiary animate-pulse h-[29px] w-[180px] rounded" />
+      </div>
+    </div>
+    <div className="mx-[-16px] mt-[16px] pl-[16px]">
+      <div className="flex items-center">
+        <div className="bg-beige-tertiary animate-pulse h-[21px] w-[40px] rounded mr-[24px]" />
+        <div className="bg-beige-tertiary animate-pulse h-[21px] w-[180px] rounded" />
+      </div>
+    </div>
+  </div>
+);
+
+const SkeletonTabNavigator = () => (
+  <div className="flex flex-row bg-background border-b border-b-beige-tertiary">
+    {TABS.map((_, index) => (
+      // eslint-disable-next-line
+      <div key={index} className="flex-1 p-[12px] flex justify-center">
+        <div className="bg-beige-tertiary animate-pulse h-[20px] w-[64px] rounded" />
+      </div>
+    ))}
+  </div>
+);
+
+const SkeletonTabContent = () => (
+  <div className="p-[16px]">
+    <div className="flex flex-col space-y-[24px]">
+      <div className="bg-beige-tertiary animate-pulse h-[160px] w-full rounded" />
+      <div className="bg-beige-tertiary animate-pulse h-[160px] w-full rounded" />
+      <div className="bg-beige-tertiary animate-pulse h-[160px] w-full rounded" />
+    </div>
+  </div>
+);
+
+const ProductDetailSkeleton = () => (
+  <div className="bg-background">
+    <SkeletonCarousel />
+    <SkeletonInfoCard />
+    <SkeletonTabNavigator />
+    <div className="min-h-dvh">
+      <SkeletonTabContent />
+    </div>
+  </div>
+);
+
 const ProductDetailPage = () => {
   const { productId } = useParams<{ productId: string }>();
   const [product, setProduct] = useState<ProductDetail | null>(null);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [activeTab, setActiveTab] = useState<ProductDetailTab>('product');
   const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const setBottomTabVisibility = useSetAtom(bottomTabVisibilityAtom);
 
@@ -243,13 +308,20 @@ const ProductDetailPage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
+
+      // await new Promise((resolve) => setTimeout(resolve, 2000));
+
       try {
         const [productData, productReviews] = await Promise.all([
-          fetch(`/api/products/${productId}`).then((res) => {
-            if (!res.ok) throw new Error('존재하지 않는 상품입니다.');
-            return res.json() as Promise<ProductDetail>;
+          fetch(`/api/products/${productId}`).then(async (res) => {
+            if (!res.ok) throw new Error('존재하지 않는 상품입니다');
+            const data = await res.json();
+            if (!data) throw new Error('상품 정보를 불러올 수 없습니다');
+            return data as ProductDetail;
           }),
-          fetch(`/api/products/${productId}/reviews`).then((res) => {
+          fetch(`/api/products/${productId}/reviews`).then(async (res) => {
+            if (!res.ok) throw new Error('리뷰 정보를 불러올 수 없습니다');
             return res.json() as Promise<Review[]>;
           }),
         ]);
@@ -258,19 +330,21 @@ const ProductDetailPage = () => {
         setReviews(productReviews);
         setError(null);
       } catch (err) {
-        setError(String(err));
+        setError(err instanceof Error ? err.message : String(err));
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchData();
   }, [productId]);
 
-  if (error || !product) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        {error || '존재하지 않는 상품입니다.'}
-      </div>
-    );
+  if (error) {
+    return <ErrorPage errorMessage={error} />;
+  }
+
+  if (isLoading || !product) {
+    return <ProductDetailSkeleton />;
   }
 
   return (
