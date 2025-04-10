@@ -128,28 +128,11 @@ const DetailTabNavigator = ({
   activeTab,
   setActiveTab,
 }: DetailTabNavigatorProps) => {
-  const [isSticky, setIsSticky] = useState<boolean>(false);
-  const placeholderRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      setIsSticky(!entry.isIntersecting);
-    });
-
-    if (placeholderRef.current) {
-      observer.observe(placeholderRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <div>
-      <div ref={placeholderRef} className="h-0" />
+    <div className="sticky top-0 z-0 bg-background">
       <div
-        className={`flex flex-row bg-background text-brown-secondary text-center 
-        font-medium tracking-[-0.5px] border-b border-b-beige-tertiary 
-        ${isSticky ? 'sticky top-0 left-0 right-0' : ''}`}
+        className="flex flex-row bg-background text-brown-secondary text-center
+        font-medium tracking-[-0.5px] border-b border-b-beige-tertiary"
       >
         {TABS.map(({ key, label }) => (
           <div
@@ -298,6 +281,7 @@ const ProductDetailPage = () => {
   const [activeTab, setActiveTab] = useState<ProductDetailTab>('product');
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   const setBottomTabVisibility = useSetAtom(bottomTabVisibilityAtom);
 
@@ -339,6 +323,12 @@ const ProductDetailPage = () => {
     fetchData();
   }, [productId]);
 
+  useEffect(() => {
+    if (contentRef.current) {
+      contentRef.current.scrollTop = 0;
+    }
+  }, [activeTab]);
+
   if (error) {
     return <ErrorPage errorMessage={error} />;
   }
@@ -352,12 +342,12 @@ const ProductDetailPage = () => {
       <div className="flex-none">
         <Carousel slides={product.thumbnailImages} type="product" />
         <BasicInfoCard product={product} />
-        <DetailTabNavigator activeTab={activeTab} setActiveTab={setActiveTab} />
       </div>
-      <div className="flex-grow overflow-auto">
+      <DetailTabNavigator activeTab={activeTab} setActiveTab={setActiveTab} />
+      <div ref={contentRef} className="flex-grow overflow-auto">
         <TabContent activeTab={activeTab} product={product} reviews={reviews} />
       </div>
-      <div className="flex-none sticky bottom-0 bg-background rounded-t-[10px] p-[15px] shadow-[0px_-4px_10px_0px_rgba(156,108,79,0.10)]">
+      <div className="flex-none sticky bottom-0 z-0 bg-background rounded-t-[10px] p-[15px] shadow-[0px_-4px_10px_0px_rgba(156,108,79,0.10)]">
         <Button variant="submit">구매하기</Button>
       </div>
     </div>
