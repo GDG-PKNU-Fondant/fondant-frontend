@@ -139,7 +139,7 @@ const DetailTabNavigator = ({
             key={key}
             onClick={() => setActiveTab(key)}
             onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
+              if (e.key === 'Enter') {
                 setActiveTab(key);
               }
             }}
