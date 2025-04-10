@@ -348,14 +348,16 @@ const ProductDetailPage = () => {
   }
 
   return (
-    <div className="bg-background">
-      <Carousel slides={product.thumbnailImages} type="product" />
-      <BasicInfoCard product={product} />
-      <DetailTabNavigator activeTab={activeTab} setActiveTab={setActiveTab} />
-      <div className="min-h-dvh">
+    <div className="min-h-dvh bg-background flex flex-col">
+      <div className="flex-none">
+        <Carousel slides={product.thumbnailImages} type="product" />
+        <BasicInfoCard product={product} />
+        <DetailTabNavigator activeTab={activeTab} setActiveTab={setActiveTab} />
+      </div>
+      <div className="flex-grow overflow-auto">
         <TabContent activeTab={activeTab} product={product} reviews={reviews} />
       </div>
-      <div className="sticky bottom-0 bg-background rounded-t-[10px] p-[15px] shadow-[0px_-4px_10px_0px_rgba(156,108,79,0.10)]">
+      <div className="flex-none sticky bottom-0 bg-background rounded-t-[10px] p-[15px] shadow-[0px_-4px_10px_0px_rgba(156,108,79,0.10)]">
         <Button variant="submit">구매하기</Button>
       </div>
     </div>
