@@ -42,7 +42,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({
               className="cursor-pointer"
               type="button"
               onClick={() => {
-                navigate('/home');
+                navigate('/');
               }}
             >
               <HomeIcon />
