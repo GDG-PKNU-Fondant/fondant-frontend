@@ -41,7 +41,7 @@ const Header = ({
           <h1 className="font-black text-[40px] leading-[20px] tracking-[-5px] text-center text-brown-primary">
             LOGO
           </h1>
-          <div className="flex space-x-4">
+          <div className="flex space-x-[16px]">
             <button
               type="button"
               onClick={handleNotificationClick}
@@ -49,7 +49,7 @@ const Header = ({
             >
               <Badge
                 type="alert"
-                inset="-2px -1px auto auto"
+                position="top-right"
                 count={notificationCount}
               >
                 <NotificationIcon />
@@ -60,16 +60,16 @@ const Header = ({
               onClick={onCartClick}
               data-testid="cartButton"
             >
-              <Badge type="count" count={cartCount} inset="auto -5px -5px auto">
+              <Badge type="count" count={cartCount}>
                 <CartIcon />
               </Badge>
             </button>
           </div>
         </div>
-        <div className="px-4 pb-2">
+        <div className="px-[16px] pb-[8px]">
           <button
             type="button"
-            className="w-full h-9 border bg-white border-brown-primary rounded-[5px] font-medium text-placeholder text-4 leading-[20px] tracking-[-0.5px] text-left ps-2"
+            className="w-full h-[36px] border bg-white border-brown-primary rounded-[5px] font-medium text-placeholder text-4 leading-[20px] tracking-[-0.5px] text-left ps-[8px]"
             onClick={onSearchClick}
           >
             검색

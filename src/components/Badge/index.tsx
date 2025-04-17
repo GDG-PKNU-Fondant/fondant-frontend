@@ -2,38 +2,39 @@ import React from 'react';
 import BadgeProps from '@type/Badge';
 
 const Badge: React.FC<BadgeProps> = ({
+  children,
   type,
   count = 0,
-  children,
-  inset = '0px 0px auto auto',
+  position = 'bottom-right',
+  visible = count > 0,
 }) => {
-  let badgeSize = 'w-[17px] h-[17px]';
-  let textSize = 'text-[12px]';
   let displayCount: string | number = count;
 
-  if (type === 'alert') {
-    badgeSize = 'w-[10px] h-[10px]';
-  } else if (type === 'count' && count !== undefined) {
+  if (type === 'count' && count !== undefined) {
     if (count >= 100) {
       displayCount = '99+';
-      textSize = 'text-[8px]';
-    } else if (count < 10) {
-      textSize = 'text-[12px]';
-    } else {
-      textSize = 'text-[10px]';
     }
   }
 
+  const positionClasses = {
+    'top-right': 'top-0 right-0 -translate-y-1/3 translate-x-1/3',
+    'top-left': 'top-0 left-0 -translate-y-1/3 -translate-x-1/3',
+    'bottom-right': 'bottom-0 right-0 translate-y-1/3 translate-x-1/3',
+    'bottom-left': 'bottom-0 left-0 translate-y-1/3 -translate-x-1/3',
+  }[position];
+
+  const sizeClasses =
+    type === 'alert'
+      ? 'w-[11px] h-[11px] text-[0]'
+      : 'min-w-[16px] h-[16px] text-[9px] px-[4px]';
+
   return (
-    <div className="relative inline-block">
+    <div className="relative">
       {children}
-      {count > 0 && (
+      {visible && (
         <div
           data-testid="badge"
-          className={`absolute flex items-center justify-center rounded-full text-white font-bold ${badgeSize} ${
-            type === 'count' ? 'bg-brown-primary' : 'bg-pink'
-          } ${textSize}`}
-          style={{ inset }}
+          className={`absolute flex items-center justify-center bg-pink rounded-full text-white font-semibold ${sizeClasses} ${positionClasses}`}
         >
           {type === 'count' ? displayCount : ''}
         </div>
