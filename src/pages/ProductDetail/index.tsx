@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useSetAtom } from 'jotai';
 import Carousel from '@components/Carousel';
 import Button from '@components/Button';
+import PageHeader from '@components/PageHeader';
 import ReviewTabContent, {
   ReviewItem,
 } from '@pages/ProductDetail/components/ReviewTabContent';
@@ -129,7 +130,7 @@ const DetailTabNavigator = ({
   setActiveTab,
 }: DetailTabNavigatorProps) => {
   return (
-    <div className="sticky top-0 z-0 bg-background">
+    <div className="sticky top-[60px] z-0 bg-background">
       <div
         className="flex flex-row bg-background text-brown-secondary text-center
         font-medium tracking-[-0.5px] border-b border-b-beige-tertiary"
@@ -333,23 +334,33 @@ const ProductDetailPage = () => {
     return <ErrorPage errorMessage={error} />;
   }
 
-  if (isLoading || !product) {
-    return <ProductDetailSkeleton />;
-  }
-
   return (
     <div className="min-h-dvh bg-background flex flex-col">
-      <div className="flex-none">
-        <Carousel slides={product.thumbnailImages} type="product" />
-        <BasicInfoCard product={product} />
-      </div>
-      <DetailTabNavigator activeTab={activeTab} setActiveTab={setActiveTab} />
-      <div ref={contentRef} className="flex-grow overflow-auto">
-        <TabContent activeTab={activeTab} product={product} reviews={reviews} />
-      </div>
-      <div className="flex-none sticky bottom-0 z-0 bg-background rounded-t-[10px] p-[15px] shadow-[0px_-4px_10px_0px_rgba(156,108,79,0.10)]">
-        <Button variant="submit">구매하기</Button>
-      </div>
+      <PageHeader showActionButtons />
+      {isLoading || !product ? (
+        <ProductDetailSkeleton />
+      ) : (
+        <>
+          <div className="flex-none">
+            <Carousel slides={product.thumbnailImages} type="product" />
+            <BasicInfoCard product={product} />
+          </div>
+          <DetailTabNavigator
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+          />
+          <div ref={contentRef} className="flex-grow overflow-auto">
+            <TabContent
+              activeTab={activeTab}
+              product={product}
+              reviews={reviews}
+            />
+          </div>
+          <div className="flex-none sticky bottom-0 z-0 bg-background rounded-t-[10px] p-[15px] shadow-[0px_-4px_10px_0px_rgba(156,108,79,0.10)]">
+            <Button variant="submit">구매하기</Button>
+          </div>
+        </>
+      )}
     </div>
   );
 };
