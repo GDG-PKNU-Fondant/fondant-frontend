@@ -131,18 +131,20 @@ const Cart: React.FC = () => {
   return (
     <div className="min-h-dvh bg-[#FDF4ED] flex flex-col">
       <PageHeader title="장바구니" />
-      <div className="flex items-center bg-background border-t border-beige-tertiary px-[18px] py-[10px]">
-        <CheckButton
-          selected={hasAnyItems && isAllSelected}
-          onClick={handleSelectAll}
-          rounded
-        />
-        <span className="text-brown-primary text-[14px] tracking-[-0.5px] leading-none ml-[8px]">
-          전체선택
-        </span>
-        <span className="text-brown-secondary text-[13px] tracking-[-0.5px] leading-none ml-[3px]">
-          {`(${selectedItemsCount}/${totalItemsCount})`}
-        </span>
+      <div className="sticky top-[60px] left-0 right-0 w-full">
+        <div className="flex items-center bg-background border-t border-beige-tertiary px-[18px] py-[10px]">
+          <CheckButton
+            selected={hasAnyItems && isAllSelected}
+            onClick={handleSelectAll}
+            rounded
+          />
+          <span className="text-brown-primary text-[14px] tracking-[-0.5px] leading-none ml-[8px]">
+            전체선택
+          </span>
+          <span className="text-brown-secondary text-[13px] tracking-[-0.5px] leading-none ml-[3px]">
+            {`(${selectedItemsCount}/${totalItemsCount})`}
+          </span>
+        </div>
       </div>
       <div className="flex flex-col px-[12px] py-[20px] gap-[12px] flex-grow">
         {markets.map((market) => (
