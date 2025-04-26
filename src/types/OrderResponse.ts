@@ -8,8 +8,8 @@ export interface DeliveryAddress {
 }
 
 export interface OrderProduct {
-  name: string;
-  price: number;
+  id: number;
+  productName: string;
 }
 
 export interface OrderResponseType {
