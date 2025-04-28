@@ -12,7 +12,7 @@ const CancelReason: React.FC = () => {
   const [text, setText] = useState('');
 
   const handleTextLength = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const value = e.target.value;
+    const { value } = e.target;
     if (value.length <= 500) {
       setText(value);
     }
