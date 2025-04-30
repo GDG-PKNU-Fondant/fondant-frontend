@@ -1,8 +1,13 @@
 /// <reference types="vitest/config" />
-import { defineConfig } from 'vite';
+import { defineConfig, UserConfig } from 'vite';
+import { InlineConfig } from 'vitest/node';
 import react from '@vitejs/plugin-react';
 import svgrPlugin from 'vite-plugin-svgr';
 import path from 'path';
+
+interface VitestConfigExport extends UserConfig {
+  test: InlineConfig;
+}
 
 export default defineConfig({
   plugins: [react(), svgrPlugin()],
@@ -29,4 +34,4 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['./vitest.setup.ts'],
   },
-});
+} as VitestConfigExport);
