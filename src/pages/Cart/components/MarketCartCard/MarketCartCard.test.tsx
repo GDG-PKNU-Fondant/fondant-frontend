@@ -50,7 +50,7 @@ const createMockCart = (overrides = {}): MarketCart => ({
       basePrice: 15000,
       quantity: 2,
       selected: true,
-      thumbnailUrl: 'test-image-2.jpg',
+      thumbnailUrl: '',
       arrivalDate: new Date('2025-05-15'),
       selectedOptions: undefined,
     },
