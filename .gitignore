@@ -33,3 +33,4 @@ dist-ssr
 *.sw?
 
 *storybook.log
+.yarn.install-state.gz
