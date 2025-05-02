@@ -1,5 +1,5 @@
 import { Meta, StoryFn } from '@storybook/react';
-import { mockDynamicCategories } from '@mocks/handlers';
+import MOCK_DYNAMIC_CATEGORIES from '@mocks/constants/mockDynamicCategories';
 import CategoryMenu from '@components/CategoryMenu';
 import CategoryMenuProps from '@type/CategoryMenu';
 import '@styles/tailwind.css';
@@ -15,10 +15,10 @@ const Template: StoryFn<{ category: CategoryMenuProps }> = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  category: mockDynamicCategories[1],
+  category: MOCK_DYNAMIC_CATEGORIES[1],
 };
 
 export const PrimaryCategory = Template.bind({});
 PrimaryCategory.args = {
-  category: mockDynamicCategories[0],
+  category: MOCK_DYNAMIC_CATEGORIES[0],
 };
