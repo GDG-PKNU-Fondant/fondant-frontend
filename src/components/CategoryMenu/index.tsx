@@ -4,13 +4,13 @@ const CategoryMenu = ({ category }: { category: CategoryMenuProps }) => {
   return (
     <button type="button">
       <div
-        className={`w-16 h-16 bg-beige-primary rounded-full 
+        className={`w-[64px] h-[64px] bg-beige-primary rounded-full flex items-center justify-center
           ${category.primary ? 'text-pink font-semibold' : 'text-brown-primary'}`}
       >
         <img
           src={category.iconUrl}
           alt={category.categoryName}
-          className="w-full h-full object-contain rounded-full"
+          className="w-[52px] h-[52px] object-center rounded-full"
         />
       </div>
       <div
