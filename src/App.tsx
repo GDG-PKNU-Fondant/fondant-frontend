@@ -5,7 +5,7 @@ import Category from '@pages/Category';
 import Search from '@pages/Search';
 import Wish from '@pages/Wish';
 import My from '@pages/My';
-import Login from '@pages/Login';
+import Cart from '@pages/Cart';
 import BottomTab from '@components/BottomTab';
 
 const App: React.FC = () => {
@@ -18,7 +18,7 @@ const App: React.FC = () => {
           <Route path="/search" element={<Search />} />
           <Route path="/wish" element={<Wish />} />
           <Route path="/my" element={<My />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
         <BottomTab />
       </div>

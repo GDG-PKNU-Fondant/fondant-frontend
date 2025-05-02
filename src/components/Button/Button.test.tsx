@@ -37,7 +37,7 @@ describe('Button Component', () => {
 
     setup({ variant: 'submit' });
     expect(screen.getByRole('button')).toHaveClass(
-      'w-full rounded-full bg-pink text-white font-semibold text-[18px] p-[18px]',
+      'w-full rounded-full bg-pink text-white font-semibold text-[18px] p-[15px]',
     );
   });
 
