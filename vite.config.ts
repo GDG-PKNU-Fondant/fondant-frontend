@@ -2,7 +2,9 @@
 import { defineConfig, UserConfig } from 'vite';
 import { InlineConfig } from 'vitest/node';
 import react from '@vitejs/plugin-react';
+import fs from 'fs';
 import svgrPlugin from 'vite-plugin-svgr';
+import mkcert from 'vite-plugin-mkcert';
 import path from 'path';
 
 interface VitestConfigExport extends UserConfig {
@@ -10,7 +12,13 @@ interface VitestConfigExport extends UserConfig {
 }
 
 export default defineConfig({
-  plugins: [react(), svgrPlugin()],
+  server: {
+    https: {
+      key: fs.readFileSync(path.resolve(__dirname, 'localhost-key.pem')),
+      cert: fs.readFileSync(path.resolve(__dirname, 'localhost.pem')),
+    },
+  },
+  plugins: [react(), svgrPlugin(), mkcert()],
   resolve: {
     alias: [
       { find: '@apis', replacement: path.resolve(__dirname, 'src/apis') },

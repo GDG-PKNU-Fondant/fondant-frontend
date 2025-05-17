@@ -36,3 +36,6 @@ dist-ssr
 
 .env
 .vite/
+
+localhost-key.pem
+localhost.pem
