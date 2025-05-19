@@ -60,8 +60,7 @@ const useAxiosInterceptor = (instance: AxiosInstance) => {
                 withCredentials: true,
               },
             );
-            const newAccessToken = refreshResponse.data.accessToken;
-            console.log(newAccessToken);
+            const newAccessToken = refreshResponse.data.content.accessToken;
             localStorage.setItem('accessToken', newAccessToken);
 
             if (error.config) {
