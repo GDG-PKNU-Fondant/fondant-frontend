@@ -29,35 +29,11 @@ describe('PreviewCard', () => {
     expect(screen.queryByText('%')).not.toBeInTheDocument();
   });
 
-  it('size prop에 따라 적절한 크기 클래스가 적용된다.', () => {
-    const { rerender } = render(
-      <PreviewCard {...MOCK_PRODUCTS[4]} size="small" type="product" />,
-    );
-    expect(screen.getByRole('img').parentElement).toHaveClass(
-      'w-[116px]',
-      'h-[156px]',
-    );
-
-    rerender(
-      <PreviewCard {...MOCK_PRODUCTS[4]} size="medium" type="product" />,
-    );
-    expect(screen.getByRole('img').parentElement).toHaveClass(
-      'w-[144px]',
-      'h-[168px]',
-    );
-
-    rerender(<PreviewCard {...MOCK_PRODUCTS[4]} size="large" type="product" />);
-    expect(screen.getByRole('img').parentElement).toHaveClass(
-      'w-[179px]',
-      'h-[234px]',
-    );
-  });
-
-  it('size prop이 주어지지 않으면 medium 크기가 기본값으로 적용된다.', () => {
+  it('layout prop이 주어지지 않으면 grid가 기본값으로 적용된다.', () => {
     render(<PreviewCard {...MOCK_PRODUCTS[4]} type="product" />);
     expect(screen.getByRole('img').parentElement).toHaveClass(
-      'w-[144px]',
-      'h-[168px]',
+      'w-full',
+      'aspect-[116/156]',
     );
   });
 
