@@ -1,10 +1,4 @@
-export interface UserResponse {
-  code: string;
-  message: string;
-  content: UserInfo;
-}
-
-export interface UserInfo {
+export interface User {
   name: string;
   phoneNumber: string;
   verifiedPhone: boolean;
