@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import apiClient from '@apis/apiClient';
-import { User } from '@type/User'
+import { User } from '@type/User';
 
 const fetchUserInformation = async () => {
   const response = await apiClient.get('/api/user');
