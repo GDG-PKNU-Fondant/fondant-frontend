@@ -1,4 +1,5 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 import apiClient from '@apis/apiClient';
 
 const userLogout = async () => {
@@ -9,8 +10,16 @@ const userLogout = async () => {
 };
 
 const useLogoutMutation = () => {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
   return useMutation({
     mutationFn: userLogout,
+    onSuccess: () => {
+      localStorage.removeItem('accessToken');
+      queryClient.clear();
+      navigate('/login');
+    },
   });
 };
 
