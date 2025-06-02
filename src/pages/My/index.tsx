@@ -1,7 +1,6 @@
 import React from 'react';
 import PageHeader from '@components/PageHeader';
 import RightIcon from '@assets/icons/userright.svg?react';
-import UserIcon from '@assets/icons/user.svg?react';
 import DeliveryIcon from '@assets/icons/delivery.svg?react';
 import SavingsIcon from '@assets/icons/savings.svg?react';
 import CouponIcon from '@assets/icons/coupon.svg?react';
@@ -80,11 +79,17 @@ const My = () => {
         <div className="flex items-center justify-between mt-[24px]">
           <div className="flex items-center gap-[16px]">
             <div className="w-[64px] h-[64px] rounded-full bg-brown-secondary flex items-center justify-center">
-              <UserIcon width={24} height={24} />
+              {user?.profileUrl && (
+                <img
+                  src={user.profileUrl}
+                  alt="프로필 이미지"
+                  className="w-full h-full object-cover rounded-full"
+                />
+              )}
             </div>
             <div className="leading-[26px]">
               <div className="text-[20px] font-bold text-pink">
-                {user?.name}
+                {user?.nickname}
                 <span className="text-brown-primary ml-[4px]">님</span>
               </div>
               <div className="text-[20px] font-bold text-brown-primary">
