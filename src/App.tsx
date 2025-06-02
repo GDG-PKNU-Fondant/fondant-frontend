@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import useCategoryQuery from '@hooks/queries/useCategoryQuery';
 import Home from '@pages/Home';
 import Category from '@pages/Category';
 import Search from '@pages/Search';
@@ -10,6 +11,12 @@ import Login from '@pages/Login';
 import BottomTab from '@components/BottomTab';
 
 const App: React.FC = () => {
+  const { isLoading } = useCategoryQuery();
+
+  if (isLoading) {
+    return null;
+  }
+
   return (
     <Router>
       <div className="app-container">
