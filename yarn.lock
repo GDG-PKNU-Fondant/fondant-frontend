@@ -997,6 +997,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@portone/browser-sdk@npm:^0.0.21":
+  version: 0.0.21
+  resolution: "@portone/browser-sdk@npm:0.0.21"
+  checksum: 2359920202425d3e2c3f9f594005b38df763c0dc2d4cf30007d5656f7cf9fb0647c54bd293e225ec2c5080d5c103b7f8ce96a889c0cff758d45222a2619561fc
+  languageName: node
+  linkType: hard
+
 "@rollup/pluginutils@npm:^5.0.2, @rollup/pluginutils@npm:^5.1.3":
   version: 5.1.4
   resolution: "@rollup/pluginutils@npm:5.1.4"
@@ -4012,6 +4019,7 @@ __metadata:
   dependencies:
     "@chromatic-com/storybook": ^3.2.4
     "@eslint/js": ^9.13.0
+    "@portone/browser-sdk": ^0.0.21
     "@storybook/addon-essentials": ^8.5.0
     "@storybook/addon-interactions": ^8.5.0
     "@storybook/addon-onboarding": ^8.5.0

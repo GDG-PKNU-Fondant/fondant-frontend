@@ -13,6 +13,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@portone/browser-sdk": "^0.0.21",
     "@tailwindcss/postcss": "latest",
     "framer-motion": "^12.4.2",
     "jotai": "^2.12.0",
