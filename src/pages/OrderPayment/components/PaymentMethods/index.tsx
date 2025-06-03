@@ -1,12 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import RadioButton from '@components/RadioButton';
 import tosspay from '@assets/images/tosspay.png';
 import kakaopay from '@assets/images/kakaopay.png';
 
-const PaymentMethods: React.FC = () => {
-  const [selectedMethod, setSelectedMethod] = useState('');
-  const [selectedOtherMethod, setSelectedOtherMethod] = useState('');
+interface PaymentMethodsProps {
+  selectedMethod: string;
+  setSelectedMethod: (method: string) => void;
+  selectedOtherMethod: string;
+  setSelectedOtherMethod: (method: string) => void;
+}
 
+const PaymentMethods: React.FC<PaymentMethodsProps> = ({
+  selectedMethod,
+  setSelectedMethod,
+  selectedOtherMethod,
+  setSelectedOtherMethod,
+}) => {
   const handleMethodChange = (method: string) => {
     setSelectedMethod(method);
     if (method !== 'other') {
