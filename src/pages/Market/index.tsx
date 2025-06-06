@@ -9,6 +9,7 @@ import useProductListQuery from '@hooks/queries/useProductListQuery';
 import ErrorPage from '@pages/ErrorPage';
 import TabNavigator from '@components/TabNavigator';
 import ProductList from '@components/ProductList';
+import ScrollToTopButton from '@components/ScrollToTopButton';
 import BackIcon from '@assets/icons/back.svg?react';
 import HeartIcon from '@assets/icons/heart.svg?react';
 
@@ -183,6 +184,7 @@ const Market = () => {
       <div className="px-[16px]">
         <ProductList products={productList} />
       </div>
+      <ScrollToTopButton />
     </div>
   );
 };
