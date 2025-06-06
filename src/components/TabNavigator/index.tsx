@@ -11,25 +11,48 @@ const TabNavigator = ({
   textSize = 16,
   fixedTextSize,
   fixedFontWeight,
+  autoLayout = false,
 }: TabNavigatorProps) => {
   const [selectedTab, setSelectedTab] = useState(tabs[0].key);
 
   const handleTabClick = (key: string) => {
     setSelectedTab(key);
-    if (onTabChange) onTabChange(key);
+    onTabChange?.(key);
+  };
+
+  const getContainerClasses = () => {
+    if (!autoLayout) return 'flex items-center justify-between';
+    return tabs.length <= 4
+      ? 'grid items-center'
+      : 'flex overflow-x-auto scrollbar-hide';
+  };
+
+  const getContainerStyle = () => {
+    if (autoLayout && tabs.length <= 4) {
+      return { gridTemplateColumns: `repeat(${tabs.length}, 1fr)` };
+    }
+    return {};
+  };
+
+  const getTabClasses = () => {
+    if (!autoLayout) return '';
+    return tabs.length <= 4
+      ? 'text-center whitespace-nowrap'
+      : 'flex-shrink-0 whitespace-nowrap min-w-[120px] text-center';
   };
 
   return (
     <div className="relative px-[20px]">
-      <div className="flex items-center justify-between pb-[5px]">
+      <div
+        className={`pb-[5px] ${getContainerClasses()}`}
+        style={getContainerStyle()}
+      >
         {tabs.map((tab) => {
           const isSelected = tab.key === selectedTab;
           const textColor =
             tab.fixedColor || (isSelected ? selectedColor : defaultColor);
-
           const fontSize =
             fixedTextSize || (isSelected ? textSize + 2 : textSize);
-
           const fontWeight =
             fixedFontWeight || (isSelected ? 'font-bold' : 'font-medium');
 
@@ -37,7 +60,7 @@ const TabNavigator = ({
             <button
               type="button"
               key={tab.key}
-              className={`relative py-[8px] leading-[20px] tracking-[-0.5px] ${fontWeight} ${textColor}`}
+              className={`relative py-[8px] leading-[20px] tracking-[-0.5px] ${fontWeight} ${textColor} ${getTabClasses()}`}
               style={{ fontSize: `${fontSize}px` }}
               onClick={() => handleTabClick(tab.key)}
             >
@@ -46,7 +69,7 @@ const TabNavigator = ({
                 <motion.div
                   data-testid="tab-indicator"
                   layoutId="tab-indicator"
-                  className={`absolute bottom-[-2px] h-[3px]  w-[100%] rounded-[3px] ${textColor} bg-current`}
+                  className={`absolute bottom-[-2px] h-[3px] w-full rounded-[3px] ${textColor} bg-current`}
                 />
               )}
             </button>

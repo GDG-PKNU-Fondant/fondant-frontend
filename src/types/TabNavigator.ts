@@ -13,4 +13,5 @@ export interface TabNavigatorProps {
   textSize?: number;
   fixedTextSize?: number;
   fixedFontWeight?: string;
+  autoLayout?: boolean;
 }
