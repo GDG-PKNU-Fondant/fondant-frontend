@@ -14,7 +14,7 @@ const MOCK_MARKET_DETAIL: MockMarketDetail = {
     likeCount: 0,
     isTop10: false,
     hashtags: ['기념일맞춤', '수제간식'],
-    subCategoryIds: [1, 2, 3],
+    subCategoryIds: [2, 12, 6, 24, 28, 32, 26],
     profile: {
       businessNumber: '051-123-4567',
       address: '',

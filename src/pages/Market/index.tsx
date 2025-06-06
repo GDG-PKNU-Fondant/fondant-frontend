@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useAtomValue } from 'jotai';
 import axios from 'axios';
 import { MarketDetail } from '@type/Market';
-import { rawCategoriesAtom } from '@stores/categoryState';
+import { allCategoriesAtom } from '@stores/categoryState';
 import ErrorPage from '@pages/ErrorPage';
 import TabNavigator from '@components/TabNavigator';
 import ProductList from '@components/ProductList';
@@ -16,7 +16,7 @@ const Market = () => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const categories = useAtomValue(rawCategoriesAtom);
+  const categories = useAtomValue(allCategoriesAtom);
 
   useEffect(() => {
     if (!marketId) return;
@@ -103,7 +103,11 @@ const Market = () => {
         <div className="absolute bottom-[4px] left-0 right-0">
           <div className="h-[1px] bg-beige-secondary w-full" />
         </div>
-        <TabNavigator tabs={categoryTabs} onTabChange={handleTabChange} />
+        <TabNavigator
+          tabs={categoryTabs}
+          onTabChange={handleTabChange}
+          autoLayout
+        />
       </div>
       <div className="px-[16px]">
         <ProductList products={productList} />
