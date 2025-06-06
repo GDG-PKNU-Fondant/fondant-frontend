@@ -1,7 +1,15 @@
 import { Meta, StoryFn } from '@storybook/react';
 import TabNavigator from '@components/TabNavigator';
-import { CATEGORY_TABS, HEADER_TABS } from '@components/TabNavigator/tabs';
-import MOCK_TABS from '@mocks/constants/mockTabs';
+import { HEADER_TABS } from '@components/TabNavigator/tabs';
+
+const MOCK_TABS = [
+  { label: '베스트', key: 'best' },
+  { label: '빵', key: 'bread' },
+  { label: '쿠키', key: 'cookie' },
+  { label: '조각케이크', key: 'pieces' },
+  { label: '롤케이크', key: 'roll' },
+  { label: '세트', key: 'set' },
+];
 
 export default {
   title: 'Components/TabNavigator',
@@ -19,7 +27,7 @@ HeaderTab.args = {
 
 export const CategoryTab = Template.bind({});
 CategoryTab.args = {
-  tabs: CATEGORY_TABS,
+  tabs: MOCK_TABS,
   defaultColor: 'text-brown-secondary',
 };
 
