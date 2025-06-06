@@ -8,6 +8,7 @@ import Wish from '@pages/Wish';
 import My from '@pages/My';
 import Cart from '@pages/Cart';
 import Login from '@pages/Login';
+import Market from '@pages/Market';
 import BottomTab from '@components/BottomTab';
 
 const App: React.FC = () => {
@@ -28,6 +29,7 @@ const App: React.FC = () => {
           <Route path="/my" element={<My />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/market/:marketId" element={<Market />} />
         </Routes>
         <BottomTab />
       </div>
