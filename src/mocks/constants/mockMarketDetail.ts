@@ -19,9 +19,9 @@ const MOCK_MARKET_DETAIL: MockMarketDetail = {
     subCategoryIds: [2, 12, 6, 24, 28, 32, 26],
     profile: {
       businessNumber: '051-123-4567',
-      address: '',
-      latitude: 0,
-      longitude: 0,
+      address: '부산광역시 남구 용소로 45',
+      latitude: 35.134080249513474,
+      longitude: 129.10317348438963,
     },
   },
 };

@@ -6,21 +6,25 @@ import { MarketDetail } from '@type/Market';
 import { allCategoriesAtom } from '@stores/categoryState';
 import useMarketDetailQuery from '@hooks/queries/useMarketDetailQuery';
 import useProductListQuery from '@hooks/queries/useProductListQuery';
+import useModal from '@hooks/useModal';
 import ErrorPage from '@pages/ErrorPage';
 import TabNavigator from '@components/TabNavigator';
 import ProductList from '@components/ProductList';
 import ScrollToTopButton from '@components/ScrollToTopButton';
+import MarketInfoModal from '@pages/Market/components/MarketInfoModal';
 import BackIcon from '@assets/icons/back.svg?react';
 import HeartIcon from '@assets/icons/heart.svg?react';
 
 interface MarketBannerProps {
   backgroundUrl?: string;
   marketName: string;
+  onMarketInfoClick: () => void;
 }
 
 const MarketBanner: React.FC<MarketBannerProps> = ({
   backgroundUrl,
   marketName,
+  onMarketInfoClick,
 }) => {
   const navigate = useNavigate();
 
@@ -34,7 +38,7 @@ const MarketBanner: React.FC<MarketBannerProps> = ({
         />
       )}
       <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-transparent" />
-      <div className="relative h-full flex items-start justify-between p-[20px]">
+      <div className="relative h-full flex items-start justify-between p-[16px]">
         <button
           className="cursor-pointer"
           type="button"
@@ -45,6 +49,7 @@ const MarketBanner: React.FC<MarketBannerProps> = ({
         <button
           className="bg-[#D9D9D9]/40 text-white text-[12px] font-light rounded-full border-[0.5px] border-white/30 px-[8px] py-[3px] cursor-pointer"
           type="button"
+          onClick={onMarketInfoClick}
         >
           가게 정보
         </button>
@@ -61,7 +66,7 @@ const MarketInfo: React.FC<MarketInfoProps> = ({ marketDetail }) => {
   const { name, thumbnailUrl, isTop10, description, hashtags } = marketDetail;
 
   return (
-    <div className="px-[24px] py-[20px] bg-white">
+    <div className="px-[24px] py-[20px] bg-background">
       <div className="flex items-center gap-[20px]">
         <div className="w-[80px] h-[80px] rounded-full bg-brown-secondary flex-shrink-0">
           {thumbnailUrl && (
@@ -133,6 +138,7 @@ const useCategoryTabs = (marketDetail: MarketDetail | undefined) => {
 const Market = () => {
   const { marketId } = useParams<{ marketId: string }>();
   const [activeTab, setActiveTab] = useState('');
+  const { openModal } = useModal();
 
   const {
     data: marketDetail,
@@ -164,11 +170,16 @@ const Market = () => {
     return null;
   }
 
+  const handleMarketInfoClick = () => {
+    openModal(`market-info-${marketDetail.id}`);
+  };
+
   return (
     <div className="min-h-dvh pb-[90px]">
       <MarketBanner
         backgroundUrl={marketDetail.backgroundUrl}
         marketName={marketDetail.name}
+        onMarketInfoClick={handleMarketInfoClick}
       />
       <MarketInfo marketDetail={marketDetail} />
       <div className="relative mb-[16px]">
@@ -185,6 +196,7 @@ const Market = () => {
         <ProductList products={productList} />
       </div>
       <ScrollToTopButton />
+      <MarketInfoModal marketDetail={marketDetail} />
     </div>
   );
 };
