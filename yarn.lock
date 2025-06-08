@@ -1809,6 +1809,43 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tanstack/query-core@npm:5.77.2":
+  version: 5.77.2
+  resolution: "@tanstack/query-core@npm:5.77.2"
+  checksum: 7baeefb357e52f89b984fe7a15e7211ea3b1f1b570e23b451dda24e1e1a1998cc528e084b222580c189a5a0f4520154676bfcc1e92483c38e440cfa490b0b95a
+  languageName: node
+  linkType: hard
+
+"@tanstack/query-devtools@npm:5.76.0":
+  version: 5.76.0
+  resolution: "@tanstack/query-devtools@npm:5.76.0"
+  checksum: 20010e20f64ac6c1591db7a3597d9a7288fdc86f20d33d2172bf6d5b319f86ced0c021d3c8acb3f791c95cf709bc1492aa0eb5edcdacac3be69584dda0f6cc9a
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query-devtools@npm:^5.77.2":
+  version: 5.77.2
+  resolution: "@tanstack/react-query-devtools@npm:5.77.2"
+  dependencies:
+    "@tanstack/query-devtools": 5.76.0
+  peerDependencies:
+    "@tanstack/react-query": ^5.77.2
+    react: ^18 || ^19
+  checksum: 53947c351cf9b402e3fcf396a6e848e211ef8d40053f35138c1cdf40c13516dd2c28a4ec528a53168a24ced335f4dd4e177ad1437a1fbc2f9be71e3860838c80
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query@npm:^5.77.2":
+  version: 5.77.2
+  resolution: "@tanstack/react-query@npm:5.77.2"
+  dependencies:
+    "@tanstack/query-core": 5.77.2
+  peerDependencies:
+    react: ^18 || ^19
+  checksum: 39409107462fa230fd1bfe1d58ef343d1c201762a8439b1bb777c62ab9f71c4ed8c79f0a1c5bc98a96244278e2d507ca291a60daa75127e5d071ec8e3213751e
+  languageName: node
+  linkType: hard
+
 "@testing-library/dom@npm:10.4.0":
   version: 10.4.0
   resolution: "@testing-library/dom@npm:10.4.0"
@@ -2586,7 +2623,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.9.0":
+"axios@npm:^1.8.3, axios@npm:^1.9.0":
   version: 1.9.0
   resolution: "axios@npm:1.9.0"
   dependencies:
@@ -4024,6 +4061,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"follow-redirects@npm:^1.15.6":
+  version: 1.15.9
+  resolution: "follow-redirects@npm:1.15.9"
+  peerDependenciesMeta:
+    debug:
+      optional: true
+  checksum: 859e2bacc7a54506f2bf9aacb10d165df78c8c1b0ceb8023f966621b233717dab56e8d08baadc3ad3b9db58af290413d585c999694b7c146aaf2616340c3d2a6
+  languageName: node
+  linkType: hard
+
 "fondant-frontend@workspace:.":
   version: 0.0.0-use.local
   resolution: "fondant-frontend@workspace:."
@@ -4039,6 +4086,8 @@ __metadata:
     "@storybook/react-vite": ^8.5.0
     "@storybook/test": ^8.5.0
     "@tailwindcss/postcss": latest
+    "@tanstack/react-query": ^5.77.2
+    "@tanstack/react-query-devtools": ^5.77.2
     "@testing-library/jest-dom": ^6.6.3
     "@testing-library/react": ^16.2.0
     "@testing-library/user-event": ^14.6.0
@@ -4046,6 +4095,7 @@ __metadata:
     "@types/react": ^18.3.12
     "@types/react-dom": ^18.3.1
     "@vitejs/plugin-react": ^4.3.3
+    axios: ^1.9.0
     eslint: 8.57.0
     eslint-config-airbnb: ^19.0.4
     eslint-config-airbnb-typescript: ^18.0.0
@@ -4072,6 +4122,7 @@ __metadata:
     typescript: ~5.6.2
     typescript-eslint: ^8.11.0
     vite: ^5.4.10
+    vite-plugin-mkcert: ^1.17.8
     vite-plugin-svgr: ^4.3.0
     vitest: ^3.0.7
   languageName: unknown
@@ -4096,7 +4147,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"form-data@npm:^4.0.1":
+"form-data@npm:^4.0.0, form-data@npm:^4.0.1":
   version: 4.0.2
   resolution: "form-data@npm:4.0.2"
   dependencies:
@@ -6000,6 +6051,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"proxy-from-env@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "proxy-from-env@npm:1.1.0"
+  checksum: ed7fcc2ba0a33404958e34d95d18638249a68c430e30fcb6c478497d72739ba64ce9810a24f53a7d921d0c065e5b78e3822759800698167256b04659366ca4d4
+  languageName: node
+  linkType: hard
+
 "psl@npm:^1.1.33":
   version: 1.15.0
   resolution: "psl@npm:1.15.0"
@@ -7380,6 +7438,19 @@ __metadata:
   bin:
     vite-node: vite-node.mjs
   checksum: 58532ba5bab923dedad7c28fb8b37afc4ef009a8b62dde31f38919958bc3cd47d580b56ad82f321873c3d0d67e691a8eac10c26b06c70843eb357ed2105a44c2
+  languageName: node
+  linkType: hard
+
+"vite-plugin-mkcert@npm:^1.17.8":
+  version: 1.17.8
+  resolution: "vite-plugin-mkcert@npm:1.17.8"
+  dependencies:
+    axios: ^1.8.3
+    debug: ^4.4.0
+    picocolors: ^1.1.1
+  peerDependencies:
+    vite: ">=3"
+  checksum: d74f2a36052b6b6904b6f77355f27300ff89160152d7dc218a6d5db97b6d0e14120777f8b82182486896da09520110fb04589a0142a06cc71e4caebca49ee722
   languageName: node
   linkType: hard
 
