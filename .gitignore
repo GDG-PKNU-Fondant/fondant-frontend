@@ -33,3 +33,9 @@ dist-ssr
 *.sw?
 
 *storybook.log
+
+.env
+.vite/
+
+localhost-key.pem
+localhost.pem

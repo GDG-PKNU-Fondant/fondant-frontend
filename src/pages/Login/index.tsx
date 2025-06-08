@@ -9,7 +9,48 @@ const DividerWithText = ({ text }: { text: string }) => (
   </div>
 );
 
+type OAuthProvider = 'kakao' | 'google' | 'naver';
+
+const SERVER_URL = import.meta.env.VITE_APP_SERVER_URL;
+
+const openOAuthPopup = (provider: OAuthProvider) => {
+  window.open(
+    `${SERVER_URL}/oauth2/authorization/${provider}`,
+    `${provider}-login`,
+    'width=600,height=800',
+  );
+
+  return new Promise<string | null>((resolve) => {
+    const listener = (event: MessageEvent) => {
+      if (event.origin !== SERVER_URL) return;
+
+      const { accessToken } = event.data;
+
+      if (accessToken) {
+        resolve(accessToken);
+      } else {
+        resolve(null);
+      }
+
+      window.removeEventListener('message', listener);
+    };
+
+    window.addEventListener('message', listener);
+  });
+};
+
 const Login = () => {
+  const handleLoginClick = async (provider: OAuthProvider) => {
+    try {
+      const token = await openOAuthPopup(provider);
+      if (token) {
+        localStorage.setItem('accessToken', token);
+      }
+    } catch (err) {
+      // console.error('로그인 중 에러 발생:', err);
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-dvh items-center p-[36px] justify-between">
       <div className="flex flex-col items-center mt-[96px] mb-[24px]">
@@ -22,11 +63,14 @@ const Login = () => {
         </div>
       </div>
       <div className="flex flex-col w-full items-center justify-center gap-[20px] mb-[90px]">
-        <LoginButton type="kakao" onClick={() => {}} />
+        <LoginButton type="kakao" onClick={() => handleLoginClick('kakao')} />
         <DividerWithText text="또는" />
         <div className="flex justify-center gap-[24px]">
-          <LoginButton type="google" onClick={() => {}} />
-          <LoginButton type="naver" onClick={() => {}} />
+          <LoginButton
+            type="google"
+            onClick={() => handleLoginClick('google')}
+          />
+          <LoginButton type="naver" onClick={() => handleLoginClick('naver')} />
         </div>
         <div className="text-[14px] text-brown-tertiary underline tracking-[-0.5px] cursor-pointer">
           비회원으로 주문하셨나요?
