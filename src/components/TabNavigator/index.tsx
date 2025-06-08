@@ -60,7 +60,7 @@ const TabNavigator = ({
             <button
               type="button"
               key={tab.key}
-              className={`relative py-[8px] leading-[20px] tracking-[-0.5px] ${fontWeight} ${textColor} ${getTabClasses()}`}
+              className={`relative py-[8px] leading-[20px] tracking-[-0.5px] cursor-pointer ${fontWeight} ${textColor} ${getTabClasses()}`}
               style={{ fontSize: `${fontSize}px` }}
               onClick={() => handleTabClick(tab.key)}
             >
