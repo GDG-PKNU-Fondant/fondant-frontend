@@ -6,7 +6,7 @@ const PaymentAmount: React.FC = () => {
     (sum, item) => sum + item.price,
     0,
   );
-  const deliveryCost = 3000;
+  const deliveryCost = 2500;
   const totalPrice = productPrice + deliveryCost;
 
   return (
