@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { MarketDetail } from '@type/Market';
+import KakaoMaps from '@type/KakaoMaps';
 import useModal from '@hooks/useModal';
 import useBodyScrollLock from '@hooks/useBodyScrollLock';
 import Button from '@components/Button';
@@ -12,7 +13,9 @@ import MapIcon from '@assets/icons/map.svg?react';
 
 declare global {
   interface Window {
-    kakao: any;
+    kakao: {
+      maps: KakaoMaps;
+    };
   }
 }
 
@@ -57,6 +60,7 @@ const MarketInfoModal: React.FC<MarketInfoModalProps> = ({ marketDetail }) => {
       lockBodyScroll();
       return () => unlockBodyScroll();
     }
+    return () => {};
   }, [isOpen, lockBodyScroll, unlockBodyScroll]);
 
   const initializeKakaoMap = useCallback(() => {
@@ -82,7 +86,7 @@ const MarketInfoModal: React.FC<MarketInfoModalProps> = ({ marketDetail }) => {
   }, [marketDetail.profile.latitude, marketDetail.profile.longitude]);
 
   useEffect(() => {
-    if (!isOpen || !mapRef.current) return;
+    if (!isOpen || !mapRef.current) return undefined;
 
     const script = document.createElement('script');
     script.src = MAP_CONFIG.scriptSrc(import.meta.env.VITE_KAKAO_MAP_APPKEY);

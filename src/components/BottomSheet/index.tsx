@@ -24,21 +24,11 @@ const BottomSheet = ({ sheetKey, children }: BottomSheetProps) => {
   const sheetRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const handleScrollLock = () => {
-      if (isBottomSheetOpen) {
-        lockBodyScroll();
-      } else {
-        unlockBodyScroll();
-      }
-    };
-
-    handleScrollLock();
-
-    return () => {
-      if (isBottomSheetOpen) {
-        unlockBodyScroll();
-      }
-    };
+    if (isBottomSheetOpen) {
+      lockBodyScroll();
+      return () => unlockBodyScroll();
+    }
+    return () => {};
   }, [isBottomSheetOpen, lockBodyScroll, unlockBodyScroll]);
 
   const startDrag = (event: React.PointerEvent) => {
