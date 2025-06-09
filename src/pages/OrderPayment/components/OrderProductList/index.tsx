@@ -14,13 +14,15 @@ const OrderProductList: React.FC<OrderProductListProps> = ({ products }) => {
       </div>
       <div className="flex flex-col">
         {products.map(({ id, productName, option, price, imageUrl }) => {
-          let displayOption = "단일 옵션 상품";
+          let displayOption = '단일 옵션 상품';
           if (option) {
             const optionsArray = option.split(', ');
+            const [firstOption] = optionsArray;
+
             if (optionsArray.length > 1) {
-              displayOption = `${optionsArray[0]} 외 ${optionsArray.length - 1}건`;
+              displayOption = `${firstOption} 외 ${optionsArray.length - 1}건`;
             } else {
-              displayOption = optionsArray[0];
+              displayOption = firstOption;
             }
           }
           return (

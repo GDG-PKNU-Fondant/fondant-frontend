@@ -6,9 +6,9 @@ interface PaymentAmountProps {
 }
 
 const PaymentAmount: React.FC<PaymentAmountProps> = ({
-                                                       productPrice,
-                                                       deliveryCost,
-                                                     }) => {
+  productPrice,
+  deliveryCost,
+}) => {
   const totalPrice = productPrice + deliveryCost;
 
   return (
