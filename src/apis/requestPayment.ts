@@ -6,6 +6,9 @@ const requestPayment = async ({
   otherMethod,
   products,
   deliveryCost = 0,
+  email,
+  fullName,
+  phoneNumber,
 }: RequestPaymentParams) => {
   const orderName =
     products.length === 1
@@ -39,6 +42,20 @@ const requestPayment = async ({
   const methodKey = method === 'other' ? otherMethod : method;
   const mappedMethod = PAY_METHOD_MAP[methodKey];
 
+  const customer =
+    ['account', 'card', 'mobile', 'bank'].includes(methodKey) &&
+    email &&
+    phoneNumber &&
+    fullName
+      ? {
+          fullName,
+          email,
+          phoneNumber,
+        }
+      : undefined;
+
+  const productType = methodKey === 'mobile' ? 'PRODUCT_TYPE_REAL' : undefined;
+
   return PortOne.requestPayment({
     storeId: import.meta.env.VITE_PORTONE_STORE_ID,
     channelKey,
@@ -47,6 +64,8 @@ const requestPayment = async ({
     totalAmount,
     currency: 'CURRENCY_KRW',
     payMethod: mappedMethod,
+    ...(customer && { customer }),
+    ...(productType && { productType }),
     customData: {
       productIds: products.map((p) => p.id),
     },

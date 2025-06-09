@@ -20,4 +20,7 @@ export interface RequestPaymentParams {
   otherMethod: string;
   products: OrderProduct[];
   deliveryCost?: number;
+  email?: string;
+  fullName?: string;
+  phoneNumber?: string;
 }
