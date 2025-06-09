@@ -27,6 +27,7 @@
     "project": "./tsconfig.eslint.json"
   },
   "rules": {
+    "no-alert": "off",
     "react/react-in-jsx-scope": "off",
     "react/jsx-props-no-spreading": "off",
     "react/function-component-definition": "off",

@@ -1,12 +1,14 @@
 import React from 'react';
-import MOCK_ORDER_PRODUCTS from '@mocks/constants/mockOrderProducts';
 
-const PaymentAmount: React.FC = () => {
-  const productPrice = MOCK_ORDER_PRODUCTS.reduce(
-    (sum, item) => sum + item.price,
-    0,
-  );
-  const deliveryCost = 2500;
+interface PaymentAmountProps {
+  productPrice: number;
+  deliveryCost: number;
+}
+
+const PaymentAmount: React.FC<PaymentAmountProps> = ({
+                                                       productPrice,
+                                                       deliveryCost,
+                                                     }) => {
   const totalPrice = productPrice + deliveryCost;
 
   return (

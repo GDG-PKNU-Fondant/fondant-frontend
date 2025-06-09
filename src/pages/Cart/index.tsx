@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSetAtom } from 'jotai';
+import { useNavigate } from 'react-router-dom';
 import { MarketCart, CartItemOption } from '@type/MarketCartCard';
 import PageHeader from '@components/PageHeader';
 import MarketCartCard from '@pages/Cart/components/MarketCartCard';
@@ -113,6 +114,25 @@ const Cart: React.FC = () => {
     );
   };
 
+  const selectedMarkets = markets
+    .map((market) => ({
+      ...market,
+      items: market.items.filter((item) => item.selected),
+    }))
+    .filter((market) => market.items.length > 0);
+
+  const navigate = useNavigate();
+
+  const handleCheckout = () => {
+    if (selectedMarkets.length === 0) return;
+
+    navigate('/orderpayment', {
+      state: {
+        markets: selectedMarkets,
+      },
+    });
+  };
+
   const hasSelectedItems = markets.some(
     (market) => market.selected || market.items.some((item) => item.selected),
   );
@@ -167,7 +187,11 @@ const Cart: React.FC = () => {
         ))}
       </div>
       <div className="sticky bottom-0 bg-background rounded-t-[10px] p-[15px] shadow-[0px_-4px_10px_0px_rgba(156,108,79,0.10)]">
-        <Button variant="submit" disabled={!hasSelectedItems}>
+        <Button
+          variant="submit"
+          disabled={!hasSelectedItems}
+          onClick={handleCheckout}
+        >
           {calculateCartTotal(markets).toLocaleString()}원 구매하기
         </Button>
       </div>

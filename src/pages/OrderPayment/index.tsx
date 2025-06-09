@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useSetAtom } from 'jotai';
+import useUserInfoQuery from '@hooks/queries/useUserInfoQuery';
 import DeliveryAddress from '@pages/OrderPayment/components/DeliveryAddress';
 import OrderProductList from '@pages/OrderPayment/components/OrderProductList';
 import DiscountPoint from '@pages/OrderPayment/components/DiscountPoint';
@@ -7,28 +9,56 @@ import PaymentMethods from '@pages/OrderPayment/components/PaymentMethods';
 import PaymentAmount from '@pages/OrderPayment/components/PaymentAmount';
 import AgreementList from '@pages/OrderPayment/components/AgreementList';
 import Button from '@components/Button';
-import MOCK_ORDER_PRODUCTS from '@mocks/constants/mockOrderProducts';
 import { bottomTabVisibilityAtom } from '@stores/layoutState';
 import requestPayment from '@apis/requestPayment';
+import {
+  calculateCartTotal,
+  calculateItemTotal,
+} from '@utils/cartCalculations';
+import { MarketCart, CartItem } from '@type/MarketCartCard';
 
 const OrderPayment: React.FC = () => {
   const setBottomTabVisibility = useSetAtom(bottomTabVisibilityAtom);
 
+  const location = useLocation();
+
+  const { markets = [] }: { markets?: MarketCart[] } = location.state || {};
+
   const [selectedMethod, setSelectedMethod] = useState('');
   const [selectedOtherMethod, setSelectedOtherMethod] = useState('');
   const [isPaying, setIsPaying] = useState(false);
+
+  const { data: user } = useUserInfoQuery();
+  const fullName = user?.name;
+  const email = user?.email;
+  const phoneNumber = user?.phoneNumber;
 
   useEffect(() => {
     setBottomTabVisibility(false);
     return () => setBottomTabVisibility(true);
   }, [setBottomTabVisibility]);
 
-  const productPrice = MOCK_ORDER_PRODUCTS.reduce(
-    (sum, item) => sum + item.price,
+  const allProducts: CartItem[] = markets.flatMap(
+    (market: MarketCart) => market.items,
+  );
+
+  const productPrice = allProducts.reduce(
+    (sum, item) => sum + calculateItemTotal(item),
     0,
   );
-  const deliveryCost = 2500;
-  const totalPrice = productPrice + deliveryCost;
+  const totalPrice = calculateCartTotal(markets);
+
+  const orderProducts = allProducts.map((item) => ({
+    id: item.id,
+    imageUrl: item.thumbnailUrl,
+    productName: item.name,
+    option: item.selectedOptions
+      ? item.selectedOptions
+          .map((opt) => `${opt.name} x${opt.quantity}`)
+          .join(', ')
+      : '',
+    price: calculateItemTotal(item),
+  }));
 
   const handlePayment = async () => {
     if (!selectedMethod) {
@@ -42,8 +72,11 @@ const OrderPayment: React.FC = () => {
       const response = await requestPayment({
         method: selectedMethod,
         otherMethod: selectedOtherMethod,
-        products: MOCK_ORDER_PRODUCTS,
-        deliveryCost,
+        products: orderProducts,
+        deliveryCost: totalPrice - productPrice,
+        email,
+        phoneNumber,
+        fullName,
       });
 
       if (response?.code) {
@@ -62,7 +95,7 @@ const OrderPayment: React.FC = () => {
     <div className="min-h-screen bg-[#FDF4ED] flex flex-col">
       <div className="flex flex-col px-[12px] pt-[20px] pb-[18px] gap-[18px]">
         <DeliveryAddress />
-        <OrderProductList products={MOCK_ORDER_PRODUCTS} />
+        <OrderProductList products={orderProducts} />
         <DiscountPoint />
         <PaymentMethods
           selectedMethod={selectedMethod}
@@ -70,7 +103,10 @@ const OrderPayment: React.FC = () => {
           selectedOtherMethod={selectedOtherMethod}
           setSelectedOtherMethod={setSelectedOtherMethod}
         />
-        <PaymentAmount />
+        <PaymentAmount
+          productPrice={productPrice}
+          deliveryCost={totalPrice - productPrice}
+        />
         <AgreementList />
       </div>
       <div className="sticky bottom-0 bg-background rounded-t-[10px] p-[15px] shadow-[0px_-4px_10px_0px_rgba(156,108,79,0.10)]">

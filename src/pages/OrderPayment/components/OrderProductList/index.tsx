@@ -13,35 +13,46 @@ const OrderProductList: React.FC<OrderProductListProps> = ({ products }) => {
         <div className="w-full border-b border-beige-tertiary" />
       </div>
       <div className="flex flex-col">
-        {products.map(({ id, productName, option, price, imageUrl }) => (
-          <div
-            key={id}
-            className="p-[12px_16px] flex gap-[12px] border-b border-beige-tertiary last:border-none"
-          >
-            <div className="w-[73px] h-[73px] bg-beige-primary rounded-[5px] flex-shrink-0">
-              {imageUrl && (
-                <img
-                  src={imageUrl}
-                  alt={productName}
-                  className="w-full h-full object-cover rounded-[5px]"
-                />
-              )}
-            </div>
-            <div className="flex flex-col justify-between py-[2px]">
-              <div className="flex flex-col gap-[2px]">
-                <div className="text-[13px] font-medium text-brown-primary leading-[16px] tracking-[-0.5px]">
-                  {productName}
+        {products.map(({ id, productName, option, price, imageUrl }) => {
+          let displayOption = "단일 옵션 상품";
+          if (option) {
+            const optionsArray = option.split(', ');
+            if (optionsArray.length > 1) {
+              displayOption = `${optionsArray[0]} 외 ${optionsArray.length - 1}건`;
+            } else {
+              displayOption = optionsArray[0];
+            }
+          }
+          return (
+            <div
+              key={id}
+              className="p-[12px_16px] flex gap-[12px] border-b border-beige-tertiary last:border-none"
+            >
+              <div className="w-[73px] h-[73px] bg-beige-primary rounded-[5px] flex-shrink-0">
+                {imageUrl && (
+                  <img
+                    src={imageUrl}
+                    alt={productName}
+                    className="w-full h-full object-cover rounded-[5px]"
+                  />
+                )}
+              </div>
+              <div className="flex flex-col justify-between py-[2px]">
+                <div className="flex flex-col gap-[2px]">
+                  <div className="text-[13px] font-medium text-brown-primary leading-[16px] tracking-[-0.5px]">
+                    {productName}
+                  </div>
+                  <div className="text-[12px] font-medium text-brown-secondary tracking-[0.2px] leading-[16px]">
+                    {displayOption}
+                  </div>
                 </div>
-                <div className="text-[12px] font-medium text-brown-secondary tracking-[0.2px] leading-[16px]">
-                  {option}
+                <div className="text-[13px] font-medium text-brown-primary leading-[16px]">
+                  {price.toLocaleString()}원
                 </div>
               </div>
-              <div className="text-[13px] font-medium text-brown-primary leading-[16px]">
-                {price.toLocaleString()}원
-              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
