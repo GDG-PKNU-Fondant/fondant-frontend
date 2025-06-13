@@ -33,7 +33,9 @@ const Dropdown: React.FC<DropdownProps> = ({
 
   useEffect(() => {
     if (buttonRef.current) {
-      setButtonHeight(buttonRef.current.offsetHeight + 4);
+      const borderWidth = variant === 'primary' ? 2 : 1;
+      const additionalHeight = borderWidth * 2;
+      setButtonHeight(buttonRef.current.offsetHeight + additionalHeight);
     }
   }, []);
 
