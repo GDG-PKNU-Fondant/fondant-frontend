@@ -135,4 +135,36 @@ describe('Dropdown', () => {
     expect(listbox).toBeInTheDocument();
     expect(listbox).toHaveStyle('overflow-y: hidden');
   });
+
+  it('variant가 primary일 때 기본 스타일이 적용된다.', () => {
+    render(
+      <Dropdown title="옵션 선택" options={MOCK_OPTIONS} variant="primary" />,
+    );
+
+    const dropdownButton = screen.getByRole('button');
+    expect(dropdownButton).toHaveClass('p-[16px]');
+
+    const dropdownTitle = screen.getByText('옵션 선택');
+    expect(dropdownTitle).toHaveClass(
+      'text-[16px]',
+      'text-brown-primary',
+      'font-semibold',
+    );
+  });
+
+  it('variant가 secondary일 때 secondary 스타일이 적용된다.', () => {
+    render(
+      <Dropdown title="옵션 선택" options={MOCK_OPTIONS} variant="secondary" />,
+    );
+
+    const dropdownButton = screen.getByRole('button');
+    expect(dropdownButton).toHaveClass('p-[10px]');
+
+    const dropdownTitle = screen.getByText('옵션 선택');
+    expect(dropdownTitle).toHaveClass(
+      'text-[12px]',
+      'text-brown-secondary',
+      'font-medium',
+    );
+  });
 });
