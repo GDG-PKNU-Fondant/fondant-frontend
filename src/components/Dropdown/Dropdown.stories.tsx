@@ -23,6 +23,11 @@ export default {
       description: '스크롤 없이 표시할 최대 아이템 수를 설정합니다.',
       control: { type: 'number', min: 1, max: 10, step: 1 },
     },
+    variant: {
+      description: '드롭다운의 스타일을 결정합니다.',
+      control: { type: 'radio', options: ['primary', 'secondary'] },
+      defaultValue: 'primary',
+    },
   },
   parameters: {
     docs: {
@@ -42,11 +47,21 @@ const MOCK_OPTIONS = [
   { id: 5, label: '옵션 5' },
 ];
 
-export const Default = {
+export const Primary = {
   args: {
     title: '옵션 선택',
     options: MOCK_OPTIONS,
     maxVisibleItems: 6,
+    variant: 'primary',
+  },
+};
+
+export const Secondary = {
+  args: {
+    title: '옵션 선택',
+    options: MOCK_OPTIONS,
+    maxVisibleItems: 6,
+    variant: 'secondary',
   },
 };
 
@@ -54,6 +69,7 @@ export const LimitedVisibleItems = {
   args: {
     title: '옵션 선택',
     options: MOCK_OPTIONS,
+    variant: 'primary',
   },
 };
 
