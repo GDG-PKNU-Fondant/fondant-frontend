@@ -62,3 +62,14 @@ body {
   box-shadow: 0 0 10px 0 rgba(156, 108, 79, 0.1);
   min-height: 100dvh;
 }
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* IE, Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+}
